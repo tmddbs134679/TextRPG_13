@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    internal class Enums
+    public class Enums
     {
+        public enum Monsters
+        {
+            미니언 = 1,  
+            공허충,
+            대포미니언 
+        }
     }
 }
