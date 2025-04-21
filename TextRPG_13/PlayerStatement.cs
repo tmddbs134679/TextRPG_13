@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    internal class PlayerStatement
+    public class PlayerStatement
     {
+        
     }
 }
