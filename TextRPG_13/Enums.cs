@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    internal class Enums
+    public class Enums
     {
+       public enum Job {
+            Warrior =1,
+            Wizard =2,
+            Assassin =3
+        }
+
     }
 }
