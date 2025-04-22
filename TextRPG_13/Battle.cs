@@ -45,11 +45,12 @@ namespace TextRPG_13
                         Console.WriteLine($"{i + 1}. {monsters[i].Stats.monsterName} 체력:{monsters[i].Stats.monsterHP}");
                     }
 
+
                     bool isint = int.TryParse(Console.ReadLine(), out input);
 
                     if (isint && input <= monsterCount + 1 && input > 0)
                     {
-                        monsters[input - 1].Stats.monsterHP -= playerAttack;
+                        monsters[input - 1].Stats.monsterHP -= GetDamageWithVariance(playerAttack); ;
                         if (monsters[input - 1].Stats.monsterHP <= 0)
                         {
                             deathCount++;

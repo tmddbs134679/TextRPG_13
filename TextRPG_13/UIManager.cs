@@ -17,7 +17,7 @@ namespace TextRPG_13
                 $"HP {monster.Stats.monsterHP}");
         }
 
-        public static void PrintEnemyPhase(Monster monster,int randomDamage) //플레이어 매개변수는 Player.cs 미구현으로 임시변수로 사용
+        public static void PrintEnemyPhase(Monster monster,int randomDamage) 
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -34,7 +34,7 @@ namespace TextRPG_13
             Console.Write(">>", Color.DarkOrange);
         }
 
-        public static void PrintPlayerLose() //플레이어 매개변수는 플레이어 클래스 미구현으로 임시변수로 사용
+        public static void PrintPlayerLose()
         {
             Console.Clear();
             Console.WriteLine("You Lose\n",Color.Red);
@@ -46,7 +46,7 @@ namespace TextRPG_13
             Console.Write(">>",Color.DarkOrange);
         }
 
-        public static void PrintPlayerVitory(int maxMonster) //플레이어 클래스 필요
+        public static void PrintPlayerVitory(int maxMonster) 
         {
             Console.Clear();
             Console.WriteLine("Vicoty\n", Color.DarkOliveGreen);
