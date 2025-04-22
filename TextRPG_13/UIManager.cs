@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,16 +10,44 @@ namespace TextRPG_13
     public class UIManager
     {
 
-        public void PrintEnemyPhase(Player player,Monster monster) //머지 할때 
+        public void PrintEnemyPhase(Monster monster,int randomDamage) //플레이어 매개변수는 플레이어 미구현으로 임시변수로 임시로 사용
         {
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("Battle!!");
+            Console.WriteLine("Battle!!\n");
             Console.ResetColor();
 
-            Console.WriteLine("{Lv.{monster.level} {monster.type}의 공격! }");
-            Console.WriteLine("{player.name}을(를) 맞췄습니다. [데미지: {monster.attack}]\n");
-            Console.WriteLine("HP {player.health+monster.attack} -> {player.health}");
-            Console.WriteLine("0.다음");
+            Console.WriteLine($"Lv.{monster.monsterStat.Level} {monster.monsterStat.Type}의 공격! ");
+            Console.WriteLine($"을(를) 맞췄습니다. [데미지: {randomDamage}]\n");
+            Console.WriteLine("HP {player} -> {player.health}\n");
+            Console.WriteLine("\n0.다음");
+
+            Console.Write(">>", Color.DarkOrange);
+        }
+
+        public void PrintPlayerLose() //플레이어 매개변수는 플레이어 클래스 미구현으로 임시변수로 임시로 사용
+        {
+            Console.Clear();
+            Console.WriteLine("You Lose\n",Color.Red);
+            Console.ResetColor();
+
+            Console.WriteLine("Lv.{player.level} {player.name}");
+            Console.WriteLine("HP{player.maxHP} -> {player.HP}");
+            Console.WriteLine("\n0.다음");
+            Console.Write(">>",Color.DarkOrange);
+        }
+
+        public void PrintPlayerVitory(int maxMonster)
+        {
+            Console.Clear();
+            Console.WriteLine("Vicoty\n", Color.DarkOliveGreen);
+            Console.ResetColor();
+
+            Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
+            Console.WriteLine("Lv.{player.level} {player.name}");
+            Console.WriteLine("HP{player.maxHP} -> {player.HP}");
+            Console.WriteLine("\n0.다음");
+            Console.Write(">>", Color.DarkOrange);
         }
     }
 }

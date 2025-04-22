@@ -6,6 +6,8 @@ class Program
     static void Main()
     {
         Battle battle = new Battle();
-        battle.BattleSequence();
+        UIManager uiManager = new UIManager();
+
+        battle.BattleSequence(uiManager);
     }
 }
