@@ -10,7 +10,7 @@ namespace TextRPG_13
     {
 
         public string Name { get; set; }
-        public Job Job { get; set; };
+        public Job Job { get; set; }
         public int Level { get; set; } = 1;
         public int Offensivepower { get; set; } = 10;
         public int Defensivepower { get; set; } = 5;
