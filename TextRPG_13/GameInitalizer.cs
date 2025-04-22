@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
+using static TextRPG_13.Enums;
 
 
 
@@ -32,10 +33,10 @@ namespace TextRPG_13
             var stats = GetJobStats(selectedJob);
 
             Player player = new Player();
-            player._Playerstat.Name = name;
-            player._Playerstat.Job = selectedJob;
-            player._Playerstat.Offensivepower = stats.offensive;
-            player._Playerstat.Defensivepower = stats.defensive;
+            player.Stats.Name = name;
+            player.Stats.Job = selectedJob;
+            player.Stats.Offensivepower = stats.offensive;
+            player.Stats.Defensivepower = stats.defensive;
 
             return player;
         }

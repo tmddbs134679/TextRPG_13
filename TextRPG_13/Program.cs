@@ -10,9 +10,12 @@ namespace TextRPG_13
     {
         static void Main(string[] args)
         {
-            Player player = new Player();
+            Battle battle = new Battle();
 
-            Battle.BattleSequence(player);
+            battle.BattleSequence();
+
+            Console.WriteLine("전투가 끝났습니다. 아무 키나 누르세요...");
+            Console.ReadLine();
         }
     }
 }

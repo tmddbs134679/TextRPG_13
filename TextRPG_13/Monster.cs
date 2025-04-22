@@ -47,10 +47,9 @@ namespace TextRPG_13
 
         public static void MonsterRandomSpawn()
         {
-            var ui = new UIManager();
-
             // 1~4마리 랜덤 등장
             int count = random.Next(1, 5);
+
             if (currentWave == null)
             {
                 currentWave = new List<Monster>(count);
