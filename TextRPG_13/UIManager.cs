@@ -10,22 +10,28 @@ namespace TextRPG_13
     public class UIManager
     {
 
-        public void PrintEnemyPhase(Monster monster,int randomDamage) //플레이어 매개변수는 플레이어 미구현으로 임시변수로 임시로 사용
+        public void PrintRandomMonster(Monster monster)
+        {
+            Console.WriteLine($"Lv.{monster.Stats.Lv} " +
+                $"{monster.Stats.monsterName} " +
+                $"HP {monster.Stats.monsterHP}");
+        }
+
+        public static void PrintEnemyPhase(Monster monster,int randomDamage) //플레이어 매개변수는 Player.cs 미구현으로 임시변수로 사용
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("Battle!!\n");
             Console.ResetColor();
 
-            Console.WriteLine($"Lv.{monster.monsterStat.Level} {monster.monsterStat.Type}의 공격! ");
+            Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}의 공격! ");
             Console.WriteLine($"을(를) 맞췄습니다. [데미지: {randomDamage}]\n");
             Console.WriteLine("HP {player} -> {player.health}\n");
             Console.WriteLine("\n0.다음");
-
             Console.Write(">>", Color.DarkOrange);
         }
 
-        public void PrintPlayerLose() //플레이어 매개변수는 플레이어 클래스 미구현으로 임시변수로 임시로 사용
+        public static void PrintPlayerLose() //플레이어 매개변수는 플레이어 클래스 미구현으로 임시변수로 사용
         {
             Console.Clear();
             Console.WriteLine("You Lose\n",Color.Red);
@@ -37,7 +43,7 @@ namespace TextRPG_13
             Console.Write(">>",Color.DarkOrange);
         }
 
-        public void PrintPlayerVitory(int maxMonster)
+        public static void PrintPlayerVitory(int maxMonster)
         {
             Console.Clear();
             Console.WriteLine("Vicoty\n", Color.DarkOliveGreen);

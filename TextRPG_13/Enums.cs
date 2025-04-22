@@ -6,13 +6,22 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    public class Enums
+    public enum MonsterType
     {
-        public enum Monsters
-        {
-            미니언 = 1,  
-            공허충,
-            대포미니언 
-        }
+        MINION,
+        VOIDWORM,
+        SIEGEMINION
+    }
+    public enum Job
+    {
+        Warrior = 1,
+        Wizard = 2,
+        Assassin = 3
+    }
+    public enum Lobbychoice
+    {
+        PlayerStat = 1,
+        Denjeon = 2,
+        Potion = 3
     }
 }
