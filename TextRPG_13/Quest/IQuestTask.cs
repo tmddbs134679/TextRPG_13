@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    public class Player
+    public interface IQuestTask
     {
+        string Descript { get; }
+        bool IsCompleted { get; }
+
+        void InProgress();
+
     }
 }
