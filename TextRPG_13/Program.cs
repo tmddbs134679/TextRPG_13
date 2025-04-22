@@ -1,12 +1,23 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿
 using TextRPG_13;
 
-class Program
+namespace TextRPG_13
 {
-    static void Main()
+    public class Program
     {
-        Battle battle = new Battle();
+        static void Main(string[] args)
+        {
+            GameInitalizer initializer = new GameInitalizer();
 
-        battle.BattleSequence();
+            // 플레이어 생성
+            Player player = initializer.InitPlayer();
+
+            // GameManager에 저장
+            GameManager.CurrentPlayer = player;
+            GameManager.UI = new UIManager(player);
+
+            // 게임 시작
+            GameManager.UI.Gamelobby();
+        }
     }
 }

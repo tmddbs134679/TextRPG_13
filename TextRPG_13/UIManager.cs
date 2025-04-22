@@ -9,6 +9,12 @@ namespace TextRPG_13
 {
     public class UIManager
     {
+        private readonly Player _player;
+
+        public UIManager(Player player) 
+        {
+            _player = player;
+        }
         public void Gamelobby()
         {
             while (true)
@@ -83,7 +89,7 @@ namespace TextRPG_13
 
         public void PlayerStat()
         {
-            PlayerStatement _Playerstat = new PlayerStatement();
+            PlayerStatement _Playerstat = GameManager.CurrentPlayer.Stats;
             Console.Clear();
 
             //int Bonusoff = _player.인벤토리아이템.Where(i => i.IsEquipped).Sum(i => i.); 

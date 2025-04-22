@@ -46,8 +46,6 @@ namespace TextRPG_13
 
         public static void MonsterRandomSpawn()
         {
-            var ui = new UIManager();
-
             // 1~4마리 랜덤 등장
             int count = random.Next(1, 5);
             if (currentWave == null)
@@ -61,7 +59,7 @@ namespace TextRPG_13
 
             foreach (var m in currentWave)
             {
-                ui.PrintRandomMonster(m);
+                GameManager.UI.PrintRandomMonster(m);
             }
             Console.WriteLine();
         }
