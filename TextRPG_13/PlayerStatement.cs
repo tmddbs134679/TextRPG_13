@@ -9,7 +9,7 @@ namespace TextRPG_13
     public class PlayerStatement
     {
         public string Name { get; set; }
-        public Job Job { get; set; }
+        public JOBTYPE Job { get; set; }
         public int Level { get; set; } = 1;
         public int Offensivepower { get; set; }
         public int Defensivepower { get; set; }

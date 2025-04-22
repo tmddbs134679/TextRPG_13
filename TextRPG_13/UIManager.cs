@@ -48,14 +48,14 @@ namespace TextRPG_13
                 {
                     if (inp >= 1 && inp <= 3)
                     {
-                        switch ((Lobbychoice)inp)
+                        switch ((LOBBYCHOICE)inp)
                         {
-                            case Lobbychoice.PlayerStat:
+                            case LOBBYCHOICE.PLYAYERSTAT:
                                 _ShowStat.PlayerStat();
                                 break;
-                            case Lobbychoice.Denjeon:
+                            case LOBBYCHOICE.DENJEON:
                                 break;
-                            case Lobbychoice.Potion:
+                            case LOBBYCHOICE.POTION:
 
                                 break;
                         }
