@@ -57,7 +57,7 @@ namespace TextRPG_13
                             Console.WriteLine("\n이미 죽은 몬스터입니다.");
                             continue;
                         }
-
+                        //플레이어 공격
                         int damage = GetDamageWithVariance(player.Stats.Offensivepower);
                         int beforeHp = target.Stats.monsterHP;
                         target.Stats.monsterHP -= damage;
@@ -88,7 +88,7 @@ namespace TextRPG_13
                             }
                         }
                     }
-                    else if (!isPlayerTurn)
+                    if (!isPlayerTurn)
                     {
                         for (int i = 0; i < monsters.Count; i++)
                         {
@@ -129,11 +129,19 @@ namespace TextRPG_13
             //2. 스킬사용 추가
         }
 
-        private static int GetDamageWithVariance(int baseAtk) //공격 오차
+        private static int GetDamageWithVariance(int baseAtk)
         {
-            double offset = Math.Ceiling(baseAtk * 0.1);
             Random rand = new Random();
-            return baseAtk + rand.Next(-(int)offset, (int)offset + 1);
+            double offset = Math.Ceiling(baseAtk * 0.1);
+            int chance = rand.Next(1, 101);
+            int finalDamage = baseAtk + rand.Next(-(int)offset, (int)offset);
+
+            if (chance <= 15)
+            {
+                finalDamage = (int)(finalDamage * 1.6);
+            }
+
+            return finalDamage;
         }
 
     }
