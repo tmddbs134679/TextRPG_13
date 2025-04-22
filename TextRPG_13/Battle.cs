@@ -13,10 +13,10 @@ namespace TextRPG_13
     {
         
 
-        public void BattleSequence()
+        public static void BattleSequence()
         {
-            Player player = new Player();
-
+            Player player = new Player(JOBTYPE.WARRIOR); //임시 직업 지정
+            
             bool isPlayerTurn = true;
 
             int deathCount = 0;

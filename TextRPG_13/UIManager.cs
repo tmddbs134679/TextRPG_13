@@ -165,10 +165,11 @@ namespace TextRPG_13
                                 PlayerStat();
                                 break;
                             case LOBBYCHOICE.DENJEON:
-                                
+                                Battle.BattleSequence();
                                 break;
                             case LOBBYCHOICE.POTION:
-
+                                break;
+                        }
                     }
                     else
                     {
@@ -299,9 +300,10 @@ namespace TextRPG_13
 
         public static void PrintPlayerVitory(int maxMonster) //플레이어 클래스 필요
         {
-            Console.Clear();
-            Console.WriteLine("Vicoty\n", Color.DarkOliveGreen);
-            Console.ResetColor();
-
+                Console.Clear();
+                Console.WriteLine("Vicoty\n", Color.DarkOliveGreen);
+                Console.ResetColor();
+            
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace TextRPG_13
     {
         static void Main(string[] args)
         {
+            Battle battle = new Battle();
             GameInitalizer initializer = new GameInitalizer();
 
             // 플레이어 생성
@@ -15,20 +16,13 @@ namespace TextRPG_13
             // GameManager에 저장
             GameManager.CurrentPlayer = player;
             GameManager.UI = new UIManager(player);
-namespace TextRPG_13
-{
-    public class Program
-    {
-        static void Main(string[] args)
-        {
-            Battle battle = new Battle();
+
+            // 게임 시작
             GameManager.UI.Gamelobby();
-
-            battle.BattleSequence();
-
+           
             Console.WriteLine("전투가 끝났습니다. 아무 키나 누르세요...");
             Console.ReadLine();
-          // 게임 시작
+          
           
         }
     }

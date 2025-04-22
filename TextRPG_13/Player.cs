@@ -7,7 +7,6 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using static TextRPG_13.Enums;
 
 namespace TextRPG_13
 {

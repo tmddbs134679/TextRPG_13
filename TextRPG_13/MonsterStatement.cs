@@ -39,5 +39,3 @@ namespace TextRPG_13
 
     }
 }
-    }
-}
