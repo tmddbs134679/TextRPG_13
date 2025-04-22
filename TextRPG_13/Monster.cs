@@ -26,32 +26,34 @@ namespace TextRPG_13
             Type = type;
             Stats = stats;
         }
+        //새 Monster 인스턴스 생성, 내부에서는 템플릿을 Clone해서 복제본 사용
+        public static Monster Create(MonsterType type)
+        {
+            var statsCopy = monsterPresets[type].Clone();
+            return new Monster(type, statsCopy);
+        }
         //랜덤
         private static readonly Random random = new Random();
         public static Monster CreateRandom()
         {
             var types = monsterPresets.Keys.ToArray();
             var randomType = types[random.Next(types.Length)];
-            var stats = monsterPresets[randomType];
-            return new Monster(randomType, stats);
-        }
-        public static Monster Create(MonsterType type)
-        {
-            return new Monster(type, monsterPresets[type]);
+            return Create(randomType);
         }
 
         //Monster.MonsterRandomSpawn();한줄로 다른 곳에서 몬스터 랜덤 스폰 메서드 사용가능
         private static List<Monster> currentWave;
         public static IReadOnlyList<Monster> CurrentWave => currentWave;
-        //var monsterInfo = Monster.CurrentWave[0];으로 랜덤 생성된 몬스터의 정보보기 가능
-        //예) {monsterInfo.Stats.monsterHP} 첫번째에 저장된 몬스터의 체력 정보보기
+
         public static void MonsterRandomSpawn()
         {
+            var ui = new UIManager();
+
             // 1~4마리 랜덤 등장
             int count = random.Next(1, 5);
             if (currentWave == null)
             {
-                currentWave = new List<Monster>(capacity: count);
+                currentWave = new List<Monster>(count);
                 for (int i = 0; i < count; i++)
                 {
                     currentWave.Add(CreateRandom());
