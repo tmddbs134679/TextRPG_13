@@ -123,3 +123,5 @@ namespace TextRPG_13
             Console.WriteLine("\n0.다음");
             Console.Write(">>", Color.DarkOrange);
         }
+    }
+}
