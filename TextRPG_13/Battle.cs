@@ -25,8 +25,6 @@ namespace TextRPG_13
             int deathCount = 0;
             int monsterCount = 0;
 
-            Random random = new Random();
-
             // 몬스터 생성
             Monster.MonsterRandomSpawn(); //최대 4마리 생성
 
@@ -69,13 +67,13 @@ namespace TextRPG_13
                     {
                         if (monsters[i].Stats.monsterHP > 0)
                         {
+
                             int baseATK = monsters[i].Stats.monsterATK;
-                            int damageScope = +(int)(Math.Round(baseATK * 0.1,MidpointRounding.AwayFromZero)); //반올림 함수 사용
-                            int randomdamage = baseATK + (random.Next(-damageScope, damageScope + 1));
+                           
 
-                            playerHP -= randomdamage;
+                            playerHP -= GetDamageWithVariance(baseATK);
 
-                            UIManager.PrintEnemyPhase(monsters[i], randomdamage); //전투화면 출력
+                            UIManager.PrintEnemyPhase(monsters[i], GetDamageWithVariance(baseATK)); //전투화면 출력
                             input = int.Parse(Console.ReadLine()); //다음으로 넘어가기 임시기능
 
                         }
@@ -98,6 +96,21 @@ namespace TextRPG_13
             }
 
 
+        }
+
+        private static int GetDamageWithVariance(int baseAtk)
+        {
+            Random rand = new Random();
+            double offset = Math.Ceiling(baseAtk * 0.1);
+            int chance = rand.Next(1, 101);
+            int finalDamage = baseAtk + rand.Next(-(int)offset, (int)offset);
+
+            if (chance <= 15)
+            {
+                finalDamage = (int)(finalDamage * 1.6);
+            }
+
+            return finalDamage;
         }
 
     }
