@@ -23,15 +23,7 @@ namespace TextRPG_13
                 Console.WriteLine($"{i + 1} {monster.Stats.monsterName}  {status}");
             }
 
-            Console.ResetColor();
-
-            DisplayPlayerInfo(player);
-
-            Console.WriteLine("\n1. 공격\n");
-            Console.Write("원하시는 행동을 입력해주세요.\n>> ");
-        }
-
-        public static void DisplayMonsters(Player player, List<Monster> monsters)
+        public static void PrintEnemyPhase(Monster monster,int randomDamage) 
         {
             Console.Clear();
             Console.WriteLine("Battle!!\n");
@@ -47,35 +39,8 @@ namespace TextRPG_13
         
             DisplayPlayerInfo(player);
 
-            Console.WriteLine("\n0. 취소\n");
-            Console.Write("대상을 선택해주세요.\n>> ");
-        }
 
-        public static void DisplayPlayerInfo(Player player)
-        {
-            Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
-            Console.WriteLine($"HP.{player.Stats.HP}/{player.Stats.Max_HP}");
-        }
 
-        public static void DisplayAttackResult(string attackerName, Monster target, int damage, int beforeHp, int afterHp)
-        {
-            Console.Clear();
-            Console.WriteLine("Battle!! - Result\n");
-
-            Console.WriteLine($"{attackerName}의 공격!");
-            Console.WriteLine($"{target.Stats.monsterName} 을(를) 맞췄습니다. [데미지 : {damage}]");
-
-            string hpText = afterHp <= 0 ? $"{beforeHp} -> Dead" : $"{beforeHp} -> {afterHp}";
-            Console.WriteLine($"\n{target.Stats.monsterName}");
-            Console.WriteLine($"HP {hpText}");
-            Console.WriteLine("\n0. 다음\n>>");
-        }
-
-        public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) //머지 할때 
-        {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}의 공격! ");
             Console.WriteLine($"{player.Stats.Name}을(를) 맞췄습니다. [데미지: {damage}]\n");
             Console.WriteLine($"HP {beforeHp} -> {player.Stats.HP}\n");
@@ -84,7 +49,7 @@ namespace TextRPG_13
             Console.Write(">>", Color.DarkOrange);
         }
 
-        public static void PrintPlayerLose(Player player) //플레이어 매개변수는 플레이어 클래스 미구현으로 임시변수로 임시로 사용
+        public static void PrintPlayerLose()
         {
             Console.Clear();
             Console.WriteLine("You Lose\n", Color.Red);
@@ -97,7 +62,7 @@ namespace TextRPG_13
             Console.Write(">>", Color.DarkOrange);
         }
 
-        public static void PrintPlayerVictory(Player player, int maxMonster)
+        public static void PrintPlayerVitory(int maxMonster) 
         {
             Console.Clear();
             Console.WriteLine("Vicoty\n", Color.DarkOliveGreen);
