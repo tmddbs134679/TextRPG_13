@@ -109,7 +109,7 @@ namespace TextRPG_13
             Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
 
             Console.WriteLine("\n0.다음");
-            WriteColor(">>",Console.ForegroundColor);
+            WriteColor(">>",ConsoleColor.DarkYellow);
         }
         public static void WriteColor(string text, ConsoleColor color)
         {
