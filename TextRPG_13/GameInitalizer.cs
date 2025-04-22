@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,14 +7,6 @@ using System.Threading.Channels;
 using System.Threading.Tasks;
 
 
-public enum JOBTYPE
-{
-    NONE,
-    WARRIOR,
-    MAGICIAN,
-    ARCHER,
-
-}
 
 namespace TextRPG_13
 {
@@ -26,33 +19,39 @@ namespace TextRPG_13
             Console.Write("이름 : ");
             string name = Console.ReadLine();
 
-            int job = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("\n직업을 선택해주세요:");
+            Console.WriteLine("1. 전사");
+            Console.WriteLine("2. 위자드");
+            Console.WriteLine("3. 어쌔신");
+            Console.Write(">> ");
+
+            int jobInput = int.Parse(Console.ReadLine());
+
+            Job selectedJob = (Job)jobInput;
+            var stats = GetJobStats(selectedJob);
 
             Player player = new Player();
-            // player.Status.name = name;
-
-
-            switch (job)
-            {
-                case (int)JOBTYPE.WARRIOR:
-                    // 클래스 따로 안만들면 Status정보 수정
-                    break;
-                case (int)JOBTYPE.MAGICIAN:
-
-                    break;
-                case (int)JOBTYPE.ARCHER:
-
-                    break;
-                default:
-                    //잘못입력
-                    break;
-            }
-
-            // player.Status.job = job;
-
+            player._Player.Name = name;
+            player._Player.Job = selectedJob;
+            player._Player.Offensivepower = stats.offensive;
+            player._Player.Defensivepower = stats.defensive;
 
             return player;
         }
-       
+
+        private (int offensive, int defensive) GetJobStats(Job job)
+        {
+            return job switch
+            {
+                Job.Warrior => (10, 10),
+                Job.Wizard => (13, 5),
+                Job.Assassin => (8, 8),
+                _ => (10,10),
+            };
+        }
+
+
+
     }
 }
