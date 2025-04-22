@@ -8,25 +8,25 @@ namespace TextRPG_13
 {
     public class Monster
     {
-        public MonsterType Type { get; }
+        public MMONSTERTYPE Type { get; }
         public MonsterStatement Stats { get; }
 
-        private static readonly Dictionary<MonsterType, MonsterStatement> monsterPresets =
-            new Dictionary<MonsterType, MonsterStatement>
+        private static readonly Dictionary<MMONSTERTYPE, MonsterStatement> monsterPresets =
+            new Dictionary<MMONSTERTYPE, MonsterStatement>
             {
-                {MonsterType.MINION, new MonsterStatement("미니언", 2, 15, 5 ) },
-                { MonsterType.VOIDWORM,    new MonsterStatement("공허충", 3, 10, 9) },
-                { MonsterType.SIEGEMINION, new MonsterStatement("대포미니언", 5, 25, 8) },
+                {MMONSTERTYPE.MINION, new MonsterStatement("미니언", 2, 15, 5 ) },
+                { MMONSTERTYPE.VOIDWORM,    new MonsterStatement("공허충", 3, 10, 9) },
+                { MMONSTERTYPE.SIEGEMINION, new MonsterStatement("대포미니언", 5, 25, 8) },
             };
 
         // 내부 생성자
-        private Monster(MonsterType type, MonsterStatement stats)
+        private Monster(MMONSTERTYPE type, MonsterStatement stats)
         {
             Type = type;
             Stats = stats;
         }
         //새 Monster 인스턴스 생성, 내부에서는 템플릿을 Clone해서 복제본 사용
-        public static Monster Create(MonsterType type)
+        public static Monster Create(MMONSTERTYPE type)
         {
             var statsCopy = monsterPresets[type].Clone();
             return new Monster(type, statsCopy);

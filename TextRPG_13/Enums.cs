@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    public enum MonsterType
+    public enum MMONSTERTYPE
     {
         MINION,
         VOIDWORM,
         SIEGEMINION
     }
-    public enum Job
+    public enum JOBTYPE
     {
-        Warrior = 1,
-        Wizard = 2,
-        Assassin = 3
+        WARRIOR = 1,
+        WIZARD = 2,
+        ASSASSIN = 3
     }
-    public enum Lobbychoice
+    public enum LOBBYCHOICE
     {
-        PlayerStat = 1,
-        Denjeon = 2,
-        Potion =3
+        PLYAYERSTAT = 1,
+        DENJEON = 2,
+        POTION =3
     }
 }
