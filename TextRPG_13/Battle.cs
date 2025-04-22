@@ -15,8 +15,8 @@ namespace TextRPG_13
 
         public static void BattleSequence()
         {
-            Player player = new Player(JOBTYPE.WARRIOR); //임시 직업 지정
-            
+            Player player = GameManager.CurrentPlayer; 
+
             bool isPlayerTurn = true;
 
             int deathCount = 0;
