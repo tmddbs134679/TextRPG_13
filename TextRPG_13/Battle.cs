@@ -17,8 +17,6 @@ namespace TextRPG_13
 
         bool isPlayerTurn = true; //턴 넘겨주기
         
-      
-        
         public void BattleSequence()
         {
             int input = 0;

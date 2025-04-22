@@ -46,6 +46,7 @@ namespace TextRPG_13
                 Console.Write(">> ");
                 Console.ResetColor();
 
+                Battle Denjeon = new Battle();
                 string input = Console.ReadLine();
 
                 if (int.TryParse(input, out int inp))
@@ -58,7 +59,7 @@ namespace TextRPG_13
                                 PlayerStat();
                                 break;
                             case LOBBYCHOICE.DENJEON:
-                                
+                                Denjeon.BattleSequence();
                                 break;
                             case LOBBYCHOICE.POTION:
 
