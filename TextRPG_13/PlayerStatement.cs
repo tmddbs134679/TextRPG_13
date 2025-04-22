@@ -13,11 +13,11 @@ namespace TextRPG_13
         {
             Console.Clear();
 
-            int Bonusoff = Splayer.InventoryItems.Where(i => i.IsEquipped).Sum(i => i.);
+            int Bonusoff = 플레이어.인벤토리아이템.Where(i => i.IsEquipped).Sum(i => i.);
 
             // 인벤토리에서 장착한 아이템을 Bonusoff,Bonusdf 에 선언하여 각각 공격력,방어력에 합산하여 상태 표시 창에서 합산된 값 표시.
 
-            int Bonusdf = Splayer.InventoryItems.Where(i => i.IsEquipped).Sum(i => i.);
+            int Bonusdf = 플레이어.인벤토리아이템.Where(i => i.IsEquipped).Sum(i => i.);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("상태 보기\n");
