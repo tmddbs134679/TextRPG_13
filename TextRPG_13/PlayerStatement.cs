@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static TextRPG_13.Enums;
 
 namespace TextRPG_13
 {
@@ -11,8 +13,9 @@ namespace TextRPG_13
         public string Name { get; set; }
         public JOBTYPE Job { get; set; }
         public int Level { get; set; } = 1;
-        public int Offensivepower { get; set; } = 10;
-        public int Defensivepower { get; set; } = 5;
+        public int Offensivepower { get; set; }
+        public int Defensivepower { get; set; }
+        public int Max_HP {  get; set; }
         public int HP { get; set; } = 100;
         public int Gold { get; set; } = 1500;
 
