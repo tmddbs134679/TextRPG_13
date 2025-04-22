@@ -28,7 +28,7 @@ namespace TextRPG_13
 
             int jobInput = int.Parse(Console.ReadLine());
 
-            Job selectedJob = (Job)jobInput;
+            JOBTYPE selectedJob = (JOBTYPE)jobInput;
             var stats = GetJobStats(selectedJob);
 
             Player player = new Player();
@@ -40,13 +40,13 @@ namespace TextRPG_13
             return player;
         }
 
-        private (int offensive, int defensive) GetJobStats(Job job)
+        private (int offensive, int defensive) GetJobStats(JOBTYPE job)
         {
             return job switch
             {
-                Job.Warrior => (10, 10),
-                Job.Wizard => (13, 5),
-                Job.Assassin => (8, 8),
+                JOBTYPE.WARRIOR => (10, 10),
+                JOBTYPE.WIZARD => (13, 5),
+                JOBTYPE.ASSASSIN => (8, 8),
                 _ => (10,10),
             };
         }
