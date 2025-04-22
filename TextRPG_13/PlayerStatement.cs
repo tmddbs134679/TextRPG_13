@@ -15,45 +15,21 @@ namespace TextRPG_13
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("상태 보기\n");
             Console.ResetColor();
-
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n\n");
-
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("Lv. ");
             Console.ResetColor();
-
             Console.WriteLine($"{}\n");
-            Console.WriteLine($"{}  ( {} )\n");
-            Console.Write($"공격력 : ");
-
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{}");
-            Console.ResetColor();
-
-            Console.Write("방어력 : ");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{}");
-            Console.ResetColor();
-
-            Console.Write("체 력 : ");
-
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{}");
-            Console.ResetColor();
-
-            Console.Write("Gold : ");
-
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{}");
-            Console.ResetColor();
-
-            Console.WriteLine("0. 나가기\n\n" +
+            Console.WriteLine($"{}  ( {} )\n" +
+                              $"공격력 : {}\n" +
+                              $"방어력 : {}\n" +
+                              $"체 력 : {} \n" +
+                              $"Gold : {} \n\n" +
+                              $"0. 나가기\n\n" +
                               $"원하시는 행동을 입력해주세요.");
-
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.Write(">> ");
             Console.ResetColor();
-
             int inp = int.Parse(Console.ReadLine());
 
             if (inp == 0)

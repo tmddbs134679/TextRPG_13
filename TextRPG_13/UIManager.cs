@@ -19,30 +19,21 @@ namespace TextRPG_13
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.Write("1. ");
                     Console.ResetColor();
-
                     Console.WriteLine("상태 보기");
-
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.Write("2. ");
                     Console.ResetColor();
-
                     Console.WriteLine("전투 시작");
-
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.Write("3. ");
                     Console.ResetColor();
-
                     Console.WriteLine("회복 아이템\n\n");
-
                     Console.WriteLine("원하시는 행동을 입력해주세요.\n");
-
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.Write(">> ");
                     Console.ResetColor();
-
-                    int inp = int.Parse(Console.ReadLine());
-
-                    switch ((Lobbychoice)inp)
+                    int inp2 = int.Parse(Console.ReadLine());
+                    switch ((Lobbychoice)inp2)
                     {
                         case Lobbychoice.PlayerStat:
                             PlayerStat();
