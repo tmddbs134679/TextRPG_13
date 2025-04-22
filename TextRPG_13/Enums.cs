@@ -22,7 +22,7 @@ namespace TextRPG_13
     {
         PlayerStat = 1,
         Denjeon = 2,
-        Potion = 3
+        Potion =3
     }
     public class Enums
     {

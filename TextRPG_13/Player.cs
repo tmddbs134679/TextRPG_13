@@ -8,19 +8,21 @@ namespace TextRPG_13
 {
     public class Player
     {
-        PlayerStatement _player = new PlayerStatement();
 
-        // {}은 Player에서 따로 할당이 됐을경우 주입
+        public PlayerStatement _Player = new PlayerStatement();
+        //PlayerStatement 에 있는 Player의 상태 정보를 _playet에 변수별로 가져옴
         public void PlayerStat()
         {
             Console.Clear();
 
-            //int Bonusoff = 플레이어.인벤토리아이템.Where(i => i.IsEquipped).Sum(i => i.); 
+            //int Bonusoff = _player.인벤토리아이템.Where(i => i.IsEquipped).Sum(i => i.); 
 
             // 인벤토리에서 장착한 아이템을 Bonusoff,Bonusdf 에 선언하여 각각 공격력,방어력에 합산하여 상태 표시 창에서 합산된 값 표시.
 
-            //int Bonusdf = 플레이어.인벤토리아이템.Where(i => i.IsEquipped).Sum(i => i.);
+            //int Bonusdf = _player.인벤토리아이템.Where(i => i.IsEquipped).Sum(i => i.);
 
+
+            //ForegroundColor = ConsoleColor. 각각의 텍스트에 구분되게 컬러를 입혀 유저분들이 텍스트를 더욱 가독성 있게 볼 수 있게 해줌.
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("상태 보기\n");
             Console.ResetColor();
@@ -30,13 +32,13 @@ namespace TextRPG_13
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("Lv. ");
             Console.ResetColor();
-
-            Console.WriteLine($"{_player.Level}\n");
-            Console.WriteLine($"{_player.Name}  ( {_player.Job} )\n");
+            
+            Console.WriteLine($"{_Player.Level}");
+            Console.WriteLine($"{_Player.Name}  ( {_Player.Job} )");
             Console.Write($"공격력 : ");
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_player.Offensivepower})");
+            Console.WriteLine($"{_Player.Offensivepower}");
 
             // 인벤토리 추가 될 시 인벤토리에서 장착한 아이템을 Bonusoff에 장비에 따른 공격력 추가 및 기본 공격력에 합산,
             // 기본 공격력엔 Bonusoff가 합산된 전체값 표기
@@ -46,7 +48,7 @@ namespace TextRPG_13
 
             Console.Write("방어력 : ");
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_player.Defensivepower})");
+            Console.WriteLine($"{_Player.Defensivepower}");
 
             // 인벤토리 추가 될 시 인벤토리에서 장착한 아이템을 Bonusdf에 장비에 따른 공격력 추가 및 기본 방어력에 합산,
             // 기본 공격력엔 Bonusdf가 합산된 전체값 표기
@@ -57,13 +59,13 @@ namespace TextRPG_13
             Console.Write("체 력 : ");
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_player.HP}");
+            Console.WriteLine($"{_Player.HP}");
             Console.ResetColor();
 
             Console.Write("Gold : ");
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_player.Gold}");
+            Console.WriteLine($"{_Player.Gold}\n");
             Console.ResetColor();
 
             Console.WriteLine("0. 나가기\n\n" +
