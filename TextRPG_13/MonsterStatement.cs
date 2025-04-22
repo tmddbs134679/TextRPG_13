@@ -18,7 +18,18 @@ namespace TextRPG_13
             monsterName = name;
             Lv = lv;
             monsterHP = hp;
+
             monsterATK = atk;
+        }
+
+        public MonsterStatement Clone()
+        {
+            return new MonsterStatement(
+                monsterName,
+                Lv,
+                monsterHP,
+                monsterATK
+            );
         }
     }
 

@@ -24,6 +24,7 @@ namespace TextRPG_13
             Console.WriteLine("Battle!!\n");
             Console.ResetColor();
 
+
             Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}의 공격! ");
             Console.WriteLine($"을(를) 맞췄습니다. [데미지: {randomDamage}]\n");
             Console.WriteLine("HP {player} -> {player.health}\n");
@@ -38,12 +39,12 @@ namespace TextRPG_13
             Console.ResetColor();
 
             Console.WriteLine("Lv.{player.level} {player.name}");
-            Console.WriteLine("HP{player.maxHP} -> {player.HP}");
+            Console.WriteLine("HP{player.maxHP} -> {player.HP}\n");
             Console.WriteLine("\n0.다음");
             Console.Write(">>",Color.DarkOrange);
         }
 
-        public static void PrintPlayerVitory(int maxMonster)
+        public static void PrintPlayerVitory(int maxMonster) //플레이어 클래스 필요
         {
             Console.Clear();
             Console.WriteLine("Vicoty\n", Color.DarkOliveGreen);
