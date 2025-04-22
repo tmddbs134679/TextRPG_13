@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static TextRPG_13.Enums;
 
 namespace TextRPG_13
 {
@@ -26,7 +25,6 @@ namespace TextRPG_13
             Type = type;
             Stats = stats;
         }
-
         //랜덤
         private static readonly Random random = new Random();
         public static Monster CreateRandom()
@@ -42,17 +40,32 @@ namespace TextRPG_13
         }
 
         //Monster.MonsterRandomSpawn();한줄로 다른 곳에서 몬스터 랜덤 스폰 메서드 사용가능
+        private static List<Monster> currentWave;
+        public static IReadOnlyList<Monster> CurrentWave => currentWave;
+        //var monsterInfo = Monster.CurrentWave[0];으로 랜덤 생성된 몬스터의 정보보기 가능
+        //예) {monsterInfo.Stats.monsterHP} 첫번째에 저장된 몬스터의 체력 정보보기
         public static void MonsterRandomSpawn()
         {
             var ui = new UIManager();
+
             // 1~4마리 랜덤 등장
             int count = random.Next(1, 5);
-            for (int i = 0; i < count; i++)
+            if (currentWave == null)
             {
-                var m = CreateRandom();
+                currentWave = new List<Monster>(capacity: count);
+                for (int i = 0; i < count; i++)
+                {
+                    currentWave.Add(CreateRandom());
+                }
+            }
+
+            foreach (var m in currentWave)
+            {
                 ui.PrintRandomMonster(m);
             }
             Console.WriteLine();
         }
+
+
     }
 }
