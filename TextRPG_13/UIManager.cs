@@ -11,6 +11,7 @@ namespace TextRPG_13
     {
         private readonly Player _player;
 
+        //내부 생성자 추가
         public UIManager(Player player) 
         {
             _player = player;
@@ -57,6 +58,7 @@ namespace TextRPG_13
                                 PlayerStat();
                                 break;
                             case LOBBYCHOICE.DENJEON:
+                                
                                 break;
                             case LOBBYCHOICE.POTION:
 
