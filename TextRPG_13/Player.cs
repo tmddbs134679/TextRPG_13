@@ -1,35 +1,30 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using static TextRPG_13.Enums;
 
 namespace TextRPG_13
 {
     public class Player
     {
-        public int Level { get; set; } = 1;
-        public string Name { get; set; } = "Chad";
-        public int Max_HP { get; set; } = 100;
-        public int Hp { get; set; } = 100;
-        public int Attack { get; set; } = 10;
+        public PlayerStatement Stats { get; private set; }
 
-        public bool IsAlive { get; set; }
-
-        public void TakeDamage(int damage)
+        public Player()
         {
-            Hp -= damage;
-            if (Hp < 0) Hp = 0;
-        }
-        public Player(string name, int level, int max_hp, int hp, int atk)
-        {
-            Name = name;
-            Level = level;
-            Max_HP = max_hp;
-            Hp = hp;
-            Attack = atk;
-            IsAlive = true;
+            Stats = new PlayerStatement()
+            {
+                Name = "Chad",
+                Level = 1,
+                Max_HP = 100,
+                HP = 100,
+                Offensivepower = 10
+            };
         }
     }
 }
