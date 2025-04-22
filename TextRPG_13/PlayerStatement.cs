@@ -57,7 +57,6 @@ namespace TextRPG_13
                 }
             }; 
 
-
         //GameInitalizer 에서 선택한 직업을 보관
         public static PlayerStatement GetPreset(JOBTYPE job)
         {

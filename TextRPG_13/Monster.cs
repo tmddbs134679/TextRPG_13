@@ -58,7 +58,5 @@ namespace TextRPG_13
                 }
             }
         }
-
-
     }
 }

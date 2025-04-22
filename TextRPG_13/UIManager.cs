@@ -70,8 +70,7 @@ namespace TextRPG_13
             Console.WriteLine($"HP {hpText}");
             Console.WriteLine("\n0. 다음\n>>");
         }
-        private readonly Player _player;
-
+        
         public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) //머지 할때 
         {
             Console.Clear();
@@ -117,6 +116,7 @@ namespace TextRPG_13
             Console.ResetColor ();
         }
 
+        private readonly Player _player;
         //내부 생성자 추가
         public UIManager(Player player) 
         {
@@ -185,15 +185,6 @@ namespace TextRPG_13
                 }
             }
         }
-
-        //몬스터 순서 랜덤 나열
-        public void PrintRandomMonster(Monster monster)
-        {
-            Console.WriteLine($"Lv.{monster.Stats.Lv} " +
-                $"{monster.Stats.monsterName} " +
-                $"HP {monster.Stats.monsterHP}");
-        }
-
         public void PlayerStat()
         {
             PlayerStatement _Playerstat = GameManager.CurrentPlayer.Stats;
@@ -268,9 +259,5 @@ namespace TextRPG_13
                 Gamelobby();
             }
         }
-        
-        
-
-
     }
 }
