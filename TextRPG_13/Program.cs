@@ -7,6 +7,14 @@ namespace TextRPG_13
     {
         static void Main(string[] args)
         {
+            //GameInitalizer initializer = new GameInitalizer();
+
+            // 플레이어 생성
+            //Player player = initializer.InitPlayer();
+
+            // GameManager에 저장
+            //GameManager.CurrentPlayer = player;
+            GameManager.UI = new UIManager();
             //몬스터 웨이브 한 번 스폰 & 화면에 출력
             Monster.MonsterRandomSpawn();
 
