@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
     public class Player
     {
+        public JOBTYPE Type { get; }
+        public PlayerStatement Stats { get; }
 
+<<<<<<< Updated upstream
         public PlayerStatement _Playerstat = new PlayerStatement();
         //PlayerStatement 에 있는 Player의 상태 정보를 _playet에 변수별로 가져옴
         public void PlayerStat()
@@ -86,3 +86,23 @@ namespace TextRPG_13
         }
     }
 }
+=======
+        public Player(JOBTYPE job)
+        {
+            Type = job;
+            var preset = PlayerStatement.GetPreset(job);
+            Stats = new PlayerStatement
+            {
+                Name = preset.Name,
+                Job = preset.Job,
+                Offensivepower = preset.Offensivepower,
+                Defensivepower = preset.Defensivepower,
+                HP = preset.HP,
+                Gold = preset.Gold,
+                Level = preset.Level
+            };
+        }
+    }
+
+}
+>>>>>>> Stashed changes
