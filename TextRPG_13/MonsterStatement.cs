@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
+
     public class MonsterStatement
     {
         public string monsterName { get; set; }

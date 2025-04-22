@@ -57,7 +57,7 @@ namespace TextRPG_13
                             Console.WriteLine("\n이미 죽은 몬스터입니다.");
                             continue;
                         }
-
+                        //플레이어 공격
                         int damage = GetDamageWithVariance(player.Stats.Offensivepower);
                         int beforeHp = target.Stats.monsterHP;
                         target.Stats.monsterHP -= damage;
@@ -88,7 +88,7 @@ namespace TextRPG_13
                             }
                         }
                     }
-                    else if (!isPlayerTurn)
+                    if (!isPlayerTurn)
                     {
                         for (int i = 0; i < monsters.Count; i++)
                         {
