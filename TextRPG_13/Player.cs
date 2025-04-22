@@ -19,6 +19,7 @@ namespace TextRPG_13
 
             Stats = new PlayerStatement
             {
+                Max_HP = 100,
                 Name = preset.Name,
                 Job = preset.Job,
                 Offensivepower = preset.Offensivepower,
