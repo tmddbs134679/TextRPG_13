@@ -56,7 +56,13 @@ namespace TextRPG_13
             Console.WriteLine("Lv.{player.level} {player.name}");
             Console.WriteLine("HP{player.maxHP} -> {player.HP}");
             Console.WriteLine("\n0.다음");
-            Console.Write(">>", Color.DarkOrange);
+            WriteColor(">>",Orange);
+        }
+        public static void WriteColor(string text, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(text);
+            Console.ResetColor ();
         }
     }
 }
