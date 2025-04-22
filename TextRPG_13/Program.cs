@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using TextRPG_13;
 
 namespace TextRPG_13
 {
@@ -10,12 +7,17 @@ namespace TextRPG_13
     {
         static void Main(string[] args)
         {
-            Battle battle = new Battle();
+            GameInitalizer initializer = new GameInitalizer();
 
-            battle.BattleSequence();
+            // 플레이어 생성
+            Player player = initializer.InitPlayer();
 
-            Console.WriteLine("전투가 끝났습니다. 아무 키나 누르세요...");
-            Console.ReadLine();
+            // GameManager에 저장
+            GameManager.CurrentPlayer = player;
+            GameManager.UI = new UIManager(player);
+
+            // 게임 시작
+            GameManager.UI.Gamelobby();
         }
     }
 }
