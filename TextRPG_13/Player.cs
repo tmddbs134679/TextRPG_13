@@ -9,7 +9,7 @@ namespace TextRPG_13
     public class Player
     {
 
-        public PlayerStatement _Player = new PlayerStatement();
+        public PlayerStatement _Playerstat = new PlayerStatement();
         //PlayerStatement 에 있는 Player의 상태 정보를 _playet에 변수별로 가져옴
         public void PlayerStat()
         {
@@ -33,12 +33,12 @@ namespace TextRPG_13
             Console.Write("Lv. ");
             Console.ResetColor();
             
-            Console.WriteLine($"{_Player.Level}");
-            Console.WriteLine($"{_Player.Name}  ( {_Player.Job} )");
+            Console.WriteLine($"{_Playerstat.Level}");
+            Console.WriteLine($"{_Playerstat.Name}  ( {_Playerstat.Job} )");
             Console.Write($"공격력 : ");
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Player.Offensivepower}");
+            Console.WriteLine($"{_Playerstat.Offensivepower}");
 
             // 인벤토리 추가 될 시 인벤토리에서 장착한 아이템을 Bonusoff에 장비에 따른 공격력 추가 및 기본 공격력에 합산,
             // 기본 공격력엔 Bonusoff가 합산된 전체값 표기
@@ -48,7 +48,7 @@ namespace TextRPG_13
 
             Console.Write("방어력 : ");
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Player.Defensivepower}");
+            Console.WriteLine($"{_Playerstat.Defensivepower}");
 
             // 인벤토리 추가 될 시 인벤토리에서 장착한 아이템을 Bonusdf에 장비에 따른 공격력 추가 및 기본 방어력에 합산,
             // 기본 공격력엔 Bonusdf가 합산된 전체값 표기
@@ -59,13 +59,13 @@ namespace TextRPG_13
             Console.Write("체 력 : ");
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Player.HP}");
+            Console.WriteLine($"{_Playerstat.HP}");
             Console.ResetColor();
 
             Console.Write("Gold : ");
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Player.Gold}\n");
+            Console.WriteLine($"{_Playerstat.Gold}\n");
             Console.ResetColor();
 
             Console.WriteLine("0. 나가기\n\n" +
