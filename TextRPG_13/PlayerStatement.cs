@@ -8,7 +8,6 @@ namespace TextRPG_13
 {
     public class PlayerStatement
     {
-
         public string Name { get; set; }
         public Job Job { get; set; }
         public int Level { get; set; } = 1;
