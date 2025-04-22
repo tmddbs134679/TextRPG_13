@@ -66,10 +66,6 @@ namespace TextRPG_13
                             target.Stats.monsterHP = 0;
                             target.Stats.IsDead = true;
                             deathCount++;
-                            if(deathCount == monsters.Count)
-                            {
-                                UIManager.PrintPlayerVictory(player, deathCount);
-                            }
                         }
                         while(true)
                         {
@@ -112,18 +108,23 @@ namespace TextRPG_13
                                     }
                                     else if (j == 0) break; //0.취소 선택
                                 }
-                                if (player.Stats.HP <= 0)
-                                {
-                                    UIManager.PrintPlayerLose(player);
-                                    Thread.Sleep(1000);
-                                    break;
-                                }
+                               
                             }
                         }
                         isPlayerTurn = true;
                     }
                     
                     //레벨업
+                }
+                if (deathCount == monsters.Count)
+                {
+                    UIManager.PrintPlayerVictory(player, deathCount); //수정 윈화면 출력되다가 몬스터턴으로 넘어감
+                }
+                else if (player.Stats.HP <= 0)
+                {
+                    UIManager.PrintPlayerLose(player);
+                    Thread.Sleep(1000);
+                    break;
                 }
             } 
             //2. 스킬사용 추가
