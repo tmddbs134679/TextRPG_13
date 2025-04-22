@@ -11,11 +11,9 @@ namespace TextRPG_13
 {
     public class Battle
     {
-        
-
-        public void BattleSequence()
+        public static void BattleSequence()
         {
-            Player player = new Player();
+            Player player = GameManager.CurrentPlayer;
 
             bool isPlayerTurn = true;
 
@@ -26,66 +24,79 @@ namespace TextRPG_13
 
             while ((player.Stats.HP > 0) && monsters.Any(m => !m.Stats.IsDead))
             {
-                UIManager.BattleStart(player, monsters);
-                string choose = Console.ReadLine();
+                UIManager.BattleStart(player, monsters); //공격 선택지 페이지 출력
+                string input = Console.ReadLine();
 
-                if (!int.TryParse(choose, out int choice)) 
+                if (!int.TryParse(input, out int choice)) 
                 {
                     Console.WriteLine("\n잘못된 입력입니다.");
+                    Console.ReadKey();
                     continue;
                 }
                 else if(choice == 1) //공격 선택지 선택
                 {
                     if (isPlayerTurn == true)
                     {
-                        //플레이어 공격 페이지 출력
-                        UIManager.DisplayMonsters(player, monsters);
-                        string input = Console.ReadLine();
-
-                        if (!int.TryParse(input, out int index) || (index < 1 || index > monsters.Count))
-                        {
-                            Console.WriteLine("\n잘못된 입력입니다.");
-                            Console.ReadLine();
-                            continue;
-                        }
-                        else if (index == 0) break; //0.취소 선택
-
-                        Monster target = monsters[index - 1];
-
-                        if (target.Stats.IsDead) //몬스터 Dead 여부
-                        {
-                            Console.WriteLine("\n이미 죽은 몬스터입니다.");
-                            continue;
-                        }
-                        //플레이어 공격
-                        int damage = GetDamageWithVariance(player.Stats.Offensivepower);
-                        int beforeHp = target.Stats.monsterHP;
-                        target.Stats.monsterHP -= damage;
-                        if (target.Stats.monsterHP <= 0)
-                        {
-                            target.Stats.monsterHP = 0;
-                            target.Stats.IsDead = true;
-                            deathCount++;
-                            if(deathCount == monsters.Count)
-                            {
-                                UIManager.PrintPlayerVictory(player, deathCount);
-                            }
-                        }
                         while(true)
                         {
-                            UIManager.DisplayAttackResult(player.Stats.Name, target, damage, beforeHp, target.Stats.monsterHP);
+                            //몬스터 선택 페이지 출력
+                            UIManager.DisplayMonsters(player, monsters);
                             input = Console.ReadLine();
-                            if (!int.TryParse(input, out int i) || (i != 0))
+
+                            if (!int.TryParse(input, out int index) || (index < 0 || index > monsters.Count))
                             {
                                 Console.WriteLine("\n잘못된 입력입니다.");
-                                Console.ReadLine();
+                                Console.ReadKey();
                                 continue;
                             }
-                            else if (i == 0)
+                            else if (index == 0) break; //0.취소 선택
+
+                            Monster target = monsters[index - 1];
+
+                            if (target.Stats.IsDead) //몬스터 Dead 여부
                             {
-                                isPlayerTurn = false;
+                                Console.WriteLine("\n이미 죽은 몬스터입니다.");
+                                Console.ReadKey();
+                                continue;
+                            }
+                            else
+                            {
+                                //플레이어 공격
+                                int damage = GetDamageWithVariance(player.Stats.Offensivepower);
+                                int beforeHp = target.Stats.monsterHP;
+                                target.Stats.monsterHP -= damage;
+                                if (target.Stats.monsterHP <= 0)
+                                {
+                                    target.Stats.monsterHP = 0;
+                                    target.Stats.IsDead = true;
+                                    deathCount++;
+                                    if (deathCount == monsters.Count)
+                                    {
+                                        UIManager.PrintPlayerVictory(player, deathCount);
+                                    }
+                                }
+
+                                while (true) 
+                                {
+                                    //공격 결과 출력
+                                    UIManager.DisplayAttackResult(player.Stats.Name, target, damage, beforeHp, target.Stats.monsterHP);
+                                    
+                                    input = Console.ReadLine();
+                                    if (!int.TryParse(input, out int i) || (i != 0))
+                                    {
+                                        Console.WriteLine("\n잘못된 입력입니다.");
+                                        Console.ReadKey();
+                                        continue;
+                                    }
+                                    else if (i == 0)
+                                    {
+                                        isPlayerTurn = false;
+                                        break;
+                                    }
+                                }
                                 break;
                             }
+                                
                         }
                     }
                     if (!isPlayerTurn)
@@ -103,11 +114,11 @@ namespace TextRPG_13
                                 {
                                     //전투 결과 출력
                                     UIManager.PrintEnemyPhase(monsters[i], player, monsterDamage, beforePlayerHP);
-                                    string input = Console.ReadLine();
+                                    input = Console.ReadLine();
                                     if (!int.TryParse(input, out int j) || (j != 0))
                                     {
                                         Console.WriteLine("\n잘못된 입력입니다.");
-                                        Console.ReadLine();
+                                        Console.ReadKey();
                                         continue;
                                     }
                                     else if (j == 0) break; //0.취소 선택
@@ -140,7 +151,6 @@ namespace TextRPG_13
             {
                 finalDamage = (int)(finalDamage * 1.6);
             }
-
             return finalDamage;
         }
 

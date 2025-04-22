@@ -25,10 +25,10 @@ namespace TextRPG_13
                 Job = preset.Job,
                 Offensivepower = preset.Offensivepower,
                 Defensivepower = preset.Defensivepower,
+                Max_HP = preset.Max_HP,
                 HP = preset.HP,
                 Gold = preset.Gold
             };
         }
-
     }
 }

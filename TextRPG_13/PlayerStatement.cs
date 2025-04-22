@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static TextRPG_13.Enums;
 
 namespace TextRPG_13
 {
@@ -15,6 +14,7 @@ namespace TextRPG_13
         public int Level { get; set; } = 1;
         public int Offensivepower { get; set; } = 10;
         public int Defensivepower { get; set; } = 5;
+        public int Max_HP { get; set; } = 100;
         public int HP { get; set; } = 100;
         public int Gold { get; set; } = 1500;
 
@@ -28,6 +28,7 @@ namespace TextRPG_13
                         Job = JOBTYPE.WARRIOR,
                         Offensivepower = 10,
                         Defensivepower = 10,
+                        Max_HP = 100,
                         HP = 100,
                         Gold = 1500
                     }
@@ -38,6 +39,7 @@ namespace TextRPG_13
                         Job = JOBTYPE.WIZARD,
                         Offensivepower = 13,
                         Defensivepower = 5,
+                        Max_HP = 100,
                         HP = 100,
                         Gold = 1500
                     }
@@ -48,11 +50,12 @@ namespace TextRPG_13
                         Job = JOBTYPE.ASSASSIN,
                         Offensivepower = 8,
                         Defensivepower = 8,
+                        Max_HP = 100,
                         HP = 100,
                         Gold = 1500
                     }
                 }
-            };
+            }; 
 
 
         //GameInitalizer 에서 선택한 직업을 보관

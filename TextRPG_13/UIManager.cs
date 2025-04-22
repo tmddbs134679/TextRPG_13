@@ -44,10 +44,18 @@ namespace TextRPG_13
                 Console.WriteLine($"{i + 1} {monster.Stats.monsterName}  {status}");
             }
             Console.ResetColor();
-        
+
             DisplayPlayerInfo(player);
 
-
+            Console.WriteLine("\n0. 취소\n");
+            Console.Write("대상을 선택해주세요.\n>> ");
+        }
+        public static void DisplayPlayerInfo(Player player)
+        {
+            Console.WriteLine("\n[내정보]");
+            Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
+            Console.WriteLine($"HP.{player.Stats.HP}/{player.Stats.Max_HP}");
+        }
 
         public static void DisplayAttackResult(string attackerName, Monster target, int damage, int beforeHp, int afterHp)
         {
@@ -156,10 +164,11 @@ namespace TextRPG_13
                                 PlayerStat();
                                 break;
                             case LOBBYCHOICE.DENJEON:
-                                
+                                Battle.BattleSequence();
                                 break;
                             case LOBBYCHOICE.POTION:
-
+                                break;
+                        }
                     }
                     else
                     {

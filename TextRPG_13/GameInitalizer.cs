@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
-using static TextRPG_13.Enums;
 
 namespace TextRPG_13
 {
