@@ -59,7 +59,7 @@ namespace TextRPG_13
 
             foreach (var m in currentWave)
             {
-               // GameManager.UI.PrintRandomMonster(m);
+                GameManager.UI.PrintRandomMonster(m);
             }
             Console.WriteLine();
         }

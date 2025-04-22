@@ -26,11 +26,11 @@ namespace TextRPG_13
                 Console.WriteLine("\n두 번째 몬스터가 없습니다.\n");
             }
 
-            // 4) 변경된 웨이브 상태를 다시 출력
-            var ui = new UIManager();
+            //변경된 웨이브 상태를 다시 출력
+            //var ui = new UIManager();
             Console.WriteLine("=== 변경 후 웨이브 상태 ===");
             foreach (var m in wave)
-                ui.PrintRandomMonster(m);
+                GameManager.UI.PrintRandomMonster(m);
 
             Console.WriteLine("\n엔터키를 누르면 종료합니다.");
             Console.ReadLine();
