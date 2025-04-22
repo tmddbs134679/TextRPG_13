@@ -8,5 +8,6 @@ namespace TextRPG_13
 {
     public class Player
     {
+    }
 
 }
