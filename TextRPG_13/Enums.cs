@@ -24,9 +24,4 @@ namespace TextRPG_13
         Denjeon = 2,
         Potion =3
     }
-    public class Enums
-    {
-
-
-    }
 }
