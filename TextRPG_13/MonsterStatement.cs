@@ -8,8 +8,8 @@ namespace TextRPG_13
 {
     public class MonsterStatement
     {
-        public string monsterName {  get; set; }
-        public int Lv {  get; set; }
+        public string monsterName { get; set; }
+        public int Lv { get; set; }
         public int monsterHP { get; set; }
         public int monsterATK { get; set; }
 
@@ -30,9 +30,9 @@ namespace TextRPG_13
                 monsterATK
             );
         }
-    
 
 
 
 
+    }
 }
