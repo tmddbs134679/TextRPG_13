@@ -20,5 +20,15 @@ namespace TextRPG_13
             monsterHP = hp;
             monsterATK = atk;
         }
+        //몬스터가 중복 생성될 때 
+        public MonsterStatement Clone()
+        {
+            return new MonsterStatement(
+                monsterName,
+                Lv,
+                monsterHP,
+                monsterATK
+            );
+        }
     }
 }
