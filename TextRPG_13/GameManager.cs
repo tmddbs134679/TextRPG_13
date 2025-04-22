@@ -6,13 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    public enum MONSTERTYPE
-    {
-        MINION,
-        VOIDWORM,
-        SIEGEMINION
-    }
-    internal class Enums
+    internal class GameManager
     {
     }
 }

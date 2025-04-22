@@ -8,25 +8,25 @@ namespace TextRPG_13
 {
     public class Monster
     {
-        public MonsterType Type { get; }
+        public MONSTERTYPE Type { get; }
         public MonsterStatement Stats { get; }
 
-        private static readonly Dictionary<MonsterType, MonsterStatement> monsterPresets =
-            new Dictionary<MonsterType, MonsterStatement>
+        private static readonly Dictionary<MONSTERTYPE, MonsterStatement> monsterPresets =
+            new Dictionary<MONSTERTYPE, MonsterStatement>
             {
-                {MonsterType.MINION, new MonsterStatement("미니언", 2, 15, 5 ) },
-                { MonsterType.VOIDWORM,    new MonsterStatement("공허충", 3, 10, 9) },
-                { MonsterType.SIEGEMINION, new MonsterStatement("대포미니언", 5, 25, 8) },
+                {MONSTERTYPE.MINION, new MonsterStatement("미니언", 2, 15, 5 ) },
+                {MONSTERTYPE.VOIDWORM,    new MonsterStatement("공허충", 3, 10, 9) },
+                {MONSTERTYPE.SIEGEMINION, new MonsterStatement("대포미니언", 5, 25, 8) },
             };
 
         // 내부 생성자
-        private Monster(MonsterType type, MonsterStatement stats)
+        private Monster(MONSTERTYPE type, MonsterStatement stats)
         {
             Type = type;
             Stats = stats;
         }
         //새 Monster 인스턴스 생성, 내부에서는 템플릿을 Clone해서 복제본 사용
-        public static Monster Create(MonsterType type)
+        public static Monster Create(MONSTERTYPE type)
         {
             var statsCopy = monsterPresets[type].Clone();
             return new Monster(type, statsCopy);
@@ -41,13 +41,11 @@ namespace TextRPG_13
         }
 
         //Monster.MonsterRandomSpawn();한줄로 다른 곳에서 몬스터 랜덤 스폰 메서드 사용가능
-        private static List<Monster> currentWave; 
-        public static IReadOnlyList<Monster> CurrentWave => currentWave; 
+        private static List<Monster> currentWave;
+        public static IReadOnlyList<Monster> CurrentWave => currentWave;
 
         public static void MonsterRandomSpawn()
         {
-            var ui = new UIManager();
-
             // 1~4마리 랜덤 등장
             int count = random.Next(1, 5);
             if (currentWave == null)
@@ -61,7 +59,7 @@ namespace TextRPG_13
 
             foreach (var m in currentWave)
             {
-                ui.PrintRandomMonster(m);
+               // GameManager.UI.PrintRandomMonster(m);
             }
             Console.WriteLine();
         }

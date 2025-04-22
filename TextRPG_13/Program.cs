@@ -7,13 +7,13 @@ namespace TextRPG_13
     {
         static void Main(string[] args)
         {
-            // 1) 몬스터 웨이브 한 번 스폰 & 화면에 출력
+            //몬스터 웨이브 한 번 스폰 & 화면에 출력
             Monster.MonsterRandomSpawn();
 
-            // 2) 생성된 웨이브 리스트 가져오기
+            //생성된 웨이브 리스트 가져오기
             var wave = Monster.CurrentWave;
 
-            // 3) 두 번째 몬스터(인덱스 1)만 체력 -5
+            //두 번째 몬스터(인덱스 1)만 체력 -5
             if (wave != null && wave.Count > 1)
             {
                 var second = wave[1];
