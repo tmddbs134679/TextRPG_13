@@ -14,5 +14,11 @@ namespace TextRPG_13
             Assassin
         }
 
+        public enum Lobbychoice
+        {
+            PlayerStat = 1,
+            Denjeon = 2,
+            Potion = 3
+        }
     }
 }
