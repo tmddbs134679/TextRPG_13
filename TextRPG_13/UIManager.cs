@@ -25,6 +25,8 @@ namespace TextRPG_13
             Console.ResetColor();
 
 
+
+
             Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}의 공격! ");
             Console.WriteLine($"을(를) 맞췄습니다. [데미지: {randomDamage}]\n");
             Console.WriteLine("HP {player} -> {player.health}\n");
