@@ -32,10 +32,10 @@ namespace TextRPG_13
             var stats = GetJobStats(selectedJob);
 
             Player player = new Player();
-            player._Player.Name = name;
-            player._Player.Job = selectedJob;
-            player._Player.Offensivepower = stats.offensive;
-            player._Player.Defensivepower = stats.defensive;
+            player._Playerstat.Name = name;
+            player._Playerstat.Job = selectedJob;
+            player._Playerstat.Offensivepower = stats.offensive;
+            player._Playerstat.Defensivepower = stats.defensive;
 
             return player;
         }
