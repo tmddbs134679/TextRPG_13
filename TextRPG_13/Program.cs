@@ -10,7 +10,9 @@ namespace TextRPG_13
     {
         static void Main(string[] args)
         {
-            Battle.BattleSequence(, );
+            Player player = new Player();
+
+            Battle.BattleSequence(player);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static TextRPG_13.Enums;
 
 namespace TextRPG_13
 {
@@ -46,8 +47,6 @@ namespace TextRPG_13
         //예) {monsterInfo.Stats.monsterHP} 첫번째에 저장된 몬스터의 체력 정보보기
         public static void MonsterRandomSpawn()
         {
-            var ui = new UIManager();
-
             // 1~4마리 랜덤 등장
             int count = random.Next(1, 5);
             if (currentWave == null)
@@ -58,12 +57,6 @@ namespace TextRPG_13
                     currentWave.Add(CreateRandom());
                 }
             }
-
-            foreach (var m in currentWave)
-            {
-                ui.PrintRandomMonster(m);
-            }
-            Console.WriteLine();
         }
 
 
