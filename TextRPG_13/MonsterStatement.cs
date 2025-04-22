@@ -13,15 +13,16 @@ namespace TextRPG_13
         public int monsterHP { get; set; }
         public int monsterATK { get; set; }
 
+        public bool IsDead { get; set; }
+
         public MonsterStatement(string name, int lv, int hp, int atk)
         {
             monsterName = name;
             Lv = lv;
             monsterHP = hp;
-
             monsterATK = atk;
         }
-
+        //몬스터가 중복 생성될 때 
         public MonsterStatement Clone()
         {
             return new MonsterStatement(
@@ -32,8 +33,4 @@ namespace TextRPG_13
             );
         }
     }
-
-
-
-
 }

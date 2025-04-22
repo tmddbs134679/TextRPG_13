@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static TextRPG_13.Enums;
 
 namespace TextRPG_13
 {
@@ -40,17 +41,15 @@ namespace TextRPG_13
             return Create(randomType);
         }
 
-
         //Monster.MonsterRandomSpawn();한줄로 다른 곳에서 몬스터 랜덤 스폰 메서드 사용가능
         private static List<Monster> currentWave;
         public static IReadOnlyList<Monster> CurrentWave => currentWave;
 
         public static void MonsterRandomSpawn()
         {
-            var ui = new UIManager();
-
             // 1~4마리 랜덤 등장
             int count = random.Next(1, 5);
+
             if (currentWave == null)
             {
                 currentWave = new List<Monster>(count);
@@ -59,12 +58,6 @@ namespace TextRPG_13
                     currentWave.Add(CreateRandom());
                 }
             }
-
-            foreach (var m in currentWave)
-            {
-                ui.PrintRandomMonster(m);
-            }
-            Console.WriteLine();
         }
 
 

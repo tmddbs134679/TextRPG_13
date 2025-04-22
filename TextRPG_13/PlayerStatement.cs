@@ -1,12 +1,23 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static TextRPG_13.Enums;
 
 namespace TextRPG_13
 {
-    internal class PlayerStatement
+    public class PlayerStatement
     {
+        public string Name { get; set; }
+        public Job Job { get; set; }
+        public int Level { get; set; } = 1;
+        public int Offensivepower { get; set; }
+        public int Defensivepower { get; set; }
+        public int Max_HP {  get; set; }
+        public int HP { get; set; } = 100;
+        public int Gold { get; set; } = 1500;
     }
+    
 }

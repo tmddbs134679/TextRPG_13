@@ -1,12 +1,21 @@
-﻿// See https://aka.ms/new-console-template for more information
-using TextRPG_13;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-class Program
+namespace TextRPG_13
 {
-    static void Main()
+    public class Program
     {
-        Battle battle = new Battle();
+        static void Main(string[] args)
+        {
+            Battle battle = new Battle();
 
-        battle.BattleSequence();
+            battle.BattleSequence();
+
+            Console.WriteLine("전투가 끝났습니다. 아무 키나 누르세요...");
+            Console.ReadLine();
+        }
     }
 }
