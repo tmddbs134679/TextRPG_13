@@ -8,17 +8,18 @@ namespace TextRPG_13
 {
     public class Battle
     {
+        //임시 플레이어 StateMent
         string playerName = "플레이어";
         int playerHP = 100;
         int playerAttack = 10;
         int playerDefend = 5;
 
-        int randomATK = 0;
+        bool isPlayerTurn = true; //턴 넘겨주기
         int input = 0;
 
         Random random = new Random();
 
-        bool isPlayerTurn = true;
+      
         
         public void BattleSequence()
         {
@@ -37,10 +38,10 @@ namespace TextRPG_13
 
             while (playerHP > 0 )
             {
-                //대충 플레이어턴 매서드
+                // 플레이어턴 
                 if (isPlayerTurn == true)
                 {
-                    //몬스터 죽이는 메서드
+                    //몬스터 죽이는 로직
                     
                     isPlayerTurn = false;
                 }
@@ -51,9 +52,9 @@ namespace TextRPG_13
                     {
                         if (monsters[i].monsterStat.Health > 0)
                         {
-                            int attackStat = monsters[i].monsterStat.Attack;
-                            int damageScope = + (int)(Math.Round(attackStat * 0.1,MidpointRounding.AwayFromZero));
-                            randomATK = attackStat + (random.Next(-damageScope, damageScope+1));
+                            int baseATK = monsters[i].monsterStat.Attack;
+                            int damageScope = + (int)(Math.Round(baseATK * 0.1,MidpointRounding.AwayFromZero)); //반올림 함수 사용
+                            int randomATK = baseATK + (random.Next(-damageScope, damageScope+1));
 
                             playerHP -= randomATK;
 
@@ -62,6 +63,8 @@ namespace TextRPG_13
 
                             if(playerHP <= 0)
                             {
+                                //패배 화면 출력 되게
+                                Console.Clear();
                                 Console.WriteLine("you die");
                                 break;
                             }
