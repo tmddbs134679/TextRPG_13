@@ -6,19 +6,22 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    public class Enums 
+    public enum MMONSTERTYPE
     {
-       public enum Job {
-            Warrior,
-            Magician,
-            Assassin
-        }
-
-        public enum Lobbychoice
-        {
-            PlayerStat = 1,
-            Denjeon = 2,
-            Potion = 3
-        }
+        MINION,
+        VOIDWORM,
+        SIEGEMINION
+    }
+    public enum JOBTYPE
+    {
+        WARRIOR = 1,
+        WIZARD = 2,
+        ASSASSIN = 3
+    }
+    public enum LOBBYCHOICE
+    {
+        PLYAYERSTAT = 1,
+        DENJEON = 2,
+        POTION = 3
     }
 }
