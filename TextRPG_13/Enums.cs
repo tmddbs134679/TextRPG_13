@@ -31,4 +31,11 @@ namespace TextRPG_13
         WEAPON,
         POTION
     }
+
+    public enum EQUESTTYPE
+    {
+        MINION = 1,
+        EQUIP
+    }
+
 }
