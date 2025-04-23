@@ -9,6 +9,7 @@ namespace TextRPG_13
         public JOBTYPE Type { get; }
         public PlayerStatement Stats { get; }
         public Inventory Inven { get; }
+        public QuestManager QuestManager { get; private set; } = new QuestManager();
 
         // 생성자: 직업을 받아서 해당 프리셋 적용
         public Player(JOBTYPE job)
@@ -28,7 +29,11 @@ namespace TextRPG_13
                 Defensivepower = preset.Defensivepower,
                 Max_HP = preset.Max_HP,
                 HP = preset.HP,
-                Gold = preset.Gold
+                Gold = preset.Gold,
+                Max_MP = preset.Max_MP,
+                MP = preset.MP,
+                Exp = preset.Exp,
+                Potion = preset.Potion
             };
         }
     }
