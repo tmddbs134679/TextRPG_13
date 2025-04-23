@@ -63,14 +63,23 @@ namespace TextRPG_13
                             else
                             {
                                 //플레이어 공격
-                                int damage = GetDamageWithVariance(player.Stats.Offensivepower);
+                                float damage = GetDamageWithVariance(player.Stats.Offensivepower);
                                 int beforeHp = target.Stats.monsterHP;
-                                target.Stats.monsterHP -= damage;
+                                target.Stats.monsterHP -= (int)damage;
                                 if (target.Stats.monsterHP <= 0)
                                 {
                                     target.Stats.monsterHP = 0;
                                     target.Stats.IsDead = true;
                                     deathCount++;
+
+                                    //퀘스트 몬스터
+                                    var quest = player.QuestManager.CurrentQuest;
+
+                                    if (quest != null && quest.Task is TaskMonster task)
+                                    {
+                                        task.InProgress();
+                                    }
+
                                     if (deathCount == monsters.Count)
                                     {
                                         UIManager.PrintPlayerVictory(player, deathCount);
@@ -80,7 +89,7 @@ namespace TextRPG_13
                                 while (true) 
                                 {
                                     //공격 결과 출력
-                                    UIManager.DisplayAttackResult(player.Stats.Name, target, damage, beforeHp, target.Stats.monsterHP);
+                                    UIManager.DisplayAttackResult(player.Stats.Name, target, (int)damage, beforeHp, target.Stats.monsterHP);
                                     
                                     input = Console.ReadLine();
                                     if (!int.TryParse(input, out int i) || (i != 0))
@@ -147,7 +156,7 @@ namespace TextRPG_13
             //2. 스킬사용 추가
         }
 
-        private static int GetDamageWithVariance(float baseAtk)
+        private static int GetDamageWithVariance(float baseAtk) //스킬 로직 추가
         {
             Random rand = new Random();
             double offset = Math.Ceiling(baseAtk * 0.1);
@@ -157,7 +166,7 @@ namespace TextRPG_13
 
             if (avoidAttack > 10)
             {
-                finalDamage = baseAtk + rand.Next(-(int)offset, (int)offset);
+                finalDamage = (int)baseAtk + rand.Next(-(int)offset, (int)offset);
                 if (critalChance <= 15)
                 {
                     finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
@@ -168,9 +177,34 @@ namespace TextRPG_13
             return finalDamage;
         }
 
-        //private static int GetExpFromMonster()
-        //{
 
-        //}
+
+        private static (int playerLv, int playerExp, bool isLvUp) GetExpFromEnemy(int monsterLv, int playerExp,int playerLv)
+        {
+            bool isLvUp = false;
+            int LevelExp = (5 * playerLv * playerLv + 35 * playerLv - 20) / 2; //레벨업에 필요한 누적 경험치 계산
+
+            playerExp += monsterLv;
+
+            if (playerExp >= LevelExp)
+            {
+                isLvUp = true;
+                playerLv++;
+            }
+           
+            return (playerLv, playerExp, isLvUp);
+        }
+
+        private static (float defendStat, float attackStat) LvUpStat(float defendStat, float attackStat, bool isLvUp)//플레이어 방어력,공격력 인자값이 필요
+        {
+            // 레벨 상승시 공격력,방어력 증가
+            if(isLvUp == true)
+            {
+                defendStat += 1f;
+                attackStat += 0.5f;
+            }
+            return (defendStat, attackStat);
+        }
+
     }
 }

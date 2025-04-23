@@ -55,7 +55,9 @@ namespace TextRPG_13
                     return (JOBTYPE)input;
                 }
 
-                Console.WriteLine("올바른 번호를 입력해주세요. (1~3)");
+                WriteColor("화면에 나와있는 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
+                Thread.Sleep(1000);
+                Console.Clear();
             }
         }
     }

@@ -16,22 +16,33 @@ namespace TextRPG_13
         {
             player = GameManager.CurrentPlayer;
 
-            while (true)
-            {
+            
                 Console.Clear();
 
                 if (player.QuestManager.IsQuesting)
                 {
-                    ShowQuestDetail(player.QuestManager.CurrentQuest);
-                    Console.WriteLine("\n[진행 중인 퀘스트입니다]");
-                    Console.ReadKey();
-                    return;
+                    //퀘스트 완료 시
+                    if(player.QuestManager.CurrentQuest.IsCompleted)
+                    {
+                    
+                        ShowQuestDetail(player.QuestManager.CurrentQuest);
+                        AskReward();
+                        return;
+                    }
+                    else
+                    {
+                        ShowQuestDetail(player.QuestManager.CurrentQuest);
+                        Console.WriteLine("\n[진행 중인 퀘스트입니다]");
+                        Console.ReadKey();
+                        return;
+                    }
+                
                 }
 
                 UIManager.QuestUI();
                 ShowQuestList();
                 return;
-            }
+            
         }
 
         private void ShowQuestList()
@@ -116,6 +127,23 @@ namespace TextRPG_13
 
             Console.WriteLine("\n- 보상 -");
             Console.WriteLine($"골드: {quest.Reward.Gold}");
+        }
+
+        private void AskReward()
+        {
+            UIManager.AskRewardQuest();
+
+            string input = Console.ReadLine();
+
+            if (input == "1")
+            {
+                player.QuestManager.Reward(player);
+
+                Console.WriteLine("\n보상을 받았습니다!");
+                Console.WriteLine("\n아무키나 누르세요..");
+                Console.ReadKey();
+            }
+          
         }
     }
 }

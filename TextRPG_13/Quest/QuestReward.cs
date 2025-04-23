@@ -13,7 +13,7 @@ namespace TextRPG_13
 
         public void RewardPlayer(Player player)
         {
-            //player.Gold += Gold;
+            player.Stats.Gold += Gold;
             //player.Inventory.Add(RewardItem);
 
         }
