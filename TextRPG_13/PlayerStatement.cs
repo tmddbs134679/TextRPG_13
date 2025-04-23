@@ -14,9 +14,12 @@ namespace TextRPG_13
         public int Level { get; set; } = 1;
         public int Offensivepower { get; set; }
         public int Defensivepower { get; set; }
-        public int Max_HP {  get; set; }
+        public int Max_HP { get; set; }
         public int HP { get; set; } = 100;
         public int Gold { get; set; } = 1500;
+        public int Exp { get; set; } = 0;
+        public int Max_MP { get; set;} = 50;
+        public int MP { get; set; } = 50;
 
         //직업별 프리셋 설정
         private static readonly Dictionary<JOBTYPE, PlayerStatement> Presets =
@@ -30,7 +33,11 @@ namespace TextRPG_13
                         Defensivepower = 10,
                         Max_HP = 100,
                         HP = 100,
-                        Gold = 1500
+                        Gold = 1500,
+                        Exp = 0,
+                        Max_MP = 50,
+                        MP = 50
+
                     }
                 },
                 { JOBTYPE.WIZARD, new PlayerStatement
@@ -41,7 +48,10 @@ namespace TextRPG_13
                         Defensivepower = 5,
                         Max_HP = 100,
                         HP = 100,
-                        Gold = 1500
+                        Gold = 1500,
+                        Exp = 0,
+                        Max_MP = 50,
+                        MP = 50
                     }
                 },
                 { JOBTYPE.ASSASSIN, new PlayerStatement
@@ -52,7 +62,10 @@ namespace TextRPG_13
                         Defensivepower = 8,
                         Max_HP = 100,
                         HP = 100,
-                        Gold = 1500
+                        Gold = 1500,
+                        Exp = 0,
+                        Max_MP = 50,
+                        MP = 50
                     }
                 }
             }; 

@@ -142,7 +142,7 @@ namespace TextRPG_13
             //2. 스킬사용 추가
         }
 
-        private static int GetDamageWithVariance(int baseAtk)
+        private static int GetDamageWithVariance(int baseAtk) //스킬 로직 추가
         {
             Random rand = new Random();
             double offset = Math.Ceiling(baseAtk * 0.1);
@@ -183,5 +183,6 @@ namespace TextRPG_13
             // 레벨 상승시 공격력,방어력 증가,
             return (1,1);//공격력,방어력
         }
-}
+
+    }
 }

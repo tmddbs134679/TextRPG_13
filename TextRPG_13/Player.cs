@@ -25,7 +25,10 @@ namespace TextRPG_13
                 Defensivepower = preset.Defensivepower,
                 Max_HP = preset.Max_HP,
                 HP = preset.HP,
-                Gold = preset.Gold
+                Gold = preset.Gold,
+                Max_MP = preset.Max_MP,
+                MP = preset.MP,
+                Exp = preset.Exp
             };
         }
     }

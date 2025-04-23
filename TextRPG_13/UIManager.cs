@@ -28,6 +28,7 @@ namespace TextRPG_13
             DisplayPlayerInfo(player);
 
             Console.WriteLine("\n1. 공격\n");
+            Console.WriteLine("\n2. 스킬\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
         }
 
@@ -140,6 +141,36 @@ namespace TextRPG_13
             Console.Write(text);
             Console.ResetColor ();
         }
+
+
+        public static void PrintPlayerSkills(Player player)
+        {
+            switch (player.Stats.Job) 
+            {
+                case JOBTYPE.WARRIOR: //나중에 메서드로 만듬
+                    Console.WriteLine("{인덱스값+1}. {1번스킬이름} - MP {1번스킬마나소모}");
+                    Console.WriteLine("\r공격력 * {스킬 공격값}로 {스킬 설명}");
+                    Console.WriteLine("{인덱스값+1}. {2번스킬이름} - MP {2번스킬마나소모}");
+                    Console.WriteLine("\r공격력 * {스킬 공격값}로 {스킬 설명}");
+                    //로직은 다른곳에 만들기,'파워스트라이크' 공격력 두배로 하나의적 공격(MP:10)-'더블스트라이크' 공격력*1.5로 2명의 적을 랜덤으로 공격(MP:15)
+                    break;
+                case JOBTYPE.WIZARD:
+                    Console.WriteLine("{인덱스값+1}. {1번스킬이름} - MP {1번스킬마나소모}");
+                    Console.WriteLine("\r공격력 * {스킬 공격값}로 {스킬 설명}");
+                    Console.WriteLine("{인덱스값+1}. {2번스킬이름} - MP {2번스킬마나소모}");
+                    Console.WriteLine("\r공격력 * {스킬 공격값}로 {스킬 설명}");
+                    //'메테오 샤워' 공격력 2.5배로 적 모두 공격(MP:50)-'매직클로' 기본공격이 두번 들어감(MP:10)
+                    break;
+                case JOBTYPE.ASSASSIN:
+                    Console.WriteLine("{인덱스값+1}. {1번스킬이름} - MP {1번스킬마나소모}");
+                    Console.WriteLine("\r공격력 * {스킬 공격값}로 {스킬 설명}");
+                    Console.WriteLine("{인덱스값+1}. {2번스킬이름} - MP {2번스킬마나소모}");
+                    Console.WriteLine("\r공격력 * {스킬 공격값}로 {스킬 설명}");
+                    //'기습' 공격력 3배로 적 하나공격(MP:25)-'수리검투척' 적 2명 랜덤 공격(공격력:1.5배,마나:15)
+                    break;
+            }
+        }
+
 
         private readonly Player _player;
         //내부 생성자 추가
