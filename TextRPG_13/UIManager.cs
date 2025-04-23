@@ -130,6 +130,7 @@ namespace TextRPG_13
 
             Console.WriteLine("\n0.다음");
             WriteColor(">>",ConsoleColor.DarkYellow);
+            
         }
         public static void WriteColor(string text, ConsoleColor color)
         {
@@ -138,16 +139,8 @@ namespace TextRPG_13
             Console.ResetColor ();
         }
 
-        private readonly Player _player;
-        //내부 생성자 추가
-        public UIManager(Player player) 
-        {
-            _player = player;
-        }
         public void Gamelobby()
         {
-            while (true)
-            {
                 Console.Clear();
                 Console.WriteLine("스파르타 마을에 오신 여러분, 환영합니다.\n" +
                                   "이제 전투를 시작할 수 있습니다.\n");
@@ -175,51 +168,19 @@ namespace TextRPG_13
                 Console.Write(">> ");
                 Console.ResetColor();
 
-                Battle Denjeon = new Battle();
-                string input = Console.ReadLine();
+            //클래스 Lobby 안에 있는 로직을 lobby라는 변수명을 통해 불러와 저장
+            Lobby lobby = new Lobby();
 
-                if (int.TryParse(input, out int inp))
-                {
-                    if (inp >= 1 && inp <= 3)
-                    {
-                        switch ((LOBBYCHOICE)inp)
-                        {
-                            case LOBBYCHOICE.PLYAYERSTAT:
-                                PlayerStat();
-                                break;
-                            case LOBBYCHOICE.DENJEON:
-                                Denjeon.BattleSequence();
-                                break;
-                            case LOBBYCHOICE.POTION:
+            //변수로 선언한 lobby 안에 존재하는 메서드 GameLobby() 메서드를 불러와 로직 실행
+            lobby.GameLobby();
 
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("화면에 나와있는 번호중 하나를 선택해주세요.");
-                        Thread.Sleep(1000);
-                        Console.Clear();
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("잘못된 입력입니다. 다시 시도해주세요.");
-                    Thread.Sleep(1000);
-                    Console.Clear();
-                }
-            }
         }
         public void PlayerStat()
         {
+            // 플레이어 초기 스탯 불러오기
             PlayerStatement _Playerstat = GameManager.CurrentPlayer.Stats;
+
             Console.Clear();
-
-            //int Bonusoff = _player.인벤토리아이템.Where(i => i.IsEquipped).Sum(i => i.); 
-
-            // 인벤토리에서 장착한 아이템을 Bonusoff,Bonusdf 에 선언하여 각각 공격력,방어력에 합산하여 상태 표시 창에서 합산된 값 표시.
-
-            //int Bonusdf = _player.인벤토리아이템.Where(i => i.IsEquipped).Sum(i => i.);
 
 
             //ForegroundColor = ConsoleColor. 각각의 텍스트에 구분되게 컬러를 입혀 유저분들이 텍스트를 더욱 가독성 있게 볼 수 있게 해줌.
@@ -240,19 +201,11 @@ namespace TextRPG_13
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine($"{_Playerstat.Offensivepower}");
 
-            // 인벤토리 추가 될 시 인벤토리에서 장착한 아이템을 Bonusoff에 장비에 따른 공격력 추가 및 기본 공격력에 합산,
-            // 기본 공격력엔 Bonusoff가 합산된 전체값 표기
-            // Bonus 에는 장착한 장비유형에 따른 값 표시 (공격력 : 6 일 경우 bonusoff 에는 그 장비의 공격력 6 추가)
-
             Console.ResetColor();
 
             Console.Write("방어력 : ");
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine($"{_Playerstat.Defensivepower}");
-
-            // 인벤토리 추가 될 시 인벤토리에서 장착한 아이템을 Bonusdf에 장비에 따른 공격력 추가 및 기본 방어력에 합산,
-            // 기본 공격력엔 Bonusdf가 합산된 전체값 표기
-            // Bonus 에는 장착한 장비유형에 따른 값 표시 (방어력 : 6 일 경우 bonusoff 에는 그 장비의 방어력 6 추가) 
 
             Console.ResetColor();
 
@@ -275,14 +228,12 @@ namespace TextRPG_13
             Console.Write(">> ");
             Console.ResetColor();
 
-            int inp = int.Parse(Console.ReadLine());
 
-            if (inp == 0)
-            {
-                Thread.Sleep(1000);
-                Console.Clear();
-                Gamelobby();
-            }
+            //StatusView에 있는 로직 가져오기
+            StatusViewer _StautsView = new StatusViewer();
+
+            //StatusViewer 안에 있는 메서드 Showstatus 로직을 불러오기
+            _StautsView.Showstatus();
         }
     }
 }

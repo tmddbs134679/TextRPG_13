@@ -26,7 +26,7 @@ namespace TextRPG_13
 
             
             GameManager.CurrentPlayer = player;
-            GameManager.UI = new UIManager(player);
+            GameManager.UI = new UIManager();
             Console.Clear();
             GameManager.UI.Gamelobby();
             return player;
