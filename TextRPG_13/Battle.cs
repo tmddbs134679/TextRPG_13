@@ -17,6 +17,7 @@ namespace TextRPG_13
             Player player = GameManager.CurrentPlayer;
 
             bool isPlayerTurn = true;
+            bool isLvUp = false;
             int deathCount = 0;
             int beforeLv = player.Stats.HP;
             int beforeExp = player.Stats.Exp;
@@ -74,11 +75,16 @@ namespace TextRPG_13
                                     deathCount++;
 
 
+                                    var dropper = new MonsterItemDrop();
+                                    var result = dropper.MonsterDrops(target.Stats.Lv); //몬스터가 아이템을 드롭하면
+                                    //player.Inven.GetItems(result); //인벤토리에 추가
+
+
                                     // 경험치 및 레벨업 처리
                                     player.VictoryBattleResult(target);
 
                                     // 레벨업 했는지확인
-                                    bool isLvUp = player.Stats.Level > beforeLv;
+                                    isLvUp = player.Stats.Level > beforeLv;
 
                                     //퀘스트 몬스터
                                     var quest = player.QuestManager.CurrentQuest;
@@ -87,20 +93,12 @@ namespace TextRPG_13
                                     {
                                         task.InProgress();
                                     }
-
-                                    if (deathCount == monsters.Count)
-                                    {
-                                        
-                                        UIManager.PrintPlayerVictory(player, deathCount,beforeLv ,beforeExp ,isLvUp);
-                                        //보상화면 출력 
-                                        break;
-                                    }
                                 }
 
                                 while (true) 
                                 {
                                     //공격 결과 출력
-                                    UIManager.DisplayAttackResult(player.Stats.Name, target, (int)damage, beforeHp, target.Stats.monsterHP);
+                                    UIManager.DisplayAttackResult(player.Stats.Name, target, (int)damage, beforeHp);
                                     
                                     input = Console.ReadLine();
                                     if (!int.TryParse(input, out int i) || (i != 0))
@@ -115,7 +113,14 @@ namespace TextRPG_13
                                         break;
                                     }
                                 }
-                               
+                                if (deathCount == monsters.Count)
+                                {
+                                    UIManager.PrintPlayerVictory(player, deathCount, beforeLv, beforeExp, isLvUp); //수정 윈화면 출력되다가 몬스터턴으로 넘어감
+                                    //보상화면 출력
+                                    Thread.Sleep(3000);
+                                    break;
+                                }
+                                break;
                             }
                         }
                     }
@@ -141,16 +146,15 @@ namespace TextRPG_13
                                         Console.ReadKey();
                                         continue;
                                     }
-
-                                    if (player.Stats.HP <= 0)
-                                    {
-                                        player.Stats.HP = 0;
-                                        UIManager.PrintPlayerLose(player);
-                                        Thread.Sleep(1000);
-                                    }
                                     else if (j == 0) break; //0.취소 선택
                                 }
-
+                                if (player.Stats.HP <= 0)
+                                {
+                                    player.Stats.HP = 0;
+                                    UIManager.PrintPlayerLose(player);
+                                    Thread.Sleep(3000);
+                                    break;
+                                }
                             }
                         }
                         isPlayerTurn = true;
@@ -176,7 +180,7 @@ namespace TextRPG_13
                 finalDamage = (int)baseAtk + rand.Next(-(int)offset, (int)offset);
                 if (critalChance <= 15)
                 {
-                    finalDamage = (int)Math.Ceiling((finalDamage * 1.6));
+                    finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
                 }
 
             }

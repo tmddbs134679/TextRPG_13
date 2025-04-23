@@ -8,6 +8,7 @@ namespace TextRPG_13
     {
         public JOBTYPE Type { get; }
         public PlayerStatement Stats { get; }
+        public Inventory Inven { get; }
         public QuestManager QuestManager { get; private set; } = new QuestManager();
 
         // 생성자: 직업을 받아서 해당 프리셋 적용
@@ -17,7 +18,7 @@ namespace TextRPG_13
 
             // 프리셋에서 가져와 복사
             var preset = PlayerStatement.GetPreset(job);
-
+            
             Stats = new PlayerStatement
             {
                 Name = preset.Name,
@@ -32,6 +33,13 @@ namespace TextRPG_13
                 Exp = preset.Exp,
                 Potion = preset.Potion
             };
+
+            //인벤토리 인스턴스 생성 후 기본 포션 3개 추가
+            Inven = new Inventory();
+            for (int i = 0; i < 3; i++)
+            {
+                Inventory.AddItem(ItemFactory.CreateHealthPotion(), ITEMTYPE.POTION);
+            }
         }
 
         private static int GetRequiredExp(int level)
