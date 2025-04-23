@@ -147,7 +147,7 @@ namespace TextRPG_13
             Console.WriteLine($"{gold}");
             foreach (var item in items)
             {
-                Console.WriteLine($"{item.Name} - {item.Description}");
+                Console.WriteLine($"{item.Name}");
             }
         }
 
@@ -173,7 +173,10 @@ namespace TextRPG_13
 
                 foreach (var item in player.Inven.GetItems())
                 {
-                    Console.WriteLine($"- {idx++} {item.Name} | 방어력 +{item.DEFbonus} | {item.Description}");
+                    string statText = item.ATKbonus > 0 ? $"공격력 +{item.ATKbonus}" :
+                                        item.DEFbonus > 0 ? $"방어력 +{item.DEFbonus}" :
+                                        item.HealAmount > 0 ? $"회복량 +{item.HealAmount}" : "-";
+                    Console.WriteLine($"- {idx++} {item.Name} | {statText} | {item.Description}");
                 }
             }
             Console.WriteLine("\n1. 장착관리");
@@ -197,7 +200,10 @@ namespace TextRPG_13
                 foreach (var item in player.Inven.GetItems())
                 {
                     string equipMark = item.IsEquipped ? "[E] " : "";
-                    Console.WriteLine($"- {idx++} {equipMark} {item.Name} | 방어력 +{item.DEFbonus} | {item.Description}");
+                    string statText = item.ATKbonus > 0 ? $"공격력 +{item.ATKbonus}" :
+                                        item.DEFbonus > 0 ? $"방어력 +{item.DEFbonus}" :
+                                        item.HealAmount >0 ? $"회복량 +{item.HealAmount}" : "-";
+                    Console.WriteLine($"- {idx++} {equipMark} {item.Name} | {statText} | {item.Description}");
                 }
             }
             Console.WriteLine("0. 나가기");
@@ -235,6 +241,9 @@ namespace TextRPG_13
             // 플레이어 초기 스탯 불러오기
             var stat = player.Stats;
 
+            string atkText = stat.bonusATK > 0 ? $"{stat.Offensivepower} (+{stat.bonusATK})" : $"{stat.baseATK}";
+            string defText = stat.bonusDEF > 0 ? $"{stat.Defensivepower} (+{stat.bonusDEF})" : $"{stat.baseDEF}";
+
             Console.Clear();
 
             WriteColor("상태 보기\n", ConsoleColor.DarkYellow);
@@ -246,10 +255,10 @@ namespace TextRPG_13
             Console.WriteLine($"{stat.Name}  ( {stat.Job} )\n");
 
             Console.Write($"공격력 : ");
-            WriteColor($"{stat.Offensivepower}\n", ConsoleColor.DarkGray);
+            WriteColor($"{atkText}\n", ConsoleColor.DarkGray);
 
             Console.Write("방어력 : ");
-            WriteColor($"{stat.Defensivepower}\n", ConsoleColor.DarkGray);
+            WriteColor($"{defText}\n", ConsoleColor.DarkGray);
 
             Console.Write("체 력 : ");
             WriteColor($"{stat.HP}\n", ConsoleColor.DarkGray);

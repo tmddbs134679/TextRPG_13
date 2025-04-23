@@ -18,27 +18,26 @@ namespace TextRPG_13
 
             // 프리셋에서 가져와 복사
             var preset = PlayerStatement.GetPreset(job);
-            
+
             Stats = new PlayerStatement
             {
                 Name = preset.Name,
                 Job = preset.Job,
-                Offensivepower = preset.Offensivepower,
-                Defensivepower = preset.Defensivepower,
+                Level = preset.Level,
+                baseATK = preset.baseATK,
+                baseDEF = preset.baseDEF,
                 Max_HP = preset.Max_HP,
                 HP = preset.HP,
-                Gold = preset.Gold,
                 Max_MP = preset.Max_MP,
                 MP = preset.MP,
+                Gold = preset.Gold,
                 Exp = preset.Exp,
                 Potion = preset.Potion
             };
-
             //인벤토리 인스턴스 생성 후 기본 포션 3개 추가
             Inven = new Inventory();
             Inven.AddInitialPotions(3);
         }
-
         private static int GetRequiredExp(int level)
         {
             return (5 * level * level + 35 * level - 20) / 2; //레벨에 따른 필요 경험치 계산식
@@ -52,9 +51,9 @@ namespace TextRPG_13
 
             if (isLvUp == true)
             {
-                var (newDef, newAtk) = LvUpStat(player.Stats.Defensivepower, player.Stats.Offensivepower);
-                player.Stats.Defensivepower = newDef;
-                player.Stats.Offensivepower = newAtk;
+                var (newDef, newAtk) = LvUpStat(player.Stats.baseDEF, player.Stats.baseATK);
+                player.Stats.baseDEF = newDef;
+                player.Stats.baseATK = newAtk;
             }
         }
 

@@ -11,8 +11,8 @@ namespace TextRPG_13
         //나연 추가
         public int Id { get; }              // 메뉴 선택용 번호
         public string Name { get; }         // 아이템 이름
-        public int ATKbonus { get; }        // 공격력 추가
-        public int DEFbonus { get; }        // 방어력 추가
+        public float ATKbonus { get; }        // 공격력 추가
+        public float DEFbonus { get; }        // 방어력 추가
         public int Cost { get; }            // 골드 가격
         public string Description { get; }  // 아이템 설명
         public bool IsPurchased { get; set; }  // 구매 여부

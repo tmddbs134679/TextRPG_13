@@ -63,6 +63,7 @@ namespace TextRPG_13
                     if (_player.Inven.GetItems()[i].IsEquipable)
                     {
                         _player.Inven.EquipItem(_player.Inven.GetItems()[i]);
+                        _player.Stats.UpdateStats(_player);
                         break;
                     }
                 }
