@@ -17,8 +17,9 @@ namespace TextRPG_13
             Player player = GameManager.CurrentPlayer;
 
             bool isPlayerTurn = true;
-
             int deathCount = 0;
+            int beforeLv = player.Stats.HP;
+            int beforeExp = player.Stats.Exp;
 
             Monster.MonsterRandomSpawn();
             List<Monster> monsters = Monster.CurrentWave.ToList();
@@ -76,6 +77,13 @@ namespace TextRPG_13
                                     var dropper = new MonsterItemDrop();
                                     var result = dropper.MonsterDrops(target.Stats.Lv); //몬스터가 아이템을 드롭하면
                                     //player.Inven.GetItems(result); //인벤토리에 추가
+
+
+                                    // 경험치 및 레벨업 처리
+                                    player.VictoryBattleResult(target);
+
+                                    // 레벨업 했는지확인
+                                    bool isLvUp = player.Stats.Level > beforeLv;
 
                                     //퀘스트 몬스터
                                     var quest = player.QuestManager.CurrentQuest;
@@ -149,12 +157,12 @@ namespace TextRPG_13
                             }
                         }
                         isPlayerTurn = true;
-                    }
-                    
+                    } 
                     //레벨업
                 }
-         
-            } 
+            
+            }
+
             //2. 스킬사용 추가
         }
 
@@ -177,35 +185,6 @@ namespace TextRPG_13
             }
 
             return finalDamage;
-        }
-
-
-
-        private static (int playerLv, int playerExp, bool isLvUp) GetExpFromEnemy(int monsterLv, int playerExp,int playerLv)
-        {
-            bool isLvUp = false;
-            int LevelExp = (5 * playerLv * playerLv + 35 * playerLv - 20) / 2; //레벨업에 필요한 누적 경험치 계산
-
-            playerExp += monsterLv;
-
-            if (playerExp >= LevelExp)
-            {
-                isLvUp = true;
-                playerLv++;
-            }
-           
-            return (playerLv, playerExp, isLvUp);
-        }
-
-        private static (float defendStat, float attackStat) LvUpStat(float defendStat, float attackStat, bool isLvUp)//플레이어 방어력,공격력 인자값이 필요
-        {
-            // 레벨 상승시 공격력,방어력 증가
-            if(isLvUp == true)
-            {
-                defendStat += 1f;
-                attackStat += 0.5f;
-            }
-            return (defendStat, attackStat);
         }
 
     }

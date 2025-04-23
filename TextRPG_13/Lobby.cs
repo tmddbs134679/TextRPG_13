@@ -34,7 +34,7 @@ namespace TextRPG_13
                         switch ((LOBBYCHOICE)inp)
                         {
                             case LOBBYCHOICE.PLYAYERSTAT:
-                                Console.Write("상태 보기로 이동 중");
+                                Console.Write("\n상태 보기로 이동 중");
                                 for (int i = 0; i < 5; i++)
                                 {
                                     Thread.Sleep(500);
@@ -49,7 +49,7 @@ namespace TextRPG_13
                                 new StatusViewer(_player).Showstatus();
                                 break;
                             case LOBBYCHOICE.DENJEON:
-                                Console.Write("던전으로 이동 중");
+                                Console.Write("\n던전으로 이동 중");
                                 for (int i = 0; i < 5; i++)
                                 {
                                     Thread.Sleep(500);
@@ -64,7 +64,7 @@ namespace TextRPG_13
                                 new Battle().BattleSequence();
                                 break;
                             case LOBBYCHOICE.POTION:
-                                Console.Write("회복 하기로 이동 중");
+                                Console.Write("\n회복 하기로 이동 중");
                                 for (int i = 0; i < 5; i++)
                                 {
                                     Thread.Sleep(500);
@@ -79,7 +79,7 @@ namespace TextRPG_13
                                 new RecoveryViewer(_player).Recovery();
                                 break;
                             case LOBBYCHOICE.QUEST:
-                                Console.Write("퀘스트 선택으로 이동 중");
+                                Console.Write("\n퀘스트 선택으로 이동 중");
                                 for (int i = 0; i < 5; i++)
                                 {
                                     Thread.Sleep(500);
@@ -91,7 +91,7 @@ namespace TextRPG_13
                                 Console.SetCursorPosition(0, Console.CursorTop);
                                 Console.Write(new string(' ', Console.WindowWidth));
                                 Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
-                                new QuestLobby().Quest();
+                                new QuestLobby().Enter();
                                 break;
 
                         }

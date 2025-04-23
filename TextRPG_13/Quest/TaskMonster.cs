@@ -17,14 +17,7 @@ namespace TextRPG_13
 
         public void InProgress()
         {
-            if(currentKillCount >= requireCount) 
-            { 
-                currentKillCount = requireCount;
-            }
-            else
-            {
-                currentKillCount++;
-            }
+            currentKillCount = Math.Min(currentKillCount + 1, requireCount);
         }
     }
 }

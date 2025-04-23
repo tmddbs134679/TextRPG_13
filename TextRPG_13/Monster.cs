@@ -51,14 +51,20 @@ namespace TextRPG_13
             // 1~4마리 랜덤 등장
             int count = random.Next(1, 5);
 
-            if (currentWave == null)
+           // 이전 웨이브는 덮어쓰기
+            currentWave = new List<Monster>(capacity: count);
+            for (int i = 0; i < count; i++)
             {
-                currentWave = new List<Monster>(count);
-                for (int i = 0; i < count; i++)
-                {
-                    currentWave.Add(CreateRandom());
-                }
+                currentWave.Add(CreateRandom());
             }
+            //if (currentWave == null)
+            //{
+            //    currentWave = new List<Monster>(count);
+            //    for (int i = 0; i < count; i++)
+            //    {
+            //        currentWave.Add(CreateRandom());
+            //    }
+            //}
         }
     }
 }

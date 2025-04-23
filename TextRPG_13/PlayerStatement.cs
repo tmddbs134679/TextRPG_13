@@ -11,13 +11,13 @@ namespace TextRPG_13
     {
         public string Name { get; set; }
         public JOBTYPE Job { get; set; }
-        public int Level { get; set; }
+        public int Level { get; set; } = 1; //기본값 1
         public float Offensivepower { get; set; }
         public float Defensivepower { get; set; }
         public int Max_HP { get; set; }
         public int HP { get; set; }
         public int Gold { get; set; }
-        public int Exp { get; set; }
+        public int Exp { get; set; } = 0;
         public int Max_MP { get; set; }
         public int MP { get; set; }
         public int Potion { get; set; }
