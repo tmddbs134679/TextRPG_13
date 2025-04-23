@@ -143,16 +143,7 @@ namespace TextRPG_13
                     
                     //레벨업
                 }
-                if (deathCount == monsters.Count)
-                {
-                    UIManager.PrintPlayerVictory(player, deathCount); 
-                }
-                else if (player.Stats.HP <= 0)
-                {
-                    UIManager.PrintPlayerLose(player);
-                    Thread.Sleep(1000);
-                    break;
-                }
+         
             } 
             //2. 스킬사용 추가
         }
