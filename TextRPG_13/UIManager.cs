@@ -78,6 +78,11 @@ namespace TextRPG_13
                 string hpText = afterHp <= 0 ? $"{beforeHp} -> Dead" : $"{beforeHp} -> {afterHp}";
                 Console.WriteLine($"\n{target.Stats.monsterName}");
                 Console.WriteLine($"HP {hpText}");
+                //나연 추가 골드 획득 확인용
+                Console.WriteLine("\n[획득아이템]");
+                Console.WriteLine($"{target.Stats.goldDrop} Gold");
+                //플레이어가 소지한 골드에 추가하는 로직 구현 부탁합니다. 여기에 하는건지요?
+                
             }
             
             Console.WriteLine("\n0. 다음\n>>");

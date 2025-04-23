@@ -14,11 +14,11 @@ namespace TextRPG_13
         private static readonly Dictionary<MONSTERTYPE, MonsterStatement> monsterPresets =
             new Dictionary<MONSTERTYPE, MonsterStatement>
             {
-                { MONSTERTYPE.MINION, new MonsterStatement("미니언", 1, 10, 5 ) },
-                { MONSTERTYPE.MELEEMINION, new MonsterStatement("전사미니언", 2, 10, 8)},
-                { MONSTERTYPE.VOIDWORM,    new MonsterStatement("공허충", 3, 15, 8) },
-                { MONSTERTYPE.OCKLEPOD, new MonsterStatement("외눈박이문어", 4, 18, 9) },
-                { MONSTERTYPE.SIEGEMINION, new MonsterStatement("대포미니언", 5, 20, 8) },
+                { MONSTERTYPE.MINION, new MonsterStatement("미니언", 1, 10, 5, 100, 300 ) },
+                { MONSTERTYPE.MELEEMINION, new MonsterStatement("전사미니언", 2, 10, 8, 300, 500)},
+                { MONSTERTYPE.VOIDWORM,    new MonsterStatement("공허충", 3, 15, 8, 500, 700) },
+                { MONSTERTYPE.OCKLEPOD, new MonsterStatement("외눈박이문어", 4, 18, 9, 700, 1000) },
+                { MONSTERTYPE.SIEGEMINION, new MonsterStatement("대포미니언", 5, 20, 8, 1000, 1500) },
             };
 
         // 내부 생성자
