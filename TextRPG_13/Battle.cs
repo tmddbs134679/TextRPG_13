@@ -156,7 +156,7 @@ namespace TextRPG_13
 
             if (chance <= 15)
             {
-                finalDamage = (int)(finalDamage * 1.6);
+                finalDamage = (int)Math.Ceiling((finalDamage * 1.6));
             }
             return finalDamage;
         }

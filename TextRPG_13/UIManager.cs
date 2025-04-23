@@ -75,12 +75,14 @@ namespace TextRPG_13
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Battle!!\n");
+            Console.ResetColor();
+
             Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}의 공격! ");
             Console.WriteLine($"{player.Stats.Name}을(를) 맞췄습니다. [데미지: {damage}]\n");
             Console.WriteLine($"HP {beforeHp} -> {player.Stats.HP}\n");
             Console.WriteLine("\n0.다음");
-
-            Console.Write(">>", Color.DarkOrange);
+            WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
         public static void PrintPlayerLose(Player player) //플레이어 매개변수는 플레이어 클래스 미구현으로 임시변수로 임시로 사용
@@ -93,7 +95,7 @@ namespace TextRPG_13
             Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
             Console.WriteLine("\n0.다음");
 
-            Console.Write(">>", Color.DarkOrange);
+            WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
         public static void PrintPlayerVictory(Player player, int maxMonster)
@@ -126,6 +128,7 @@ namespace TextRPG_13
         {
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine("스파르타 마을에 오신 여러분, 환영합니다.\n" +
                                   "이제 전투를 시작할 수 있습니다.\n");
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
