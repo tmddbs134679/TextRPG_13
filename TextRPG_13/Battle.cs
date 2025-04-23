@@ -17,6 +17,7 @@ namespace TextRPG_13
             Player player = GameManager.CurrentPlayer;
 
             bool isPlayerTurn = true;
+            bool isLvUp = false;
             int deathCount = 0;
             int beforeLv = player.Stats.HP;
             int beforeExp = player.Stats.Exp;
@@ -83,7 +84,7 @@ namespace TextRPG_13
                                     player.VictoryBattleResult(target);
 
                                     // 레벨업 했는지확인
-                                    bool isLvUp = player.Stats.Level > beforeLv;
+                                    isLvUp = player.Stats.Level > beforeLv;
 
                                     //퀘스트 몬스터
                                     var quest = player.QuestManager.CurrentQuest;
@@ -114,7 +115,7 @@ namespace TextRPG_13
                                 }
                                 if (deathCount == monsters.Count)
                                 {
-                                    UIManager.PrintPlayerVictory(player, deathCount); //수정 윈화면 출력되다가 몬스터턴으로 넘어감
+                                    UIManager.PrintPlayerVictory(player, deathCount, beforeLv, beforeExp, isLvUp); //수정 윈화면 출력되다가 몬스터턴으로 넘어감
                                     //보상화면 출력
                                     Thread.Sleep(3000);
                                     break;
