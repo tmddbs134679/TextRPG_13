@@ -132,19 +132,30 @@ namespace TextRPG_13
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
-        public static void PrintPlayerVictory(Player player, int maxMonster)
+        public static void PrintPlayerVictory(Player player, int maxMonster,int beforerLv,int beforeExp,bool isLvUp)
         {
             Console.Clear();
-            Console.WriteLine("Vicoty\n", Color.DarkOliveGreen);
+            WriteColor("Vicoty\n", ConsoleColor.DarkGreen);
             Console.ResetColor();
 
-            Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
-            Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
-            Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
+            if(isLvUp)
+            {
+                Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
+                Console.WriteLine($"Lv.{beforerLv} {player.Stats.Name} -> Lv.{player.Stats.Level} {player.Stats.Name}");
+                Console.WriteLine($"뎉 {beforerLv} -> {player.Stats.Exp}");
+                Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
+            }
+            else
+            {
+                Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
+                Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
+                Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
+            }
+           
 
             Console.WriteLine("\n0.다음");
             WriteColor(">>", ConsoleColor.DarkYellow);
-
+            Console.ReadLine();
         }
         public static void WriteColor(string text, ConsoleColor color)
         {

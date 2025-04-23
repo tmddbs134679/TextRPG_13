@@ -17,7 +17,7 @@ namespace TextRPG_13
         public int Max_HP { get; set; }
         public int HP { get; set; }
         public int Gold { get; set; }
-        public int Exp { get; set; }
+        public int Exp { get; set; } = 0;
         public int Max_MP { get; set; }
         public int MP { get; set; }
         public int Potion { get; set; }

@@ -17,8 +17,9 @@ namespace TextRPG_13
             Player player = GameManager.CurrentPlayer;
 
             bool isPlayerTurn = true;
-
             int deathCount = 0;
+            int beforeLv = player.Stats.HP;
+            int beforeExp = player.Stats.Exp;
 
             Monster.MonsterRandomSpawn();
             List<Monster> monsters = Monster.CurrentWave.ToList();
@@ -72,6 +73,13 @@ namespace TextRPG_13
                                     target.Stats.IsDead = true;
                                     deathCount++;
 
+
+                                    // 경험치 및 레벨업 처리
+                                    player.VictoryBattleResult(target);
+
+                                    // 레벨업 했는지확인
+                                    bool isLvUp = player.Stats.Level > beforeLv;
+
                                     //퀘스트 몬스터
                                     var quest = player.QuestManager.CurrentQuest;
 
@@ -82,7 +90,10 @@ namespace TextRPG_13
 
                                     if (deathCount == monsters.Count)
                                     {
-                                        UIManager.PrintPlayerVictory(player, deathCount);
+                                        
+                                        UIManager.PrintPlayerVictory(player, deathCount,beforeLv ,beforeExp ,isLvUp);
+                                        //보상화면 출력 
+                                        break;
                                     }
                                 }
 
@@ -130,6 +141,13 @@ namespace TextRPG_13
                                         Console.ReadKey();
                                         continue;
                                     }
+
+                                    if (player.Stats.HP <= 0)
+                                    {
+                                        player.Stats.HP = 0;
+                                        UIManager.PrintPlayerLose(player);
+                                        Thread.Sleep(1000);
+                                    }
                                     else if (j == 0) break; //0.취소 선택
                                 }
 
@@ -141,17 +159,7 @@ namespace TextRPG_13
                 }
             
             }
-            if (deathCount == monsters.Count)
-            {
-                UIManager.PrintPlayerVictory(player, deathCount);
-                //보상화면 출력 
-            }
-            else if (player.Stats.HP <= 0)
-            {
-                player.Stats.HP = 0;
-                UIManager.PrintPlayerLose(player);
-                Thread.Sleep(1000);
-            }
+
             //2. 스킬사용 추가
         }
 
@@ -174,31 +182,6 @@ namespace TextRPG_13
             }
 
             return finalDamage;
-        }
-
-
-
-        private static int GetRequiredExp(int level)
-        {
-            return (5 * level * level + 35 * level - 20) / 2;
-        }
-
-        private static (int newLv, int newExp, bool isLvUp) UpdateExpAndLevel(int monsterLv, int currentExp, int currentLv)
-        {
-            currentExp += monsterLv;
-            int requiredExp = GetRequiredExp(currentLv);
-
-            bool isLvUp = currentExp >= requiredExp;
-            if (isLvUp) currentLv++;
-
-            return (currentLv, currentExp, isLvUp);
-        }
-
-        private static (float newDef, float newAtk) LvUpStat(float def, float atk)
-        {
-            def += 1f;
-            atk += 0.5f;
-            return (def, atk);
         }
 
     }
