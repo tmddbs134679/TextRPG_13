@@ -69,11 +69,8 @@ namespace TextRPG_13
                                 {
                                     target.Stats.monsterHP = 0;
                                     target.Stats.IsDead = true;
+                                    //player.Stats.Exp += target.Stats.Exp
                                     deathCount++;
-                                    if (deathCount == monsters.Count)
-                                    {
-                                        UIManager.PrintPlayerVictory(player, deathCount);
-                                    }
                                 }
 
                                 while (true) 
@@ -109,7 +106,7 @@ namespace TextRPG_13
                                 int monsterDamage = GetDamageWithVariance(monsters[i].Stats.monsterATK);
                                 int beforePlayerHP = player.Stats.HP;
                                 player.Stats.HP -= monsterDamage;
-
+                                
                                 while(true)
                                 {
                                     //전투 결과 출력
