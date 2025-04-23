@@ -62,9 +62,9 @@ namespace TextRPG_13
                             else
                             {
                                 //플레이어 공격
-                                int damage = GetDamageWithVariance(player.Stats.Offensivepower);
+                                float damage = GetDamageWithVariance(player.Stats.Offensivepower);
                                 int beforeHp = target.Stats.monsterHP;
-                                target.Stats.monsterHP -= damage;
+                                target.Stats.monsterHP -= (int)damage;
                                 if (target.Stats.monsterHP <= 0)
                                 {
                                     target.Stats.monsterHP = 0;
@@ -75,7 +75,7 @@ namespace TextRPG_13
                                 while (true) 
                                 {
                                     //공격 결과 출력
-                                    UIManager.DisplayAttackResult(player.Stats.Name, target, damage, beforeHp, target.Stats.monsterHP);
+                                    UIManager.DisplayAttackResult(player.Stats.Name, target, (int)damage, beforeHp, target.Stats.monsterHP);
                                     
                                     input = Console.ReadLine();
                                     if (!int.TryParse(input, out int i) || (i != 0))
@@ -129,7 +129,7 @@ namespace TextRPG_13
                 }
                 if (deathCount == monsters.Count)
                 {
-                    UIManager.PrintPlayerVictory(player, monsters.Count, isLevelUp,beforeLv,beforeExp );
+                   // UIManager.PrintPlayerVictory(player, monsters.Count,isLevelUp,beforeLv,beforeExp );
                 }
                 else if (player.Stats.HP <= 0)
                 {
@@ -141,7 +141,7 @@ namespace TextRPG_13
             //2. 스킬사용 추가
         }
 
-        private static int GetDamageWithVariance(int baseAtk) //스킬 로직 추가
+        private static int GetDamageWithVariance(float baseAtk) //스킬 로직 추가
         {
             Random rand = new Random();
             double offset = Math.Ceiling(baseAtk * 0.1);
@@ -151,7 +151,7 @@ namespace TextRPG_13
 
             if (avoidAttack > 10)
             {
-                finalDamage = baseAtk + rand.Next(-(int)offset, (int)offset);
+                finalDamage = (int)baseAtk + rand.Next(-(int)offset, (int)offset);
                 if (critalChance <= 15)
                 {
                     finalDamage = (int)Math.Ceiling((finalDamage * 1.6));
@@ -163,10 +163,6 @@ namespace TextRPG_13
         }
 
 
-        private static void LevelLogic()
-        {
-
-        }
 
         private static (int,int,bool) GetExpFromEnemy(int monsterLv, int playerExp,int playerLv)
         {
