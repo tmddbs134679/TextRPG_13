@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -139,7 +140,7 @@ namespace TextRPG_13
             Console.ResetColor ();
         }
 
-        public void Gamelobby()
+        public static void Gamelobby(Player player)
         {
                 Console.Clear();
                 Console.WriteLine("스파르타 마을에 오신 여러분, 환영합니다.\n" +
@@ -168,17 +169,11 @@ namespace TextRPG_13
                 Console.Write(">> ");
                 Console.ResetColor();
 
-            //클래스 Lobby 안에 있는 로직을 lobby라는 변수명을 통해 불러와 저장
-            Lobby lobby = new Lobby();
-
-            //변수로 선언한 lobby 안에 존재하는 메서드 GameLobby() 메서드를 불러와 로직 실행
-            lobby.GameLobby();
-
         }
-        public void PlayerStat()
+        public static void PlayerStat(Player player)
         {
             // 플레이어 초기 스탯 불러오기
-            PlayerStatement _Playerstat = GameManager.CurrentPlayer.Stats;
+            var stat = player.Stats;
 
             Console.Clear();
 
@@ -194,31 +189,31 @@ namespace TextRPG_13
             Console.Write("Lv. ");
             Console.ResetColor();
 
-            Console.WriteLine($"{_Playerstat.Level}");
-            Console.WriteLine($"{_Playerstat.Name}  ( {_Playerstat.Job} )");
+            Console.WriteLine($"{stat.Level}");
+            Console.WriteLine($"{stat.Name}  ( {stat.Job} )");
             Console.Write($"공격력 : ");
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Playerstat.Offensivepower}");
+            Console.WriteLine($"{stat.Offensivepower}");
 
             Console.ResetColor();
 
             Console.Write("방어력 : ");
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Playerstat.Defensivepower}");
+            Console.WriteLine($"{stat.Defensivepower}");
 
             Console.ResetColor();
 
             Console.Write("체 력 : ");
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Playerstat.HP}");
+            Console.WriteLine($"{stat.HP}");
             Console.ResetColor();
 
             Console.Write("Gold : ");
 
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Playerstat.Gold}\n");
+            Console.WriteLine($"{stat.Gold}\n");
             Console.ResetColor();
 
             Console.WriteLine("0. 나가기\n\n" +
@@ -227,13 +222,6 @@ namespace TextRPG_13
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.Write(">> ");
             Console.ResetColor();
-
-
-            //StatusView에 있는 로직 가져오기
-            StatusViewer _StautsView = new StatusViewer();
-
-            //StatusViewer 안에 있는 메서드 Showstatus 로직을 불러오기
-            _StautsView.Showstatus();
         }
     }
 }

@@ -8,29 +8,47 @@ namespace TextRPG_13
 {
     public class Lobby
     {
+
+        private readonly Player _player;
+        public Lobby(Player player)
+        {
+            _player = player;
+        }
+
         public void GameLobby()
         {
-            
-
-            Battle Denjeon = new Battle();
-      
-            string input = Console.ReadLine();
-
-            if (int.TryParse(input, out int inp))
+            while (true)
             {
-                if (inp >= 1 && inp <= 3)
-                {
-                    switch ((LOBBYCHOICE)inp)
-                    {
-                        case LOBBYCHOICE.PLYAYERSTAT:
-                            GameManager.UI.PlayerStat();
-                            break;
-                        case LOBBYCHOICE.DENJEON:
-                            Denjeon.BattleSequence();
-                            break;
-                        case LOBBYCHOICE.POTION:
+                UIManager.Gamelobby(_player);
 
-                            break;
+                Battle Denjeon = new Battle();
+
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out int inp))
+                {
+                    if (inp >= 1 && inp <= 3)
+                    {
+                        switch ((LOBBYCHOICE)inp)
+                        {
+                            case LOBBYCHOICE.PLYAYERSTAT:
+                                var status = new StatusViewer(GameManager.CurrentPlayer);
+                                status.Showstatus();
+                                break;
+                            case LOBBYCHOICE.DENJEON:
+                                new Battle().BattleSequence();
+                                break;
+                            case LOBBYCHOICE.POTION:
+
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("화면에 나와있는 번호중 하나를 선택해주세요.");
+                        Thread.Sleep(1000);
+                        Console.Clear();
+                        GameLobby();
                     }
                 }
                 else
@@ -38,13 +56,8 @@ namespace TextRPG_13
                     Console.WriteLine("화면에 나와있는 번호중 하나를 선택해주세요.");
                     Thread.Sleep(1000);
                     Console.Clear();
+                    GameLobby();
                 }
-            }
-            else
-            {
-                Console.WriteLine("잘못된 입력입니다. 다시 시도해주세요.");
-                Thread.Sleep(1000);
-                Console.Clear();
             }
         }
     }
