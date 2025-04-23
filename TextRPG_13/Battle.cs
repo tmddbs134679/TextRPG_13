@@ -11,8 +11,7 @@ namespace TextRPG_13
 {
     public class Battle
     {
-        
-
+       
         public void BattleSequence()
         {
             Player player = GameManager.CurrentPlayer;

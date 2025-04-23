@@ -22,7 +22,8 @@ namespace TextRPG_13
     {
         PLYAYERSTAT = 1,
         DENJEON = 2,
-        POTION =3
+        POTION =3,
+        QUEST = 5
     }
     
 }

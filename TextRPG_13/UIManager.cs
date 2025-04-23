@@ -167,7 +167,13 @@ namespace TextRPG_13
                 Console.Write("3. ");
                 Console.ResetColor();
 
-                Console.WriteLine("회복 아이템\n\n");
+                Console.WriteLine("회복 아이템\n");
+
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write("5. ");
+                Console.ResetColor();
+
+                Console.WriteLine("퀘스트\n");
 
                 Console.WriteLine("원하시는 행동을 입력해주세요.\n");
 
@@ -191,6 +197,9 @@ namespace TextRPG_13
                                 Denjeon.BattleSequence();
                                 break;
                             case LOBBYCHOICE.POTION:
+
+                                break;
+                            case LOBBYCHOICE.QUEST:
 
                                 break;
                         }
