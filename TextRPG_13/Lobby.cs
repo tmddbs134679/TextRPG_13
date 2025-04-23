@@ -43,7 +43,6 @@ namespace TextRPG_13
                         Console.WriteLine("화면에 나와있는 번호중 하나를 선택해주세요.");
                         Thread.Sleep(1000);
                         Console.Clear();
-                        GameLobby();
                     }
                 }
                 else
@@ -51,7 +50,6 @@ namespace TextRPG_13
                     Console.WriteLine("화면에 나와있는 번호중 하나를 선택해주세요.");
                     Thread.Sleep(1000);
                     Console.Clear();
-                    GameLobby();
                 }
             }
         }
