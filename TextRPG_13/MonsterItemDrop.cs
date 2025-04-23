@@ -12,6 +12,7 @@ namespace TextRPG_13
         {
             //드랍할 포션 아이템 id랑 최소 최대값 받아서 몇 개 드랍할지 범위
             public (int potionId, int minCount, int maxCount) PotionRule { get; }
+            //그 레벨에서 가능한 방어구와 무기 id
             public int[] ArmorIds { get; }
             public int[] WeaponIds { get; }
             public bool AlwaysOne { get; }   // true무조건 하나 false 50% 확률로 둘 다
@@ -42,14 +43,17 @@ namespace TextRPG_13
             // 인덱스: monsterLv 1~5 
             public static readonly DropConfig[] Configs = {
             null,//0번은 쓰지 않음
-            new DropConfig((100,1,1), new[]{1},      new[]{4},     true),
-            new DropConfig((100,1,2), new[]{1},      new[]{4},     false),
-            new DropConfig((100,1,3), new[]{2},      new[]{5},     true),
-            new DropConfig((100,3,3), new[]{2},      new[]{5},     false),
-            new DropConfig((101,2,3), new[]{3},      new[]{6},     false), 
+            new DropConfig((100,1,1), new[]{1},new[]{4},true),
+            new DropConfig((100,1,2), new[]{1},new[]{4},false),
+            new DropConfig((100,1,3), new[]{2},new[]{5},true),
+            new DropConfig((100,3,3), new[]{2},new[]{5},false),
+            new DropConfig((101,2,3), new[]{3},new[]{6},false), 
             // true: 무조건 하나만 / false: 50% 확률로 둘 다
             };
         }
+
+
+        //
         public class DropResult
         {
             public List<(string name, int count)> PotionDrops { get; }
@@ -66,6 +70,7 @@ namespace TextRPG_13
 
         //랜덤
         private static readonly Random random = new Random();
+        //실제 드랍을 수행할 MOnsterDrops메서드
         public DropResult MonsterDrops(int monsterLv)
         {
             var drops = new List<Item>();
@@ -78,22 +83,25 @@ namespace TextRPG_13
             int pmax = cfg.PotionRule.maxCount;
             int pcount = random.Next(pmin, pmax + 1);
 
-            // 중형 포션 드랍 조건(3 vs 1~2)
+            // Lv.4 몬스터 특수 조건
+            // 중형 포션 드랍 조건(소형 3개 또는 중형 1 ~ 2개 확률 50퍼)
             if (monsterLv == 4 && random.NextDouble() < 0.5)
             {
-                // 절반확률로 중형 포션 1~2개
+                //중형 포션 1~2개
                 pid = 101;
                 pmin = 1;
                 pmax = 2;
                 pcount = random.Next(pmin, pmax + 1);
             }
 
+            //id가 pid와 같은 첫 번째 아이템 객체를 찾아 potion 변수에 담기
             var potion = allItems.First(i => i.Id == pid);
             for (int i = 0; i < pcount; i++)
-                drops.Add(potion);
+                drops.Add(potion);//같은 potion객체를 리스트에 차례로 추가
 
             //장비 드랍
-            var armors = cfg.ArmorIds.Select(id => allItems.First(i => i.Id == id)).ToList();
+            //아이템 리스트에서 id가 같은 첫번째 객체를 꺼내라
+            var armors = cfg.ArmorIds.Select(id => allItems.First(i => i.Id == id)).ToList();//지정된 방어구 id에 대응하는 객체 리스트
             var weaps = cfg.WeaponIds.Select(id => allItems.First(i => i.Id == id)).ToList();
 
             bool oneOnly = cfg.AlwaysOne;
