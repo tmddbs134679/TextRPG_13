@@ -71,6 +71,15 @@ namespace TextRPG_13
                                     target.Stats.monsterHP = 0;
                                     target.Stats.IsDead = true;
                                     deathCount++;
+
+                                    //퀘스트 몬스터
+                                    var quest = player.QuestManager.CurrentQuest;
+
+                                    if (quest != null && quest.Task is TaskMonster task)
+                                    {
+                                        task.InProgress();
+                                    }
+
                                     if (deathCount == monsters.Count)
                                     {
                                         UIManager.PrintPlayerVictory(player, deathCount);

@@ -21,7 +21,7 @@ namespace TextRPG_13
 
         public void Reward(Player player)
         {
-            if(CurrentQuest != null) { return; }
+            if(CurrentQuest == null) { return; }
 
             if(!CurrentQuest.IsCompleted) { return; } 
 
