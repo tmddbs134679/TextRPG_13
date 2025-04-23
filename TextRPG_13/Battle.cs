@@ -147,7 +147,7 @@ namespace TextRPG_13
             //2. 스킬사용 추가
         }
 
-        private static int GetDamageWithVariance(int baseAtk)
+        private static int GetDamageWithVariance(float baseAtk)
         {
             Random rand = new Random();
             double offset = Math.Ceiling(baseAtk * 0.1);
@@ -160,7 +160,7 @@ namespace TextRPG_13
                 finalDamage = baseAtk + rand.Next(-(int)offset, (int)offset);
                 if (critalChance <= 15)
                 {
-                    finalDamage = (int)Math.Ceiling((finalDamage * 1.6));
+                    finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
                 }
 
             }

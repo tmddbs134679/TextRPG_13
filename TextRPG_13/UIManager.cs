@@ -140,7 +140,7 @@ namespace TextRPG_13
         public static void ShowInventory(Player player)
         {
             Console.Clear();
-            Console.WriteLine("===인벤토리===");
+            Console.WriteLine("인벤토리");
 
             if (player.Inven.Count == 0)
             {
@@ -152,7 +152,7 @@ namespace TextRPG_13
 
                 foreach (var item in player.Inven.GetItems())
                 {
-                    Console.WriteLine($"- {idx++} {} {item.Name} | 방어력 +{item.Defense} | {item.Description}");
+                    Console.WriteLine($"- {idx++} {item.Name} | 방어력 +{item.Defense} | {item.Description}");
                 }
             }
             Console.WriteLine("\n1. 장착관리");
@@ -160,8 +160,32 @@ namespace TextRPG_13
             Console.WriteLine("\n원하시는 행동을 입력해주세요.\n>>");
         }
 
-        
+        public static void ShowEquipMenu(Player player)
+        {
+            Console.Clear();
+            Console.WriteLine("인벤토리 - 장착 관리");
+
+            if (player.Inven.Count == 0) //아이템 없다면 장착관리 안되게 구현 후 삭제
+            {
+                Console.WriteLine("인벤토리에 아이템이 없습니다.");
+            }
+            else
+            {
+                int idx = 1;
+
+                foreach (var item in player.Inven.GetItems())
+                {
+                    string equipMark = item.IsEquipped ? "[E] " : "";
+                    Console.WriteLine($"- {idx++} {equipMark} {item.Name} | 방어력 +{item.Defense} | {item.Description}");
+                }
+            }
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine("\n원하시는 행동을 입력해주세요.\n>>");
+        }
+
+
         public static void Gamelobby(Player player)
+        { 
             Console.Clear();
             Console.WriteLine("스파르타 마을에 오신 여러분, 환영합니다.\n" +
                               "이제 전투를 시작할 수 있습니다.\n");

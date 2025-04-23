@@ -25,7 +25,7 @@ namespace TextRPG_13
         POTION =3,
         QUEST = 5
     }
-    public enum ITEMCATEGORY
+    public enum ITEMTYPE
     {
         ARMOR,
         WEAPON,

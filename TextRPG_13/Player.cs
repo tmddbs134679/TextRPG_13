@@ -18,9 +18,7 @@ namespace TextRPG_13
 
             // 프리셋에서 가져와 복사
             var preset = PlayerStatement.GetPreset(job);
-
-            Inven = new Inventory();
-
+            
             Stats = new PlayerStatement
             {
                 Name = preset.Name,
@@ -35,6 +33,13 @@ namespace TextRPG_13
                 Exp = preset.Exp,
                 Potion = preset.Potion
             };
+
+            //인벤토리 인스턴스 생성 후 기본 포션 3개 추가
+            Inven = new Inventory();
+            for (int i = 0; i < 3; i++)
+            {
+                Inventory.AddItem(ItemFactory.CreateHealthPotion(), ITEMTYPE.POTION);
+            }
         }
     }
 }

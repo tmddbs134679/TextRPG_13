@@ -8,7 +8,7 @@ namespace TextRPG_13
 {
     public class Inventory
     {
-        private List<Item> items;
+        private static List<Item> items;
         public int Count => items.Count;
         public bool IsEmpty => !items.Any();
 
@@ -16,7 +16,6 @@ namespace TextRPG_13
         {
             items = new List<Item>();
         }
-
 
         public List<Item> GetEquippedItems()
         {
@@ -28,7 +27,7 @@ namespace TextRPG_13
             return items;
         }
 
-        public void AddItem(Item item, ITEMTYPE type)
+        public static void AddItem(Item item, ITEMTYPE type)
         {
             item.Type = type;
             items.Add(item);
@@ -56,11 +55,7 @@ namespace TextRPG_13
             //        break;
             //    }
             //}
-
             itemEquip.IsEquipped = true;
-
         }
-
-
     }
 }
