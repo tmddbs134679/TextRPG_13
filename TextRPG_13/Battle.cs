@@ -164,26 +164,31 @@ namespace TextRPG_13
 
 
 
-        private static (int,int,bool) GetExpFromEnemy(int monsterLv, int playerExp,int playerLv) //플레이어 경험치,플레이어 레벨
+        private static (int,int,bool) GetExpFromEnemy(int monsterLv, int playerExp,int playerLv)
         {
             bool isLvUp = false;
-            int stdExp = 10;
+            int LevelExp = (5 * playerLv * playerLv + 35 * playerLv - 20) / 2; //레벨업에 필요한 누적 경험치 계산
 
             playerExp += monsterLv;
 
-            if ()
+            if (playerExp >= LevelExp)
             {
-                
+                isLvUp = true;
+                playerLv++;
             }
-            //플레이어 경험치에 따른 레벨 상승
+           
+            return (playerLv, playerExp, isLvUp);
+        }
 
-            return (,playerExp, isLvUp);
-        }//레벨 값과 레벨 상승 확인 값 리턴
-
-        private static (int,int) StatsChange()//플레이어 방어력,공격력 인자값이 필요
+        private static (float,float) LvUpStat(float defendStat, float attackStat, bool isLvUp)//플레이어 방어력,공격력 인자값이 필요
         {
-            // 레벨 상승시 공격력,방어력 증가,
-            return (1,1);//공격력,방어력
+            // 레벨 상승시 공격력,방어력 증가
+            if(isLvUp == true)
+            {
+                defendStat += 1f;
+                attackStat += 0.5f;
+            }
+            return (defendStat, attackStat);//공격력,방어력
         }
 
     }
