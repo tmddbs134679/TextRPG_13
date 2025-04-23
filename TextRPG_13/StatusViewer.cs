@@ -39,8 +39,20 @@ namespace TextRPG_13
 
                 if (int.TryParse(Console.ReadLine(), out int choice) && choice == 0)
                 {
-                    Console.WriteLine("선택 화면으로 이동 합니다...");
-                    Thread.Sleep(1000);
+                    Console.Write("로비로 이동 중");
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Thread.Sleep(500);
+                        Console.Write(".");
+                    }
+                    Thread.Sleep(500);
+
+                    // 메시지 지우기
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    Console.Write(new string(' ', Console.WindowWidth));
+                    Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
+
+
                     Console.Clear();
 
                     new Lobby(_player).GameLobby();
@@ -48,7 +60,7 @@ namespace TextRPG_13
                 }
                 else
                 {
-                    Console.WriteLine("화면에 나와있는 번호중 하나를 선택해주세요.");
+                    WriteColor("화면에 나와있는 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
                     Thread.Sleep(1000);
                     Console.Clear();
                 }
