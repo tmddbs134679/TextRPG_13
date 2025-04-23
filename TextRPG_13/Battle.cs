@@ -72,10 +72,18 @@ namespace TextRPG_13
                                     target.Stats.IsDead = true;
                                     deathCount++;
 
-                                    //레벨 로직
-                                    var (newLv, newExp,isLvUp) = UpdateExpAndLevel(target.Stats.Lv,player.Stats.Exp,player.Stats.Level);
-                                    var (newDF, newATK) = LvUpStat(player.Stats.Defensivepower, player.Stats.Offensivepower);
+                                    //퀘스트 몬스터
+                                    var quest = player.QuestManager.CurrentQuest;
 
+                                    if (quest != null && quest.Task is TaskMonster task)
+                                    {
+                                        task.InProgress();
+                                    }
+
+                                    if (deathCount == monsters.Count)
+                                    {
+                                        UIManager.PrintPlayerVictory(player, deathCount);
+                                    }
                                 }
 
                                 while (true) 
