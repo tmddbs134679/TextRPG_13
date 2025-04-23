@@ -21,11 +21,7 @@ namespace TextRPG_13
             {
                 UIManager.Gamelobby(_player);
 
-                Battle Denjeon = new Battle();
-
-                string input = Console.ReadLine();
-
-                if (int.TryParse(input, out int inp))
+                if (int.TryParse(Console.ReadLine(), out int inp))
                 {
                     if (inp >= 1 && inp <= 3)
                     {
