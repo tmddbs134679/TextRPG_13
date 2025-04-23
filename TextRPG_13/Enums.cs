@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    public enum MMONSTERTYPE
+    public enum MONSTERTYPE
     {
         MINION,
+        MELEEMINION,
         VOIDWORM,
+        OCKLEPOD,
         SIEGEMINION
     }
     public enum JOBTYPE
@@ -25,7 +27,7 @@ namespace TextRPG_13
         POTION =3,
         QUEST = 5
     }
-    public enum ITEMCATEGORY
+    public enum ITEMTYPE
     {
         ARMOR,
         WEAPON,

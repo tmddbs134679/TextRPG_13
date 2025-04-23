@@ -8,26 +8,27 @@ namespace TextRPG_13
 {
     public class Monster
     {
-        public MMONSTERTYPE Type { get; }
+        public MONSTERTYPE Type { get; }
         public MonsterStatement Stats { get; }
 
-        private static readonly Dictionary<MMONSTERTYPE, MonsterStatement> monsterPresets =
-            new Dictionary<MMONSTERTYPE, MonsterStatement>
-            {
-
-                { MMONSTERTYPE.MINION, new MonsterStatement("미니언", 2, 15, 5 ) },
-                { MMONSTERTYPE.VOIDWORM,    new MonsterStatement("공허충", 3, 10, 9) },
-                { MMONSTERTYPE.SIEGEMINION, new MonsterStatement("대포미니언", 5, 25, 8) },
+        private static readonly Dictionary<MONSTERTYPE, MonsterStatement> monsterPresets =
+            new Dictionary<MONSTERTYPE, MonsterStatement>
+            {                                           // 이름,레벨,체력,공격력,최소골드,최대골드
+                { MONSTERTYPE.MINION,      new MonsterStatement("미니언", 1, 10, 5, 100, 300 ) },
+                { MONSTERTYPE.MELEEMINION, new MonsterStatement("전사미니언", 2, 10, 8, 300, 500)},
+                { MONSTERTYPE.VOIDWORM,    new MonsterStatement("공허충", 3, 15, 8, 500, 700) },
+                { MONSTERTYPE.OCKLEPOD,    new MonsterStatement("외눈박이문어", 4, 18, 9, 700, 1000) },
+                { MONSTERTYPE.SIEGEMINION, new MonsterStatement("대포미니언", 5, 20, 8, 1000, 1500) },
             };
 
         // 내부 생성자
-        private Monster(MMONSTERTYPE type, MonsterStatement stats)
+        private Monster(MONSTERTYPE type, MonsterStatement stats)
         {
             Type = type;
             Stats = stats;
         }
         //새 Monster 인스턴스 생성, 내부에서는 템플릿을 Clone해서 복제본 사용
-        public static Monster Create(MMONSTERTYPE type)
+        public static Monster Create(MONSTERTYPE type)
         {
             var statsCopy = monsterPresets[type].Clone();
             return new Monster(type, statsCopy);
