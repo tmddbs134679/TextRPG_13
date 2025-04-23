@@ -214,5 +214,51 @@ namespace TextRPG_13
             Console.WriteLine("원하시는 행동을 입력해주세요.");
             WriteColor(">> ", ConsoleColor.DarkGreen);
         }
+
+
+        public static void QuestUI()
+        {
+            Console.Clear();
+            Console.WriteLine(" Quest!! ");
+            Console.WriteLine("1. 마을을 위협하는 미니언 처치");
+            Console.WriteLine("2. 장비를 장착해보자");
+            Console.WriteLine("2. 더욱 더 강해지기!");
+            Console.WriteLine("\n\n");
+
+            Console.WriteLine("원하시는 퀘스트를 선택해주세요.");
+            Console.WriteLine(">>");
+        }
+
+        public static void Quest_1()
+        {
+            Console.Clear();
+            Console.WriteLine(" Quest!! \n");
+            Console.WriteLine("마을을 위협하는 미니언 처치\n");
+            Console.WriteLine("이봐! 마을 근처에 미니언들이 너무 많아졌다고 생각하지 않나?\r\n마을주민들의 안전을 위해서라도 저것들 수를 좀 줄여야 한다고!\r\n모험가인 자네가 좀 처치해주게!");
+
+        }
+
+        public static void Quest_2()
+        {
+            Console.Clear();
+            Console.WriteLine(" Quest!! ");
+            Console.WriteLine("1. 마을을 위협하는 미니언 처치");
+            Console.WriteLine("2. 장비를 장착해보자");
+            Console.WriteLine("2. 더욱 더 강해지기!");
+            Console.WriteLine("\n\n");
+
+            Console.WriteLine("원하시는 퀘스트를 선택해주세요.");
+            Console.WriteLine(">>");
+
+        }
+
+        public static void AskToAcceptQuest()
+        {
+            Console.WriteLine("1. 수락");
+            Console.WriteLine("2. 거절");
+            Console.WriteLine("원하시는 행동을 입력해주세요");
+            Console.WriteLine(">>");
+        }
     }
+
 }
