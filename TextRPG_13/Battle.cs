@@ -19,7 +19,7 @@ namespace TextRPG_13
             bool isPlayerTurn = true;
             bool isLvUp = false;
             int deathCount = 0;
-            int beforeLv = player.Stats.HP;
+            int beforeLv = player.Stats.Level;
             int beforeExp = player.Stats.Exp;
 
             Monster.MonsterRandomSpawn();
@@ -81,7 +81,7 @@ namespace TextRPG_13
 
 
                                     // 경험치 및 레벨업 처리
-                                    player.VictoryBattleResult(target);
+                                    player.VictoryBattleResult(target,player);
 
                                     // 레벨업 했는지확인
                                     isLvUp = player.Stats.Level > beforeLv;

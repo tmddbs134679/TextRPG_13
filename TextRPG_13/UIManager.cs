@@ -149,18 +149,19 @@ namespace TextRPG_13
             WriteColor("Vicoty\n", ConsoleColor.DarkGreen);
             Console.ResetColor();
 
+
             if(isLvUp == true)
             {
                 Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
                 Console.WriteLine($"Lv.{beforerLv} {player.Stats.Name} -> Lv.{player.Stats.Level} {player.Stats.Name}");
                 Console.WriteLine($"exp {beforeExp} -> {player.Stats.Exp}");
-                Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
+                Console.WriteLine($"HP {player.Stats.Max_HP} -> {player.Stats.HP}");
             }
             else
             {
                 Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
                 Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
-                Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
+                Console.WriteLine($"HP {player.Stats.Max_HP} -> {player.Stats.HP}");
             }
            
 

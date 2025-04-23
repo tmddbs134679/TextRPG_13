@@ -7,7 +7,7 @@ namespace TextRPG_13
     public class Player
     {
         public JOBTYPE Type { get; }
-        public PlayerStatement Stats { get; }
+        public PlayerStatement Stats { get; private set; }
         public Inventory Inven { get; }
         public QuestManager QuestManager { get; private set; } = new QuestManager();
 
@@ -46,18 +46,18 @@ namespace TextRPG_13
         {
             return (5 * level * level + 35 * level - 20) / 2; //레벨에 따른 필요 경험치 계산식
         }
-        public void VictoryBattleResult(Monster target)
+        public void VictoryBattleResult(Monster target, Player player)
         {
 
-            var (newLv, newExp, isLvUp) = GetExpAndLevel(target.Stats.Lv, Stats.Exp, Stats.Level);
-            Stats.Level = newLv;
-            Stats.Exp = newExp;
+            var (newLv, newExp, isLvUp) = GetExpAndLevel(target.Stats.Lv, player.Stats.Exp, player.Stats.Level);
+            player.Stats.Level = newLv;
+            player.Stats.Exp = newExp;
 
             if (isLvUp == true)
             {
-                var (newDef, newAtk) = LvUpStat(Stats.Defensivepower, Stats.Offensivepower);
-                Stats.Defensivepower = newDef;
-                Stats.Offensivepower = newAtk;
+                var (newDef, newAtk) = LvUpStat(player.Stats.Defensivepower, player.Stats.Offensivepower);
+                player.Stats.Defensivepower = newDef;
+                player.Stats.Offensivepower = newAtk;
             }
         }
 
