@@ -62,7 +62,7 @@ namespace TextRPG_13
             Console.WriteLine($"HP.{player.Stats.HP}/{player.Stats.Max_HP}");
         }
 
-        public static void DisplayAttackResult(string attackerName, Monster target, int damage, int beforeHp, int afterHp)
+        public static void DisplayAttackResult(string attackerName, Monster target, int damage, int beforeHp)
         {
             Console.Clear();
             Console.WriteLine("Battle!! - Result\n");
@@ -76,26 +76,37 @@ namespace TextRPG_13
                 Console.WriteLine($"{attackerName}의 공격!");
                 Console.WriteLine($"{target.Stats.monsterName} 을(를) 맞췄습니다. [데미지 : {damage}]");
 
-                string hpText = afterHp <= 0 ? $"{beforeHp} -> Dead" : $"{beforeHp} -> {afterHp}";
+                string hpText = target.Stats.monsterHP <= 0 ? $"{beforeHp} -> Dead" : $"{beforeHp} -> {target.Stats.monsterHP}";
                 Console.WriteLine($"\n{target.Stats.monsterName}");
                 Console.WriteLine($"HP {hpText}");
-                //나연 추가구현 확인용
-                //확인용이므로 몬스터가 죽지 않아도 출력됩니다. 
-                //아래는 로직 예시이니 참고하여 수정부탁드립니다.
-                var dropper = new MonsterItemDrop();
-                var result = dropper.MonsterDrops(target.Stats.Lv);
-                Console.WriteLine("\n[획득아이템]");
-                Console.WriteLine($"{target.Stats.goldDrop} Gold");
-                foreach (var p in result.PotionDrops)//포션
-                {
-                    Console.WriteLine($"{p.name} - {p.count}");
-                }
-                foreach (var e in result.EquipDrops)//장비
-                {
-                    Console.WriteLine($"{e.name} - {e.count}");
-                }
-                //플레이어가 소지한 골드에 추가하는 로직 구현 부탁합니다.
-                //몬스터 처치 후 아이템 획득했을 때 종류, 수량 정보 등 인벤토리에 넣는 것 부탁합니다.
+
+
+
+
+
+                ////나연 추가구현 확인용
+                ////확인용이므로 몬스터가 죽지 않아도 출력됩니다. 
+                ////아래는 로직 예시이니 참고하여 수정부탁드립니다.
+                //var dropper = new MonsterItemDrop();
+                //var result = dropper.MonsterDrops(target.Stats.Lv);
+                //Console.WriteLine("\n[획득아이템]");
+                //Console.WriteLine($"{target.Stats.goldDrop} Gold");
+                //foreach (var p in result.PotionDrops)//포션
+                //{
+                //    Console.WriteLine($"{p.name} - {p.count}");
+                //}
+                //foreach (var e in result.EquipDrops)//장비
+                //{
+                //    Console.WriteLine($"{e.name} - {e.count}");
+                //}
+                ////플레이어가 소지한 골드에 추가하는 로직 구현 부탁합니다.
+                ////몬스터 처치 후 아이템 획득했을 때 종류, 수량 정보 등 인벤토리에 넣는 것 부탁합니다.
+
+
+
+
+
+
             }
 
             Console.WriteLine("\n0. 다음\n>>");
@@ -169,7 +180,7 @@ namespace TextRPG_13
 
                 foreach (var item in player.Inven.GetItems())
                 {
-                    Console.WriteLine($"- {idx++} {item.Name} | 방어력 +{item.Defense} | {item.Description}");
+                    Console.WriteLine($"- {idx++} {item.Name} | 방어력 +{item.DEFbonus} | {item.Description}");
                 }
             }
             Console.WriteLine("\n1. 장착관리");
@@ -193,7 +204,7 @@ namespace TextRPG_13
                 foreach (var item in player.Inven.GetItems())
                 {
                     string equipMark = item.IsEquipped ? "[E] " : "";
-                    Console.WriteLine($"- {idx++} {equipMark} {item.Name} | 방어력 +{item.Defense} | {item.Description}");
+                    Console.WriteLine($"- {idx++} {equipMark} {item.Name} | 방어력 +{item.DEFbonus} | {item.Description}");
                 }
             }
             Console.WriteLine("0. 나가기");

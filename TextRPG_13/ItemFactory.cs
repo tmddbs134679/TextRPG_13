@@ -11,12 +11,13 @@ namespace TextRPG_13
         public static Item CreateHealthPotion()
         {
             return new Item(
+                id:1000,
                 name: "체력 포션",
-                type: ITEMTYPE.POTION,
-                power: 0,
-                defense: 0,
-                purchaseprice: 30,
-                description: "체력을 30 회복하는 포션입니다."
+                itemCategory: ITEMTYPE.POTION,
+                atk: 0,
+                def: 0,
+                cost: 30,
+                desc: "체력을 30 회복하는 포션입니다."
             );
         }
     }

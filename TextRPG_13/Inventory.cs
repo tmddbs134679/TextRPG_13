@@ -29,7 +29,7 @@ namespace TextRPG_13
 
         public static void AddItem(Item item, ITEMTYPE type)
         {
-            item.Type = type;
+            item.ItemCategory = type;
             items.Add(item);
         }
 

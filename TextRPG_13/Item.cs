@@ -19,7 +19,7 @@ namespace TextRPG_13
         public int HealAmount { get; }      //회복량
         public bool IsEquipped { get; set; } = false; //
 
-        public ITEMTYPE ItemCategory { get; }
+        public ITEMTYPE ItemCategory { get; set; }
 
         public Item(int id, ITEMTYPE itemCategory, string name, int atk, int def, int cost, string desc, int healAmount = 0)
         {

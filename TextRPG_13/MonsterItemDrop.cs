@@ -53,18 +53,20 @@ namespace TextRPG_13
         }
 
 
-        //
+        
         public class DropResult
         {
             public List<(string name, int count)> PotionDrops { get; }
             public List<(string name, int count)> EquipDrops { get; }
-
+            public List<Item> DroppedItems { get; }
             public DropResult(
                 List<(string Name, int Count)> potionDrops,
-                List<(string Name, int Count)> equipDrops)
+                List<(string Name, int Count)> equipDrops,
+                List<Item> droppedItems)
             {
                 PotionDrops = potionDrops;
                 EquipDrops = equipDrops;
+                DroppedItems = droppedItems;
             }
         }
 
@@ -98,6 +100,10 @@ namespace TextRPG_13
             var potion = allItems.First(i => i.Id == pid);
             for (int i = 0; i < pcount; i++)
                 drops.Add(potion);//같은 potion객체를 리스트에 차례로 추가
+
+
+
+
 
             //장비 드랍
             //아이템 리스트에서 id가 같은 첫번째 객체를 꺼내라
@@ -138,7 +144,7 @@ namespace TextRPG_13
                 .Select(g => (Name: g.Key, Count: g.Count()))
                 .ToList();
 
-            return new DropResult(potionGroups, equipGroups);
+            return new DropResult(potionGroups, equipGroups, drops);
         }
     }
 }

@@ -72,6 +72,11 @@ namespace TextRPG_13
                                     target.Stats.IsDead = true;
                                     deathCount++;
 
+
+                                    var dropper = new MonsterItemDrop();
+                                    var result = dropper.MonsterDrops(target.Stats.Lv); //몬스터가 아이템을 드롭하면
+                                    //player.Inven.GetItems(result); //인벤토리에 추가
+
                                     //퀘스트 몬스터
                                     var quest = player.QuestManager.CurrentQuest;
 
@@ -79,17 +84,12 @@ namespace TextRPG_13
                                     {
                                         task.InProgress();
                                     }
-
-                                    if (deathCount == monsters.Count)
-                                    {
-                                        UIManager.PrintPlayerVictory(player, deathCount);
-                                    }
                                 }
 
                                 while (true) 
                                 {
                                     //공격 결과 출력
-                                    UIManager.DisplayAttackResult(player.Stats.Name, target, (int)damage, beforeHp, target.Stats.monsterHP);
+                                    UIManager.DisplayAttackResult(player.Stats.Name, target, (int)damage, beforeHp);
                                     
                                     input = Console.ReadLine();
                                     if (!int.TryParse(input, out int i) || (i != 0))
@@ -108,6 +108,8 @@ namespace TextRPG_13
                                 {
                                     UIManager.PrintPlayerVictory(player, deathCount); //수정 윈화면 출력되다가 몬스터턴으로 넘어감
                                     //보상화면 출력
+                                    Thread.Sleep(3000);
+                                    break;
                                 }
                                 break;
                             }
@@ -141,7 +143,7 @@ namespace TextRPG_13
                                 {
                                     player.Stats.HP = 0;
                                     UIManager.PrintPlayerLose(player);
-                                    Thread.Sleep(1000);
+                                    Thread.Sleep(3000);
                                     break;
                                 }
                             }
