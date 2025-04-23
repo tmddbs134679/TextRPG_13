@@ -65,13 +65,21 @@ namespace TextRPG_13
         {
             Console.Clear();
             Console.WriteLine("Battle!! - Result\n");
+            if (damage == 0)
+            {
+                Console.WriteLine($"{attackerName}의 공격!");
+                Console.WriteLine($"{target.Stats.monsterName} 을(를) 공격했지만 아무일도 일어나지 않았습니다.");
+            }
+            else
+            {
+                Console.WriteLine($"{attackerName}의 공격!");
+                Console.WriteLine($"{target.Stats.monsterName} 을(를) 맞췄습니다. [데미지 : {damage}]");
 
-            Console.WriteLine($"{attackerName}의 공격!");
-            Console.WriteLine($"{target.Stats.monsterName} 을(를) 맞췄습니다. [데미지 : {damage}]");
-
-            string hpText = afterHp <= 0 ? $"{beforeHp} -> Dead" : $"{beforeHp} -> {afterHp}";
-            Console.WriteLine($"\n{target.Stats.monsterName}");
-            Console.WriteLine($"HP {hpText}");
+                string hpText = afterHp <= 0 ? $"{beforeHp} -> Dead" : $"{beforeHp} -> {afterHp}";
+                Console.WriteLine($"\n{target.Stats.monsterName}");
+                Console.WriteLine($"HP {hpText}");
+            }
+            
             Console.WriteLine("\n0. 다음\n>>");
         }
         
@@ -83,8 +91,16 @@ namespace TextRPG_13
             Console.ResetColor();
 
             Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}의 공격! ");
-            Console.WriteLine($"{player.Stats.Name}을(를) 맞췄습니다. [데미지: {damage}]\n");
-            Console.WriteLine($"HP {beforeHp} -> {player.Stats.HP}\n");
+            if (damage == 0)
+            {
+                Console.WriteLine($"{player.Stats.Name}을(를) 공격했지만 아무일도 일어나지 않았습니다.\n");
+            }
+            else 
+            {
+                Console.WriteLine($"{player.Stats.Name}을(를) 맞췄습니다. [데미지: {damage}]\n");
+                Console.WriteLine($"HP {beforeHp} -> {player.Stats.HP}\n");
+            }
+           
             Console.WriteLine("\n0.다음");
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
