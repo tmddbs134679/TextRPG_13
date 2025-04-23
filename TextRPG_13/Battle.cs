@@ -69,7 +69,6 @@ namespace TextRPG_13
                                 {
                                     target.Stats.monsterHP = 0;
                                     target.Stats.IsDead = true;
-                                    //player.Stats.Exp += target.Stats.Exp
                                     deathCount++;
                                 }
 
@@ -130,7 +129,7 @@ namespace TextRPG_13
                 }
                 if (deathCount == monsters.Count)
                 {
-                    UIManager.PrintPlayerVictory(player, deathCount,false,1,1);//isLvUp, beforeExp,beforeLv 인자값 임시 지정 
+                    UIManager.PrintPlayerVictory(player, );
                 }
                 else if (player.Stats.HP <= 0)
                 {
@@ -163,19 +162,22 @@ namespace TextRPG_13
             return finalDamage;
         }
 
-        private static int GetExpFromMonster(int monsterLv,int playerExp)  //몬스터 레벨,플레이어 경험치
-        {
-            //몬스터 레벨에 따른 경험치 계산 로직 (몬스터 레벨 1당 1경험치 제공)
-            //플레이어 경험치 += 몬스터 경험치 계산 로직
-            playerExp += monsterLv;
-            return playerExp; 
-        }//리턴 플레이어 경험치
 
-        private static (int,bool) LevelUP() //플레이어 경험치,플레이어 레벨
+
+        private static (int,int,bool) GetExpFromEnemy(int monsterLv, int playerExp,int playerLv) //플레이어 경험치,플레이어 레벨
         {
+            bool isLvUp = false;
+            int stdExp = 10;
+
+            playerExp += monsterLv;
+
+            if ()
+            {
+                
+            }
             //플레이어 경험치에 따른 레벨 상승
-            
-            return (1,true);
+
+            return (,playerExp, isLvUp);
         }//레벨 값과 레벨 상승 확인 값 리턴
 
         private static (int,int) StatsChange()//플레이어 방어력,공격력 인자값이 필요
