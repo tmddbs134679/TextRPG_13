@@ -78,15 +78,18 @@ namespace TextRPG_13
                 string hpText = afterHp <= 0 ? $"{beforeHp} -> Dead" : $"{beforeHp} -> {afterHp}";
                 Console.WriteLine($"\n{target.Stats.monsterName}");
                 Console.WriteLine($"HP {hpText}");
-                //나연 추가 골드 획득 확인용
+                //나연 추가구현 확인용
                 //확인용이므로 몬스터가 죽지 않아도 출력됩니다. 
                 //아래는 로직 예시이니 참고하여 수정부탁드립니다.
                 var dropper = new MonsterItemDrop();
                 var result = dropper.MonsterDrops(target.Stats.Lv);
                 Console.WriteLine("\n[획득아이템]");
                 Console.WriteLine($"{target.Stats.goldDrop} Gold");
-                Console.WriteLine($"{result.PotionDrops[0].name} - {result.PotionDrops[0].count}");
-                foreach (var e in result.EquipDrops) 
+                foreach (var p in result.PotionDrops)//포션
+                {
+                    Console.WriteLine($"{p.name} - {p.count}");
+                }
+                foreach (var e in result.EquipDrops)//장비
                 { 
                     Console.WriteLine($"{e.name} - {e.count}");
                 }

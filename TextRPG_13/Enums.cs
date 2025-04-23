@@ -26,7 +26,7 @@ namespace TextRPG_13
         DENJEON = 2,
         POTION =3
     }
-    public enum ITEMCATEGORY
+    public enum ITEMTYPE
     {
         ARMOR,
         WEAPON,
