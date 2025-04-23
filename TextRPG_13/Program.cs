@@ -7,6 +7,7 @@ namespace TextRPG_13
     {
         static void Main(string[] args)
         {
+            Battle battle = new Battle();
             GameInitalizer initializer = new GameInitalizer();
 
             // 플레이어 생성
@@ -18,6 +19,11 @@ namespace TextRPG_13
 
             // 게임 시작
             GameManager.UI.Gamelobby();
+           
+            Console.WriteLine("전투가 끝났습니다. 아무 키나 누르세요...");
+            Console.ReadLine();
+          
+          
         }
     }
 }
