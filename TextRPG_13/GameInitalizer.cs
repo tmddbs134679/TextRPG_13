@@ -27,9 +27,9 @@ namespace TextRPG_13
             
             GameManager.CurrentPlayer = player;
             
-            Lobby lobby = new Lobby(player);
+
             Console.Clear();
-            lobby.GameLobby();
+            new Lobby(player).GameLobby();
             return player;
         }
 

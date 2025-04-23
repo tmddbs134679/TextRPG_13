@@ -36,8 +36,7 @@ namespace TextRPG_13
                     Thread.Sleep(1000);
                     Console.Clear();
 
-                    Lobby lobby = new Lobby(_player);
-                    lobby.GameLobby(); 
+                    new Lobby(_player).GameLobby();
                     return;
                 }
                 else
