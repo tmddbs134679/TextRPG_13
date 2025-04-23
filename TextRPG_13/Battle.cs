@@ -11,9 +11,9 @@ namespace TextRPG_13
 {
     public class Battle
     {
+        
 
-
-        public static void BattleSequence()
+        public void BattleSequence()
         {
             Player player = GameManager.CurrentPlayer;
 
@@ -29,17 +29,17 @@ namespace TextRPG_13
                 UIManager.BattleStart(player, monsters); //공격 선택지 페이지 출력
                 string input = Console.ReadLine();
 
-                if (!int.TryParse(input, out int choice))
+                if (!int.TryParse(input, out int choice)) 
                 {
                     Console.WriteLine("\n잘못된 입력입니다.");
                     Console.ReadKey();
                     continue;
                 }
-                else if (choice == 1) //공격 선택지 선택
+                else if(choice == 1) //공격 선택지 선택
                 {
                     if (isPlayerTurn == true)
                     {
-                        while (true)
+                        while(true)
                         {
                             //몬스터 선택 페이지 출력
                             UIManager.DisplayMonsters(player, monsters);
@@ -78,11 +78,11 @@ namespace TextRPG_13
                                     }
                                 }
 
-                                while (true)
+                                while (true) 
                                 {
                                     //공격 결과 출력
                                     UIManager.DisplayAttackResult(player.Stats.Name, target, damage, beforeHp, target.Stats.monsterHP);
-
+                                    
                                     input = Console.ReadLine();
                                     if (!int.TryParse(input, out int i) || (i != 0))
                                     {
@@ -98,7 +98,7 @@ namespace TextRPG_13
                                 }
                                 break;
                             }
-
+                                
                         }
                     }
                     if (!isPlayerTurn)
@@ -112,7 +112,7 @@ namespace TextRPG_13
                                 int beforePlayerHP = player.Stats.HP;
                                 player.Stats.HP -= monsterDamage;
 
-                                while (true)
+                                while(true)
                                 {
                                     //전투 결과 출력
                                     UIManager.PrintEnemyPhase(monsters[i], player, monsterDamage, beforePlayerHP);
@@ -125,12 +125,12 @@ namespace TextRPG_13
                                     }
                                     else if (j == 0) break; //0.취소 선택
                                 }
-
+                               
                             }
                         }
                         isPlayerTurn = true;
                     }
-
+                    
                     //레벨업
                 }
                 if (deathCount == monsters.Count)
@@ -143,7 +143,7 @@ namespace TextRPG_13
                     Thread.Sleep(1000);
                     break;
                 }
-            }
+            } 
             //2. 스킬사용 추가
         }
 
