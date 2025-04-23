@@ -32,8 +32,7 @@ namespace TextRPG_13
                         switch ((LOBBYCHOICE)inp)
                         {
                             case LOBBYCHOICE.PLYAYERSTAT:
-                                var status = new StatusViewer(GameManager.CurrentPlayer);
-                                status.Showstatus();
+                                new StatusViewer(_player).Showstatus();
                                 break;
                             case LOBBYCHOICE.DENJEON:
                                 new Battle().BattleSequence();
