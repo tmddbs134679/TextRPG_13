@@ -24,5 +24,10 @@ namespace TextRPG_13
         DENJEON = 2,
         POTION =3
     }
-    
+    public enum ITEMTYPE
+    {
+        WEAPON,
+        ARMOR,
+        POTION
+    }
 }

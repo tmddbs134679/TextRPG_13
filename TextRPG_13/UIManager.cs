@@ -138,6 +138,29 @@ namespace TextRPG_13
             Console.ResetColor ();
         }
 
+        public static void ShowInventory(Player player)
+        {
+            Console.Clear();
+            Console.WriteLine("===인벤토리===");
+
+            if (player.Inven.Count == 0)
+            {
+                Console.WriteLine("인벤토리에 아이템이 없습니다.");
+            }
+            else
+            {
+                int idx = 1;
+
+                foreach (var item in player.Inven.GetItems())
+                {
+                    Console.WriteLine($"- {idx++} {} {item.Name} | 방어력 +{item.Defense} | {item.Description}");
+                }
+            }
+            Console.WriteLine("\n1. 장착관리");
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine("\n원하시는 행동을 입력해주세요.\n>>");
+        }
+
         private readonly Player _player;
         //내부 생성자 추가
         public UIManager(Player player) 

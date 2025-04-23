@@ -8,6 +8,7 @@ namespace TextRPG_13
     {
         public JOBTYPE Type { get; }
         public PlayerStatement Stats { get; }
+        public Inventory Inven { get; }
 
         // 생성자: 직업을 받아서 해당 프리셋 적용
         public Player(JOBTYPE job)
@@ -16,6 +17,8 @@ namespace TextRPG_13
 
             // 프리셋에서 가져와 복사
             var preset = PlayerStatement.GetPreset(job);
+
+            Inven = new Inventory();
 
             Stats = new PlayerStatement
             {

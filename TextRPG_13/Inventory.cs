@@ -23,16 +23,16 @@ namespace TextRPG_13
             return items.Where(i => i.IsEquipped).ToList();
         }
 
-        //public List<Item> GetItems()
-        //{
-        //    return items;
-        //}
+        public List<Item> GetItems()
+        {
+            return items;
+        }
 
-        //public void AddItem(Item item, ITEMTYPE type)
-        //{
-        //    item.Type = type;
-        //    items.Add(item);
-        //}
+        public void AddItem(Item item, ITEMTYPE type)
+        {
+            item.Type = type;
+            items.Add(item);
+        }
 
         public void RemoveItem(Item item)
         {
