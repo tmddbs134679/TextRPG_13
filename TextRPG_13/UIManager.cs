@@ -142,7 +142,7 @@ namespace TextRPG_13
             {
                 Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
                 Console.WriteLine($"Lv.{beforerLv} {player.Stats.Name} -> Lv.{player.Stats.Level} {player.Stats.Name}");
-                Console.WriteLine($"뎉 {beforerLv} -> {player.Stats.Exp}");
+                Console.WriteLine($"exp {beforeExp} -> {player.Stats.Exp}");
                 Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
             }
             else
