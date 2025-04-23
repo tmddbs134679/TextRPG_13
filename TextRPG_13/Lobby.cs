@@ -8,6 +8,12 @@ namespace TextRPG_13
 {
     public class Lobby
     {
+        public static void WriteColor(string text, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(text);
+            Console.ResetColor();
+        }
 
         private readonly Player _player;
         public Lobby(Player player)
@@ -40,14 +46,14 @@ namespace TextRPG_13
                     }
                     else
                     {
-                        Console.WriteLine("화면에 나와있는 번호중 하나를 선택해주세요.");
+                        WriteColor("화면에 나와있는 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
                         Thread.Sleep(1000);
                         Console.Clear();
                     }
                 }
                 else
                 {
-                    Console.WriteLine("화면에 나와있는 번호중 하나를 선택해주세요.");
+                    WriteColor("화면에 나와있는 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
                     Thread.Sleep(1000);
                     Console.Clear();
                 }

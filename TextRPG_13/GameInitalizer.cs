@@ -10,6 +10,12 @@ namespace TextRPG_13
 {
     public class GameInitalizer
     {
+        public static void WriteColor(string text, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(text);
+            Console.ResetColor();
+        }
         public Player InitPlayer()
         {
             Console.Clear();

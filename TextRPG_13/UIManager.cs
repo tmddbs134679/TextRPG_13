@@ -87,10 +87,8 @@ namespace TextRPG_13
         public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) //머지 할때 
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("Battle!!\n");
-            Console.ResetColor();
 
+            WriteColor("Battle!!\n", ConsoleColor.DarkRed);
             Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}의 공격! ");
             if (damage == 0)
             {
@@ -109,8 +107,7 @@ namespace TextRPG_13
         public static void PrintPlayerLose(Player player) //플레이어 매개변수는 플레이어 클래스 미구현으로 임시변수로 임시로 사용
         {
             Console.Clear();
-            Console.WriteLine("You Lose\n", Color.Red);
-            Console.ResetColor();
+            WriteColor("You Lose\n", ConsoleColor.Red);
 
             Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
             Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
@@ -137,7 +134,7 @@ namespace TextRPG_13
         {
             Console.ForegroundColor = color;
             Console.Write(text);
-            Console.ResetColor ();
+            Console.ResetColor();
         }
 
         public static void Gamelobby(Player player)
@@ -145,29 +142,18 @@ namespace TextRPG_13
                 Console.Clear();
                 Console.WriteLine("스파르타 마을에 오신 여러분, 환영합니다.\n" +
                                   "이제 전투를 시작할 수 있습니다.\n");
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write("1. ");
-                Console.ResetColor();
 
+               WriteColor("1. ", ConsoleColor.DarkYellow);
                 Console.WriteLine("상태 보기");
 
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write("2. ");
-                Console.ResetColor();
-
+                WriteColor("2. ", ConsoleColor.DarkYellow);
                 Console.WriteLine("전투 시작");
 
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write("3. ");
-                Console.ResetColor();
-
+                WriteColor("3. ", ConsoleColor.DarkYellow);
                 Console.WriteLine("회복 아이템\n\n");
 
                 Console.WriteLine("원하시는 행동을 입력해주세요.\n");
-
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.Write(">> ");
-                Console.ResetColor();
+                WriteColor(">> ", ConsoleColor.DarkGreen);
 
         }
         public static void PlayerStat(Player player)
@@ -177,51 +163,30 @@ namespace TextRPG_13
 
             Console.Clear();
 
-
-            //ForegroundColor = ConsoleColor. 각각의 텍스트에 구분되게 컬러를 입혀 유저분들이 텍스트를 더욱 가독성 있게 볼 수 있게 해줌.
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("상태 보기\n");
-            Console.ResetColor();
-
+            WriteColor("상태 보기\n", ConsoleColor.DarkYellow);
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n\n");
 
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("Lv. ");
-            Console.ResetColor();
+            WriteColor("Lv. ", ConsoleColor.DarkGray);
 
-            Console.WriteLine($"{stat.Level}");
-            Console.WriteLine($"{stat.Name}  ( {stat.Job} )");
+            Console.WriteLine($"{stat.Level}\n");
+            Console.WriteLine($"{stat.Name}  ( {stat.Job} )\n");
+
             Console.Write($"공격력 : ");
-
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{stat.Offensivepower}");
-
-            Console.ResetColor();
+            WriteColor($"{stat.Offensivepower}\n", ConsoleColor.DarkGray);
 
             Console.Write("방어력 : ");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{stat.Defensivepower}");
-
-            Console.ResetColor();
+            WriteColor($"{stat.Defensivepower}\n", ConsoleColor.DarkGray);
 
             Console.Write("체 력 : ");
-
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{stat.HP}");
-            Console.ResetColor();
+            WriteColor($"{stat.HP}\n", ConsoleColor.DarkGray);
 
             Console.Write("Gold : ");
-
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{stat.Gold}\n");
-            Console.ResetColor();
+            WriteColor($"{stat.Gold}\n\n", ConsoleColor.DarkGray);
 
             Console.WriteLine("0. 나가기\n\n" +
                               $"원하시는 행동을 입력해주세요.");
 
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write(">> ");
-            Console.ResetColor();
+            WriteColor(">> ", ConsoleColor.DarkGreen);
         }
     }
 }

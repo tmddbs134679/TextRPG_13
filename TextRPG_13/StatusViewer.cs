@@ -14,6 +14,13 @@ namespace TextRPG_13
             _player = player;
         }
 
+        public static void WriteColor(string text, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(text);
+            Console.ResetColor();
+        }
+
         public void Showstatus()
         {
             while (true)
