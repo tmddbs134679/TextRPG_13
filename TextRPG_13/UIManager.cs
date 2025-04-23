@@ -150,7 +150,11 @@ namespace TextRPG_13
             Console.WriteLine("전투 시작");
 
             WriteColor("3. ", ConsoleColor.DarkYellow);
-            Console.WriteLine("회복 아이템\n\n");
+            Console.WriteLine("회복 아이템");
+
+
+            WriteColor("5. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("퀘스트\n\n");
 
             Console.WriteLine("원하시는 행동을 입력해주세요.\n");
             WriteColor(">> ", ConsoleColor.DarkGreen);

@@ -29,7 +29,7 @@ namespace TextRPG_13
 
                 if (int.TryParse(Console.ReadLine(), out int inp))
                 {
-                    if (inp >= 1 && inp <= 3)
+                    if (inp >= 1 && inp <= 5)
                     {
                         switch ((LOBBYCHOICE)inp)
                         {
@@ -42,6 +42,10 @@ namespace TextRPG_13
                             case LOBBYCHOICE.POTION:
                                 new RecoveryViewer(_player).Recovery();
                                 break;
+                            case LOBBYCHOICE.QUEST:
+                                new QuestLobby().Quest();
+                                break;
+
                         }
                     }
                     else
