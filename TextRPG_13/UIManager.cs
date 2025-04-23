@@ -114,15 +114,22 @@ namespace TextRPG_13
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
-        public static void PrintPlayerVictory(Player player, int maxMonster)
+        public static void PrintPlayerVictory(Player player, int maxMonster,bool isLevelUp,int beforeLv,int beforeExp)
         {
             Console.Clear();
-            Console.WriteLine("Vicoty\n", Color.DarkOliveGreen);
-            Console.ResetColor();
+            WriteColor("Vicoty\n", ConsoleColor.DarkGreen);
 
             Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
-            Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
+            if (isLevelUp == true)
+            {
+                Console.WriteLine($"Lv.{beforeLv} {player.Stats.Name} -> {player.Stats.Level} {player.Stats.Name}");
+            }
+            else
+            {
+                Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
+            }
             Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
+            //Console.WriteLine($"exp{beforeLv} -> {player.Stats.Exp}");
 
             Console.WriteLine("\n0.다음");
             WriteColor(">>",ConsoleColor.DarkYellow);
