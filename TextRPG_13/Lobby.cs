@@ -91,7 +91,7 @@ namespace TextRPG_13
                                 Console.SetCursorPosition(0, Console.CursorTop);
                                 Console.Write(new string(' ', Console.WindowWidth));
                                 Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
-                                new QuestLobby().Quest();
+                                new QuestLobby().Enter();
                                 break;
 
                         }

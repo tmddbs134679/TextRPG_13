@@ -12,11 +12,10 @@ namespace TextRPG_13
     {
         private Player player;
 
-        public void Quest()
+        public void Enter()
         {
             player = GameManager.CurrentPlayer;
 
-            
                 Console.Clear();
 
                 if (player.QuestManager.IsQuesting)
@@ -26,7 +25,7 @@ namespace TextRPG_13
                     {
                     
                         ShowQuestDetail(player.QuestManager.CurrentQuest);
-                        AskReward();
+                        HandleQuestReward();
                         return;
                     }
                     else
@@ -40,12 +39,12 @@ namespace TextRPG_13
                 }
 
                 UIManager.QuestUI();
-                ShowQuestList();
+                HandleQuestSelection();
                 return;
             
         }
 
-        private void ShowQuestList()
+        private void HandleQuestSelection()
         {
             string input = Console.ReadLine();
 
@@ -64,10 +63,10 @@ namespace TextRPG_13
             }
 
             ShowQuestDetail(selectedQuest);
-            AskToAcceptQuest(selectedQuest);
+            ConfirmQuestAcceptance(selectedQuest);
         }
 
-        private void AskToAcceptQuest(Quest quest)
+        private void ConfirmQuestAcceptance(Quest quest)
         {
             UIManager.AskToAcceptQuest();
 
@@ -129,7 +128,7 @@ namespace TextRPG_13
             Console.WriteLine($"골드: {quest.Reward.Gold}");
         }
 
-        private void AskReward()
+        private void HandleQuestReward()
         {
             UIManager.AskRewardQuest();
 
