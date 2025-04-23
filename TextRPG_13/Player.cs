@@ -29,7 +29,8 @@ namespace TextRPG_13
                 Gold = preset.Gold,
                 Max_MP = preset.Max_MP,
                 MP = preset.MP,
-                Exp = preset.Exp
+                Exp = preset.Exp,
+                Potion = preset.Potion
             };
         }
     }

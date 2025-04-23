@@ -15,12 +15,13 @@ namespace TextRPG_13
         public float Offensivepower { get; set; }
         public float Defensivepower { get; set; }
         public int Max_HP { get; set; }
-        public int HP { get; set; } = 100;
-        public int Gold { get; set; } = 1500;
-        public int Exp { get; set; } = 0;
-        public int Max_MP { get; set;} = 50;
-        public int MP { get; set; } = 50;
+        public int HP { get; set; }
+        public int Gold { get; set; }
+        public int Exp { get; set; }
+        public int Max_MP { get; set; }
+        public int MP { get; set; }
 
+        public int Potion { get; set; }
         //직업별 프리셋 설정
         private static readonly Dictionary<JOBTYPE, PlayerStatement> Presets =
             new Dictionary<JOBTYPE, PlayerStatement>
@@ -36,7 +37,8 @@ namespace TextRPG_13
                         Gold = 1500,
                         Exp = 0,
                         Max_MP = 50,
-                        MP = 50
+                        MP = 50,
+                        Potion = 3
 
                     }
                 },
@@ -51,7 +53,8 @@ namespace TextRPG_13
                         Gold = 1500,
                         Exp = 0,
                         Max_MP = 50,
-                        MP = 50
+                        MP = 50,
+                        Potion = 3
                     }
                 },
                 { JOBTYPE.ASSASSIN, new PlayerStatement
@@ -65,7 +68,8 @@ namespace TextRPG_13
                         Gold = 1500,
                         Exp = 0,
                         Max_MP = 50,
-                        MP = 50
+                        MP = 50,
+                        Potion = 3
                     }
                 }
             }; 

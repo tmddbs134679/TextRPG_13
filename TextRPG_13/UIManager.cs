@@ -80,10 +80,10 @@ namespace TextRPG_13
                 Console.WriteLine($"\n{target.Stats.monsterName}");
                 Console.WriteLine($"HP {hpText}");
             }
-            
+
             Console.WriteLine("\n0. 다음\n>>");
         }
-        
+
         public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) //머지 할때 
         {
             Console.Clear();
@@ -94,12 +94,12 @@ namespace TextRPG_13
             {
                 Console.WriteLine($"{player.Stats.Name}을(를) 공격했지만 아무일도 일어나지 않았습니다.\n");
             }
-            else 
+            else
             {
                 Console.WriteLine($"{player.Stats.Name}을(를) 맞췄습니다. [데미지: {damage}]\n");
                 Console.WriteLine($"HP {beforeHp} -> {player.Stats.HP}\n");
             }
-           
+
             Console.WriteLine("\n0.다음");
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
@@ -127,8 +127,8 @@ namespace TextRPG_13
             Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
 
             Console.WriteLine("\n0.다음");
-            WriteColor(">>",ConsoleColor.DarkYellow);
-            
+            WriteColor(">>", ConsoleColor.DarkYellow);
+
         }
         public static void WriteColor(string text, ConsoleColor color)
         {
@@ -139,80 +139,22 @@ namespace TextRPG_13
 
         public static void Gamelobby(Player player)
         {
-                Console.Clear();
-                Console.WriteLine("스파르타 마을에 오신 여러분, 환영합니다.\n" +
-                                  "이제 전투를 시작할 수 있습니다.\n");
+            Console.Clear();
+            Console.WriteLine("스파르타 마을에 오신 여러분, 환영합니다.\n" +
+                              "이제 전투를 시작할 수 있습니다.\n");
 
-               WriteColor("1. ", ConsoleColor.DarkYellow);
-                Console.WriteLine("상태 보기");
+            WriteColor("1. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("상태 보기");
 
-                WriteColor("2. ", ConsoleColor.DarkYellow);
-                Console.WriteLine("전투 시작");
+            WriteColor("2. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("전투 시작");
 
-<<<<<<< HEAD
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write("3. ");
-                Console.ResetColor();
+            WriteColor("3. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("회복 아이템\n\n");
 
-                Console.WriteLine("회복 아이템\n");
+            Console.WriteLine("원하시는 행동을 입력해주세요.\n");
+            WriteColor(">> ", ConsoleColor.DarkGreen);
 
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write("5. ");
-                Console.ResetColor();
-
-                Console.WriteLine("퀘스트\n");
-=======
-                WriteColor("3. ", ConsoleColor.DarkYellow);
-                Console.WriteLine("회복 아이템\n\n");
->>>>>>> Only_Merge
-
-                Console.WriteLine("원하시는 행동을 입력해주세요.\n");
-                WriteColor(">> ", ConsoleColor.DarkGreen);
-
-<<<<<<< HEAD
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.Write(">> ");
-                Console.ResetColor();
-
-                Battle Denjeon = new Battle();
-                string input = Console.ReadLine();
-
-                if (int.TryParse(input, out int inp))
-                {
-                    if (inp >= 1 && inp <= 3)
-                    {
-                        switch ((LOBBYCHOICE)inp)
-                        {
-                            case LOBBYCHOICE.PLYAYERSTAT:
-                                PlayerStat();
-                                break;
-                            case LOBBYCHOICE.DENJEON:
-                                Denjeon.BattleSequence();
-                                break;
-                            case LOBBYCHOICE.POTION:
-
-                                break;
-                            case LOBBYCHOICE.QUEST:
-
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("화면에 나와있는 번호중 하나를 선택해주세요.");
-                        Thread.Sleep(1000);
-                        Console.Clear();
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("잘못된 입력입니다. 다시 시도해주세요.");
-                    Thread.Sleep(1000);
-                    Console.Clear();
-                }
-            }
-=======
->>>>>>> Only_Merge
         }
         public static void PlayerStat(Player player)
         {
@@ -239,11 +181,37 @@ namespace TextRPG_13
             WriteColor($"{stat.HP}\n", ConsoleColor.DarkGray);
 
             Console.Write("Gold : ");
-            WriteColor($"{stat.Gold}\n\n", ConsoleColor.DarkGray);
+            WriteColor($"{stat.Gold}\n", ConsoleColor.DarkGray);
+
+            Console.Write("회복약 : ");
+            WriteColor($"{stat.Potion}\n\n", ConsoleColor.DarkGray);
 
             Console.WriteLine("0. 나가기\n\n" +
                               $"원하시는 행동을 입력해주세요.");
 
+            WriteColor(">> ", ConsoleColor.DarkGreen);
+        }
+
+        public static void PlayerRecovery(Player player)
+        {
+            var stat = player.Stats;
+
+            Console.Clear();
+
+            WriteColor("회복\n", ConsoleColor.DarkYellow);
+            Console.Write("포션을 사용하면 체력을 ");
+            WriteColor("30 ", ConsoleColor.Red);
+            Console.Write($"회복 할 수 있습니다. (남은 포션 : ");
+            WriteColor($"{stat.Potion}", ConsoleColor.Red);
+            Console.Write(")\n\n");
+
+
+            WriteColor("1", ConsoleColor.Red);
+            Console.WriteLine(". 사용하기");
+            WriteColor("0", ConsoleColor.Red);
+            Console.WriteLine(". 나가기\n\n");
+
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
             WriteColor(">> ", ConsoleColor.DarkGreen);
         }
     }

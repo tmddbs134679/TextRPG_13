@@ -40,7 +40,7 @@ namespace TextRPG_13
                                 new Battle().BattleSequence();
                                 break;
                             case LOBBYCHOICE.POTION:
-
+                                new RecoveryViewer(_player).Recovery();
                                 break;
                         }
                     }
