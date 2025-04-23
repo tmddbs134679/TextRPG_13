@@ -71,10 +71,11 @@ namespace TextRPG_13
                                     target.Stats.monsterHP = 0;
                                     target.Stats.IsDead = true;
                                     deathCount++;
-                                    if (deathCount == monsters.Count)
-                                    {
-                                        UIManager.PrintPlayerVictory(player, deathCount);
-                                    }
+
+                                    //레벨 로직
+                                    var (newLv, newExp,isLvUp) = UpdateExpAndLevel(target.Stats.Lv,player.Stats.Exp,player.Stats.Level);
+                                    var (newDF, newATK) = LvUpStat(player.Stats.Defensivepower, player.Stats.Offensivepower);
+
                                 }
 
                                 while (true) 
@@ -95,12 +96,7 @@ namespace TextRPG_13
                                         break;
                                     }
                                 }
-                                if (deathCount == monsters.Count)
-                                {
-                                    UIManager.PrintPlayerVictory(player, deathCount); //수정 윈화면 출력되다가 몬스터턴으로 넘어감
-                                    //보상화면 출력
-                                }
-                                break;
+                               
                             }
                         }
                     }
@@ -128,22 +124,26 @@ namespace TextRPG_13
                                     }
                                     else if (j == 0) break; //0.취소 선택
                                 }
-                                if (player.Stats.HP <= 0)
-                                {
-                                    player.Stats.HP = 0;
-                                    UIManager.PrintPlayerLose(player);
-                                    Thread.Sleep(1000);
-                                    break;
-                                }
+
                             }
                         }
                         isPlayerTurn = true;
-                    }
-                    
+                    } 
                     //레벨업
                 }
-         
-            } 
+            
+            }
+            if (deathCount == monsters.Count)
+            {
+                UIManager.PrintPlayerVictory(player, deathCount);
+                //보상화면 출력 
+            }
+            else if (player.Stats.HP <= 0)
+            {
+                player.Stats.HP = 0;
+                UIManager.PrintPlayerLose(player);
+                Thread.Sleep(1000);
+            }
             //2. 스킬사용 추가
         }
 
@@ -170,31 +170,27 @@ namespace TextRPG_13
 
 
 
-        private static (int playerLv, int playerExp, bool isLvUp) GetExpFromEnemy(int monsterLv, int playerExp,int playerLv)
+        private static int GetRequiredExp(int level)
         {
-            bool isLvUp = false;
-            int LevelExp = (5 * playerLv * playerLv + 35 * playerLv - 20) / 2; //레벨업에 필요한 누적 경험치 계산
-
-            playerExp += monsterLv;
-
-            if (playerExp >= LevelExp)
-            {
-                isLvUp = true;
-                playerLv++;
-            }
-           
-            return (playerLv, playerExp, isLvUp);
+            return (5 * level * level + 35 * level - 20) / 2;
         }
 
-        private static (float defendStat, float attackStat) LvUpStat(float defendStat, float attackStat, bool isLvUp)//플레이어 방어력,공격력 인자값이 필요
+        private static (int newLv, int newExp, bool isLvUp) UpdateExpAndLevel(int monsterLv, int currentExp, int currentLv)
         {
-            // 레벨 상승시 공격력,방어력 증가
-            if(isLvUp == true)
-            {
-                defendStat += 1f;
-                attackStat += 0.5f;
-            }
-            return (defendStat, attackStat);
+            currentExp += monsterLv;
+            int requiredExp = GetRequiredExp(currentLv);
+
+            bool isLvUp = currentExp >= requiredExp;
+            if (isLvUp) currentLv++;
+
+            return (currentLv, currentExp, isLvUp);
+        }
+
+        private static (float newDef, float newAtk) LvUpStat(float def, float atk)
+        {
+            def += 1f;
+            atk += 0.5f;
+            return (def, atk);
         }
 
     }

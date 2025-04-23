@@ -44,7 +44,6 @@ namespace TextRPG_13
                 var monster = monsters[i];
                 string status = monster.Stats.IsDead ? "Dead" : $"HP {monster.Stats.monsterHP}";
                 Console.ForegroundColor = monster.Stats.IsDead ? ConsoleColor.DarkGray : ConsoleColor.White;
-                //Console.WriteLine($"{i + 1} {monster.Stats.monsterName}  {status}");
                 Console.WriteLine($"{i + 1} Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
 
             }
@@ -104,7 +103,7 @@ namespace TextRPG_13
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
-        public static void PrintPlayerLose(Player player) //플레이어 매개변수는 플레이어 클래스 미구현으로 임시변수로 임시로 사용
+        public static void PrintPlayerLose(Player player) 
         {
             Console.Clear();
             WriteColor("You Lose\n", ConsoleColor.Red);
