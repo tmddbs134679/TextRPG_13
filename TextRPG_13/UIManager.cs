@@ -130,7 +130,7 @@ namespace TextRPG_13
                 Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
             }
             Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
-            Console.WriteLine($"exp{beforeLv} -> {player.Stats.Exp}");
+            Console.WriteLine($"exp{beforeExp} -> {player.Stats.Exp}");
 
             Console.WriteLine("\n0.다음");
             WriteColor(">>",ConsoleColor.DarkYellow);

@@ -129,7 +129,7 @@ namespace TextRPG_13
                 }
                 if (deathCount == monsters.Count)
                 {
-                    UIManager.PrintPlayerVictory(player, );
+                    UIManager.PrintPlayerVictory(player, monsters.Count, isLevelUp,beforeLv,beforeExp );
                 }
                 else if (player.Stats.HP <= 0)
                 {
@@ -163,6 +163,10 @@ namespace TextRPG_13
         }
 
 
+        private static void LevelLogic()
+        {
+
+        }
 
         private static (int,int,bool) GetExpFromEnemy(int monsterLv, int playerExp,int playerLv)
         {
@@ -188,7 +192,7 @@ namespace TextRPG_13
                 defendStat += 1f;
                 attackStat += 0.5f;
             }
-            return (defendStat, attackStat);//공격력,방어력
+            return (defendStat, attackStat);
         }
 
     }
