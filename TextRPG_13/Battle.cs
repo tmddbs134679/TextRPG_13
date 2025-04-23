@@ -133,7 +133,7 @@ namespace TextRPG_13
                 }
                 if (deathCount == monsters.Count)
                 {
-                    UIManager.PrintPlayerVictory(player, deathCount); //수정 윈화면 출력되다가 몬스터턴으로 넘어감
+                    UIManager.PrintPlayerVictory(player, deathCount); 
                 }
                 else if (player.Stats.HP <= 0)
                 {
@@ -149,14 +149,26 @@ namespace TextRPG_13
         {
             Random rand = new Random();
             double offset = Math.Ceiling(baseAtk * 0.1);
-            int chance = rand.Next(1, 101);
-            int finalDamage = baseAtk + rand.Next(-(int)offset, (int)offset);
+            int critalChance = rand.Next(1, 101);
+            int avoidAttack = rand.Next(1, 101);
+            int finalDamage = 0;
 
-            if (chance <= 15)
+            if (avoidAttack > 10)
             {
-                finalDamage = (int)Math.Ceiling((finalDamage * 1.6));
+                finalDamage = baseAtk + rand.Next(-(int)offset, (int)offset);
+                if (critalChance <= 15)
+                {
+                    finalDamage = (int)Math.Ceiling((finalDamage * 1.6));
+                }
+
             }
+
             return finalDamage;
         }
+
+        //private static int GetExpFromMonster()
+        //{
+
+        //}
     }
 }
