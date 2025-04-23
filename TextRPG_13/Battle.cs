@@ -197,6 +197,5 @@ namespace TextRPG_13
             return (defendStat, attackStat);
         }
 
-        //}
     }
 }
