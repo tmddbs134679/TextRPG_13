@@ -1,48 +1,23 @@
-﻿using System.Numerics;
+﻿
+using TextRPG_13;
 
 namespace TextRPG_13
 {
-
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            //GameInitalizer initializer = new GameInitalizer();
+            GameInitalizer initializer = new GameInitalizer();
 
             // 플레이어 생성
-            //Player player = initializer.InitPlayer();
+            Player player = initializer.InitPlayer();
 
             // GameManager에 저장
-            //GameManager.CurrentPlayer = player;
-            GameManager.UI = new UIManager();
-            //몬스터 웨이브 한 번 스폰 & 화면에 출력
-            Monster.MonsterRandomSpawn();
+            GameManager.CurrentPlayer = player;
+            GameManager.UI = new UIManager(player);
 
-            //생성된 웨이브 리스트 가져오기
-            var wave = Monster.CurrentWave;
-
-            //두 번째 몬스터(인덱스 1)만 체력 -5
-            if (wave != null && wave.Count > 1)
-            {
-                var second = wave[1];
-                second.Stats.monsterHP -= 5;
-                Console.WriteLine($"\n두 번째 몬스터 [{second.Stats.monsterName}]의 체력을 5 깎았습니다. " +
-                                  $"남은 HP: {second.Stats.monsterHP}\n");
-            }
-            else
-            {
-                Console.WriteLine("\n두 번째 몬스터가 없습니다.\n");
-            }
-
-            //변경된 웨이브 상태를 다시 출력
-            //var ui = new UIManager();
-            Console.WriteLine("=== 변경 후 웨이브 상태 ===");
-            foreach (var m in wave)
-                GameManager.UI.PrintRandomMonster(m);
-
-            Console.WriteLine("\n엔터키를 누르면 종료합니다.");
-            Console.ReadLine();
+            // 게임 시작
+            GameManager.UI.Gamelobby();
         }
-
     }
 }
