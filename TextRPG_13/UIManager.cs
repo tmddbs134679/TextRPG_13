@@ -75,42 +75,19 @@ namespace TextRPG_13
                 Console.WriteLine($"{attackerName}의 공격!");
                 Console.WriteLine($"{target.Stats.monsterName} 을(를) 맞췄습니다. [데미지 : {damage}]");
 
-                string hpText = target.Stats.monsterHP <= 0 ? $"{beforeHp} -> Dead" : $"{beforeHp} -> {target.Stats.monsterHP}";
                 Console.WriteLine($"\n{target.Stats.monsterName}");
-                Console.WriteLine($"HP {hpText}");
-
-
-
-
-
-                ////나연 추가구현 확인용
-                ////확인용이므로 몬스터가 죽지 않아도 출력됩니다. 
-                ////아래는 로직 예시이니 참고하여 수정부탁드립니다.
-                //var dropper = new MonsterItemDrop();
-                //var result = dropper.MonsterDrops(target.Stats.Lv);
-                //Console.WriteLine("\n[획득아이템]");
-                //Console.WriteLine($"{target.Stats.goldDrop} Gold");
-                //foreach (var p in result.PotionDrops)//포션
-                //{
-                //    Console.WriteLine($"{p.name} - {p.count}");
-                //}
-                //foreach (var e in result.EquipDrops)//장비
-                //{
-                //    Console.WriteLine($"{e.name} - {e.count}");
-                //}
-                ////플레이어가 소지한 골드에 추가하는 로직 구현 부탁합니다.
-                ////몬스터 처치 후 아이템 획득했을 때 종류, 수량 정보 등 인벤토리에 넣는 것 부탁합니다.
-
-
-
-
-
-
+                if(target.Stats.IsDead)
+                {
+                    Console.WriteLine($"{beforeHp} -> Dead\n");
+                }
+                else
+                {
+                    Console.WriteLine($"{beforeHp} -> {target.Stats.monsterHP}");
+                }
             }
-
             Console.WriteLine("\n0. 다음\n>>");
         }
-
+        
         public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) //머지 할때 
         {
             Console.Clear();
@@ -131,43 +108,49 @@ namespace TextRPG_13
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
-        public static void PrintPlayerLose(Player player) 
+        public static void PrintPlayerLose(Player player, int gold, List<Item> items) 
         {
             Console.Clear();
             WriteColor("You Lose\n", ConsoleColor.Red);
 
+            Console.WriteLine("\n[내정보]");
             Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
             Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
+
+            DisplayRewards(gold, items);
             Console.WriteLine("\n0.다음");
 
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
-        public static void PrintPlayerVictory(Player player, int maxMonster,int beforerLv,int beforeExp,bool isLvUp)
+        public static void PrintPlayerVictory(Player player, int maxMonster,int beforerLv,int beforeExp,bool isLvUp, int gold, List<Item> items)
         {
             Console.Clear();
             WriteColor("Vicoty\n", ConsoleColor.DarkGreen);
             Console.ResetColor();
 
-            if(isLvUp == true)
-            {
-                Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
-                Console.WriteLine($"Lv.{beforerLv} {player.Stats.Name} -> Lv.{player.Stats.Level} {player.Stats.Name}");
-                Console.WriteLine($"exp {beforeExp} -> {player.Stats.Exp}");
-                Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
-            }
-            else
-            {
-                Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
-                Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
-                Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
-            }
-           
+            Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
+            Console.Write($"Lv.{beforerLv} {player.Stats.Name}");
+            if (isLvUp == true) Console.WriteLine($" -> Lv.{player.Stats.Level} {player.Stats.Name}");
+            Console.WriteLine($"exp {beforeExp} -> {player.Stats.Exp}");
+            Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
+
+            DisplayRewards(gold, items);
 
             Console.WriteLine("\n0.다음");
             WriteColor(">>", ConsoleColor.DarkYellow);
             Console.ReadLine();
         }
+        public static void DisplayRewards(int gold, List<Item> items)
+        {
+            Console.WriteLine("\n[획득아이템]");
+            Console.WriteLine($"{gold}");
+            foreach (var item in items)
+            {
+                Console.WriteLine($"{item.Name} - {item.Description}");
+            }
+        }
+
         public static void WriteColor(string text, ConsoleColor color)
         {
             Console.ForegroundColor = color;
@@ -237,6 +220,8 @@ namespace TextRPG_13
             WriteColor("3. ", ConsoleColor.DarkYellow);
             Console.WriteLine("회복 아이템");
 
+            WriteColor("4. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("인벤토리");
 
             WriteColor("5. ", ConsoleColor.DarkYellow);
             Console.WriteLine("퀘스트\n\n");

@@ -78,6 +78,21 @@ namespace TextRPG_13
                                 Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
                                 new RecoveryViewer(_player).Recovery();
                                 break;
+                            case LOBBYCHOICE.INVENTORY:
+                                Console.Write("\n인벤토리로 이동 중");
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    Thread.Sleep(500);
+                                    Console.Write(".");
+                                }
+                                Thread.Sleep(500);
+
+                                // 메시지 지우기
+                                Console.SetCursorPosition(0, Console.CursorTop);
+                                Console.Write(new string(' ', Console.WindowWidth));
+                                Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
+                                new InvenViewer(_player).ShowInventory();
+                                break;
                             case LOBBYCHOICE.QUEST:
                                 Console.Write("\n퀘스트 선택으로 이동 중");
                                 for (int i = 0; i < 5; i++)

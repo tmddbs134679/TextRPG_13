@@ -25,6 +25,7 @@ namespace TextRPG_13
         PLYAYERSTAT = 1,
         DENJEON = 2,
         POTION =3,
+        INVENTORY =4,
         QUEST = 5
     }
     public enum ITEMTYPE

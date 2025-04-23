@@ -11,7 +11,8 @@ namespace TextRPG_13
 {
     public class Battle
     {
-       
+        private List<Item> droppedItems = new List<Item>();  // 드롭된 아이템을 저장할 리스트
+
         public void BattleSequence()
         {
             Player player = GameManager.CurrentPlayer;
@@ -21,6 +22,7 @@ namespace TextRPG_13
             int deathCount = 0;
             int beforeLv = player.Stats.HP;
             int beforeExp = player.Stats.Exp;
+            int rewardsGold = 0;
 
             Monster.MonsterRandomSpawn();
             List<Monster> monsters = Monster.CurrentWave.ToList();
@@ -30,17 +32,17 @@ namespace TextRPG_13
                 UIManager.BattleStart(player, monsters); //공격 선택지 페이지 출력
                 string input = Console.ReadLine();
 
-                if (!int.TryParse(input, out int choice)) 
+                if (!int.TryParse(input, out int choice))
                 {
                     Console.WriteLine("\n잘못된 입력입니다.");
                     Console.ReadKey();
                     continue;
                 }
-                else if(choice == 1) //공격 선택지 선택
+                else if (choice == 1) //공격 선택지 선택
                 {
                     if (isPlayerTurn == true)
                     {
-                        while(true)
+                        while (true)
                         {
                             //몬스터 선택 페이지 출력
                             UIManager.DisplayMonsters(player, monsters);
@@ -74,32 +76,37 @@ namespace TextRPG_13
                                     target.Stats.IsDead = true;
                                     deathCount++;
 
-
+                                    
                                     var dropper = new MonsterItemDrop();
-                                    var result = dropper.MonsterDrops(target.Stats.Lv); //몬스터가 아이템을 드롭하면
-                                    //player.Inven.GetItems(result); //인벤토리에 추가
-
-
-                                    // 경험치 및 레벨업 처리
-                                    player.VictoryBattleResult(target);
-
-                                    // 레벨업 했는지확인
-                                    isLvUp = player.Stats.Level > beforeLv;
-
-                                    //퀘스트 몬스터
-                                    var quest = player.QuestManager.CurrentQuest;
-
-                                    if (quest != null && quest.Task is TaskMonster task)
+                                    MonsterItemDrop.DropResult result = dropper.MonsterDrops(target.Stats.Lv); //몬스터가 아이템을 드롭하면
+                                    if (result != null)
                                     {
-                                        task.InProgress();
+                                        foreach (var item in result.DroppedItems)
+                                        {
+                                            droppedItems.Add(item);  // 현재 전투에서 드롭된 아이템 리스트 저장
+                                            rewardsGold += target.Stats.goldDrop; //누적 골드
+                                        }
                                     }
                                 }
 
-                                while (true) 
+                                // 경험치 및 레벨업 처리
+                                player.VictoryBattleResult(target);
+
+                                // 레벨업 했는지확인
+                                isLvUp = player.Stats.Level > beforeLv;
+
+                                //퀘스트 몬스터
+                                var quest = player.QuestManager.CurrentQuest;
+
+                                if (quest != null && quest.Task is TaskMonster task)
+                                {
+                                    task.InProgress();
+                                }
+                                while (true)
                                 {
                                     //공격 결과 출력
                                     UIManager.DisplayAttackResult(player.Stats.Name, target, (int)damage, beforeHp);
-                                    
+
                                     input = Console.ReadLine();
                                     if (!int.TryParse(input, out int i) || (i != 0))
                                     {
@@ -115,57 +122,68 @@ namespace TextRPG_13
                                 }
                                 if (deathCount == monsters.Count)
                                 {
-                                    UIManager.PrintPlayerVictory(player, deathCount, beforeLv, beforeExp, isLvUp); //수정 윈화면 출력되다가 몬스터턴으로 넘어감
-                                    //보상화면 출력
+                                    UIManager.PrintPlayerVictory(player, deathCount, beforeLv, beforeExp, isLvUp, rewardsGold, droppedItems); //수정 윈화면 출력되다가 몬스터턴으로 넘어감
+
+                                    foreach (var item in droppedItems)
+                                    {
+                                        player.Inven.AddItem(item); //인벤토리에 아이템 저장
+                                        player.Stats.Gold += rewardsGold; // 드롭된 골드를 플레이어의 골드에 추가
+                                    }
+
                                     Thread.Sleep(3000);
                                     break;
                                 }
+                            }
+                            break;
+                        }
+                    }
+                }
+                if (!isPlayerTurn)
+                {
+                    for (int i = 0; i < monsters.Count; i++)
+                    {
+                        if (!monsters[i].Stats.IsDead)
+                        {
+                            //몬스터의 공격
+                            int monsterDamage = GetDamageWithVariance(monsters[i].Stats.monsterATK);
+                            int beforePlayerHP = player.Stats.HP;
+                            player.Stats.HP -= monsterDamage;
+
+                            while (true)
+                            {
+                                //전투 결과 출력
+                                UIManager.PrintEnemyPhase(monsters[i], player, monsterDamage, beforePlayerHP);
+                                input = Console.ReadLine();
+                                if (!int.TryParse(input, out int j) || (j != 0))
+                                {
+                                    Console.WriteLine("\n잘못된 입력입니다.");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                else if (j == 0) break; //0.취소 선택
+                            }
+                            if (player.Stats.HP <= 0)
+                            {
+                                player.Stats.HP = 0;
+                                UIManager.PrintPlayerLose(player, rewardsGold, droppedItems);
+
+                                foreach (var item in droppedItems)
+                                {
+                                    player.Inven.AddItem(item);  //인벤토리에 아이템 저장
+                                    player.Stats.Gold += rewardsGold; // 드롭된 골드를 플레이어의 골드에 추가
+                                }
+
+                                Thread.Sleep(3000);
                                 break;
                             }
                         }
                     }
-                    if (!isPlayerTurn)
-                    {
-                        for (int i = 0; i < monsters.Count; i++)
-                        {
-                            if (!monsters[i].Stats.IsDead)
-                            {
-                                //몬스터의 공격
-                                int monsterDamage = GetDamageWithVariance(monsters[i].Stats.monsterATK);
-                                int beforePlayerHP = player.Stats.HP;
-                                player.Stats.HP -= monsterDamage;
-
-                                while(true)
-                                {
-                                    //전투 결과 출력
-                                    UIManager.PrintEnemyPhase(monsters[i], player, monsterDamage, beforePlayerHP);
-                                    input = Console.ReadLine();
-                                    if (!int.TryParse(input, out int j) || (j != 0))
-                                    {
-                                        Console.WriteLine("\n잘못된 입력입니다.");
-                                        Console.ReadKey();
-                                        continue;
-                                    }
-                                    else if (j == 0) break; //0.취소 선택
-                                }
-                                if (player.Stats.HP <= 0)
-                                {
-                                    player.Stats.HP = 0;
-                                    UIManager.PrintPlayerLose(player);
-                                    Thread.Sleep(3000);
-                                    break;
-                                }
-                            }
-                        }
-                        isPlayerTurn = true;
-                    } 
-                    //레벨업
+                    isPlayerTurn = true;
                 }
-            
             }
-
             //2. 스킬사용 추가
-        }
+            //3. 포션 사용
+        }   
 
         private static int GetDamageWithVariance(float baseAtk) //스킬 로직 추가
         {

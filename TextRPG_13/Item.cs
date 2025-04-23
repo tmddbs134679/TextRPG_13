@@ -21,6 +21,9 @@ namespace TextRPG_13
 
         public ITEMTYPE ItemCategory { get; set; }
 
+        public bool IsEquipable => ItemCategory == ITEMTYPE.WEAPON || ItemCategory == ITEMTYPE.ARMOR;
+
+
         public Item(int id, ITEMTYPE itemCategory, string name, int atk, int def, int cost, string desc, int healAmount = 0)
         {
             Id = id;
@@ -32,7 +35,7 @@ namespace TextRPG_13
             Description = desc;
             HealAmount = healAmount;
         }
-        //public bool IsEquipable => Type == ITEMTYPE.WEAPON || Type == ITEMTYPE.ARMOR;
+        
         //public bool IsConsumable => Type == ITEMTYPE.POTION;
 
         //public Item(string name, ITEMTYPE type, int power, int defense, int purchaseprice, string description)

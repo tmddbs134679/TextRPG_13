@@ -27,9 +27,8 @@ namespace TextRPG_13
             return items;
         }
 
-        public static void AddItem(Item item, ITEMTYPE type)
+        public void AddItem(Item item)
         {
-            item.ItemCategory = type;
             items.Add(item);
         }
 
@@ -46,16 +45,25 @@ namespace TextRPG_13
                 itemEquip.IsEquipped = false;
                 return;
             }
-
-            //foreach (var item in items)
-            //{
-            //    if (item.Type == itemEquip.Type && item.IsEquipped)
-            //    {
-            //        item.IsEquipped = false;
-            //        break;
-            //    }
-            //}
+            //동일한 타입의 아이템은 한 개만 장착되게 처리
+            foreach (var item in items)
+            {
+                if (item.ItemCategory == itemEquip.ItemCategory && item.IsEquipped)
+                {
+                    item.IsEquipped = false;
+                    break;
+                }
+            }
             itemEquip.IsEquipped = true;
+        }
+
+        //기본적으로 존재하는 포션 생성
+        public void AddInitialPotions(int count)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                AddItem(ItemDatabase.Items.FirstOrDefault(item => item.Id == 100));
+            }
         }
     }
 }

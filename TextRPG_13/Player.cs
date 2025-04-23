@@ -36,10 +36,7 @@ namespace TextRPG_13
 
             //인벤토리 인스턴스 생성 후 기본 포션 3개 추가
             Inven = new Inventory();
-            for (int i = 0; i < 3; i++)
-            {
-                Inventory.AddItem(ItemFactory.CreateHealthPotion(), ITEMTYPE.POTION);
-            }
+            Inven.AddInitialPotions(3);
         }
 
         private static int GetRequiredExp(int level)

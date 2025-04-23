@@ -17,7 +17,7 @@ namespace TextRPG_13
             new Item(5, ITEMTYPE.WEAPON, "청동 도끼", 5, 0, 1500, "어디선가 사용됐던것 같은 도끼입니다."),//무기2
             new Item(6, ITEMTYPE.WEAPON, "스파르타의 창", 7, 0, 5000, "스파르타의 전사들이 사용했다는 전설의 창입니다."),//무기3
 
-            new Item(100, ITEMTYPE.POTION, "소형물약", 0, 0, 100, "Hp 20 회복", 20),//더 추가 가능
+            new Item(100, ITEMTYPE.POTION, "소형물약", 0, 0, 100, "Hp 20 회복", 30),//더 추가 가능
             new Item(101, ITEMTYPE.POTION, "중형물약", 0, 0, 200, "Hp 50 회복", 50)
         };
     }
