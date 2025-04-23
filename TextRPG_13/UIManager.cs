@@ -20,7 +20,9 @@ namespace TextRPG_13
                 var monster = monsters[i];
                 string status = monster.Stats.IsDead ? "Dead" : $"HP {monster.Stats.monsterHP}";
                 Console.ForegroundColor = monster.Stats.IsDead ? ConsoleColor.DarkGray : ConsoleColor.White;
-                Console.WriteLine($"{i + 1} {monster.Stats.monsterName}  {status}");
+                //Console.WriteLine($"{i + 1} {monster.Stats.monsterName}  {status}");
+                Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
+
             }
 
             Console.ResetColor();
@@ -41,7 +43,9 @@ namespace TextRPG_13
                 var monster = monsters[i];
                 string status = monster.Stats.IsDead ? "Dead" : $"HP {monster.Stats.monsterHP}";
                 Console.ForegroundColor = monster.Stats.IsDead ? ConsoleColor.DarkGray : ConsoleColor.White;
-                Console.WriteLine($"{i + 1} {monster.Stats.monsterName}  {status}");
+                //Console.WriteLine($"{i + 1} {monster.Stats.monsterName}  {status}");
+                Console.WriteLine($"{i + 1} Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
+
             }
             Console.ResetColor();
 
