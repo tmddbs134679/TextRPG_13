@@ -138,7 +138,7 @@ namespace TextRPG_13
             WriteColor("Vicoty\n", ConsoleColor.DarkGreen);
             Console.ResetColor();
 
-            if(isLvUp)
+            if(isLvUp == true)
             {
                 Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
                 Console.WriteLine($"Lv.{beforerLv} {player.Stats.Name} -> Lv.{player.Stats.Level} {player.Stats.Name}");

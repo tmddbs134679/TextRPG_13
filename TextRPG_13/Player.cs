@@ -40,9 +40,6 @@ namespace TextRPG_13
         }
         public void VictoryBattleResult(Monster target)
         {
-            int beforeLv = Stats.Level;
-            float beforeAtk = Stats.Offensivepower;
-            float beforeDef = Stats.Defensivepower;
 
             var (newLv, newExp, isLvUp) = GetExpAndLevel(target.Stats.Lv, Stats.Exp, Stats.Level);
             Stats.Level = newLv;
@@ -53,13 +50,12 @@ namespace TextRPG_13
                 var (newDef, newAtk) = LvUpStat(Stats.Defensivepower, Stats.Offensivepower);
                 Stats.Defensivepower = newDef;
                 Stats.Offensivepower = newAtk;
-
             }
         }
 
         private static (int newLv, int newExp, bool isLvUp) GetExpAndLevel(int monsterLv, int currentExp, int currentLv)
         {
-            currentExp += monsterLv * 5;
+            currentExp += monsterLv ;
             int requiredExp = GetRequiredExp(currentLv);
 
             bool isLvUp = currentExp >= requiredExp;
