@@ -14,7 +14,8 @@ namespace TextRPG_13
         private static readonly Dictionary<MMONSTERTYPE, MonsterStatement> monsterPresets =
             new Dictionary<MMONSTERTYPE, MonsterStatement>
             {
-                {MMONSTERTYPE.MINION, new MonsterStatement("미니언", 2, 15, 5 ) },
+
+                { MMONSTERTYPE.MINION, new MonsterStatement("미니언", 2, 15, 5 ) },
                 { MMONSTERTYPE.VOIDWORM,    new MonsterStatement("공허충", 3, 10, 9) },
                 { MMONSTERTYPE.SIEGEMINION, new MonsterStatement("대포미니언", 5, 25, 8) },
             };

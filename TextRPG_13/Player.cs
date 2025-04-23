@@ -8,6 +8,7 @@ namespace TextRPG_13
     {
         public JOBTYPE Type { get; }
         public PlayerStatement Stats { get; }
+        public QuestManager QuestManager { get; private set; } = new QuestManager();
 
         // 생성자: 직업을 받아서 해당 프리셋 적용
         public Player(JOBTYPE job)

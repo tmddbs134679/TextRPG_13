@@ -9,12 +9,14 @@ namespace TextRPG_13
     public class QuestManager
     {
 
-        private List<Quest> quests = new List<Quest>();
+        //private List<Quest> quests = new List<Quest>();
+        private Quest quest = new Quest();
         public Quest CurrentQuest { get; private set; }
 
         public void AddQuest(Quest quest)
         {
-            quests.Add(quest); 
+            if(CurrentQuest == null)
+                 CurrentQuest = quest;
         }
 
         public void Reward(Player player)
@@ -29,6 +31,8 @@ namespace TextRPG_13
 
             CurrentQuest = null;
         }
+
+        public bool IsQuesting => CurrentQuest != null;
 
     }
 }

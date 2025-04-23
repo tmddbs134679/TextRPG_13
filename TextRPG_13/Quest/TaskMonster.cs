@@ -8,10 +8,10 @@ namespace TextRPG_13
 {
     public class TaskMonster : IQuestTask
     {
-        private int requireCount = 5;
-        private int currentKillCount = 0;
+        public int requireCount { get; } =  5;
+        public int currentKillCount { get; set; } = 0;
 
-        public string Descript => "";
+        public string Descript => $"미니언 {currentKillCount}/{requireCount} 마리 처치";
 
         public bool IsCompleted => currentKillCount >= requireCount;
 
