@@ -16,9 +16,11 @@ namespace TextRPG_13
         }
 
         private readonly Player _player;
+        private readonly Battle _battle;
         public Lobby(Player player)
         {
             _player = player;
+            _battle = new Battle();
         }
 
         public void GameLobby()
@@ -61,7 +63,7 @@ namespace TextRPG_13
                                 Console.SetCursorPosition(0, Console.CursorTop);
                                 Console.Write(new string(' ', Console.WindowWidth));
                                 Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
-                                new Battle().BattleSequence();
+                                _battle.BattleSequence();
                                 break;
                             case LOBBYCHOICE.POTION:
                                 Console.Write("\n회복 하기로 이동 중");
