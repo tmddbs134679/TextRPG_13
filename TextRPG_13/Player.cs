@@ -37,25 +37,26 @@ namespace TextRPG_13
                 MP = preset.MP,
                 Gold = preset.Gold,
                 Exp = preset.Exp,
-                Potion = preset.Potion
+                //Potion = preset.Potion
             };
             //인벤토리 인스턴스 생성 후 기본 포션 3개 추가
             Inven = new Inventory(GameManager.CurrentPlayer);
             Inven.AddInitialPotions();
             Inven.AddSword();
         }
+        private static Random random = new Random();
 
         public static int GetDamageWithVariance(float baseAtk)
         {
-            Random rand = new Random();
+           
             double offset = Math.Ceiling(baseAtk * 0.1);
-            int critalChance = rand.Next(1, 101);
-            int avoidAttack = rand.Next(1, 101);
+            int critalChance = random.Next(1, 101);
+            int avoidAttack = random.Next(1, 101);
             int finalDamage = 0;
 
             if (avoidAttack > 10)
             {
-                finalDamage = (int)baseAtk + rand.Next(-(int)offset, (int)offset);
+                finalDamage = (int)baseAtk + random.Next(-(int)offset, (int)offset);
                 if (critalChance <= 15)
                 {
                     finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
@@ -109,6 +110,8 @@ namespace TextRPG_13
         public int UseSkill(Player player, Skill skill, List<Monster> monsters, int index)
         {
             int damage = 0;
+            if (player.Stats.MP < skill.Mpcost) return -1;
+
             player.Stats.MP -= skill.Mpcost;
             if (skill.HitCount > 1)
                 damage = HitMultiEnemy(player, skill, monsters);
@@ -118,7 +121,7 @@ namespace TextRPG_13
         }
         private int HitMultiEnemy(Player player, Skill skill, List<Monster> monsters)
         {
-            Random random = new Random();
+           
             int hits = 0;
             int totalDamage = 0;
 

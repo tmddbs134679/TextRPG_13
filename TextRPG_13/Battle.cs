@@ -293,9 +293,16 @@ namespace TextRPG_13
                                 int totalDamage= player.UseSkill(player, selectSkill, monsters, 0);
                                 isPlayerTurn = false;
 
+
                                 foreach (var target in monsters)
                                 {
-                                    if(!target.Stats.IsDead)
+                                    if (target.Stats.monsterHP <= 0)
+                                    {
+                                        target.Stats.monsterHP = 0;
+                                        target.Stats.IsDead = true;
+                                    }
+
+                                    if (!target.Stats.IsDead)
                                     {
                                         beforeHp = target.Stats.monsterHP;
                                         damage = (int)(totalDamage / monsters.Count);
