@@ -11,6 +11,13 @@ namespace TextRPG_13
 {
     public class Battle
     {
+        private StageManager stageManager;
+
+        // 생성자에서 외부의 StageManager를 받아 저장
+        public Battle()
+        {
+            stageManager = GameManager.Stage;
+        }
         private List<Item> droppedItems = new List<Item>();  // 드롭된 아이템을 저장할 리스트
 
         public void BattleSequence()
@@ -24,8 +31,7 @@ namespace TextRPG_13
             int beforeExp = player.Stats.Exp;
             int rewardsGold = 0;
 
-            Monster.MonsterRandomSpawn();
-            List<Monster> monsters = Monster.CurrentWave.ToList();
+            List<Monster> monsters = stageManager.SpawnWave();
 
             while ((player.Stats.HP > 0) && monsters.Any(m => !m.Stats.IsDead))
             {
@@ -129,11 +135,12 @@ namespace TextRPG_13
                                         player.Inven.AddItem(item); //인벤토리에 아이템 저장
                                         player.Stats.Gold += rewardsGold; // 드롭된 골드를 플레이어의 골드에 추가
                                     }
-
+                                    stageManager.NextStage();
                                     Thread.Sleep(1000);
                                     break;
                                 }
                             }
+                            
                             break;
                         }
                     }
@@ -172,7 +179,6 @@ namespace TextRPG_13
                                     player.Inven.AddItem(item);  //인벤토리에 아이템 저장
                                     player.Stats.Gold += rewardsGold; // 드롭된 골드를 플레이어의 골드에 추가
                                 }
-
                                 Thread.Sleep(1000);
                                 break;
                             }

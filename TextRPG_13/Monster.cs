@@ -51,20 +51,44 @@ namespace TextRPG_13
             // 1~4마리 랜덤 등장
             int count = random.Next(1, 5);
 
-           // 이전 웨이브는 덮어쓰기
+            // 이전 웨이브는 덮어쓰기
             currentWave = new List<Monster>(capacity: count);
             for (int i = 0; i < count; i++)
             {
                 currentWave.Add(CreateRandom());
             }
-            //if (currentWave == null)
-            //{
-            //    currentWave = new List<Monster>(count);
-            //    for (int i = 0; i < count; i++)
-            //    {
-            //        currentWave.Add(CreateRandom());
-            //    }
-            //}
+
+        }
+
+        public static Monster CreateRandomByLevel(int level)
+        {
+            //레벨이 같은 MonsterType 키만 추리기
+            var types = monsterPresets
+                .Where(kv => kv.Value.Lv == level)
+                .Select(kv => kv.Key)
+                .ToArray();
+
+            //그 중 하나를 랜덤 선택
+            var chosen = types[random.Next(types.Length)];
+
+            //기존 Create(type) 메서드 사용
+            return Create(chosen);
+        }
+        public static List<Monster> SpawnWave(
+            int[] allowedLevels,
+            int minCount,
+            int maxCount)
+        {
+            var wave = new List<Monster>();
+            int count = random.Next(minCount, maxCount + 1);
+
+            for (int i = 0; i < count; i++)
+            {
+                int lvl = allowedLevels[random.Next(allowedLevels.Length)];
+                wave.Add(CreateRandomByLevel(lvl));
+            }
+
+            return wave;
         }
     }
 }

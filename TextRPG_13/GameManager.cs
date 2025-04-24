@@ -13,5 +13,7 @@ namespace TextRPG_13
 
         //UIManager에 있는 각각의 UI에 저장하고 가져옴
         public static UIManager UI { get; set; }
+
+        public static StageManager Stage { get; } = new StageManager();
     }
 }

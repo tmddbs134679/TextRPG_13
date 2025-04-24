@@ -230,7 +230,7 @@ namespace TextRPG_13
             Console.WriteLine("상태 보기");
 
             WriteColor("2. ", ConsoleColor.DarkYellow);
-            Console.WriteLine("전투 시작");
+            Console.WriteLine($"전투 시작 (현재 스테이지: {GameManager.Stage.CurrentStage})");
 
             WriteColor("3. ", ConsoleColor.DarkYellow);
             Console.WriteLine("회복 아이템");
