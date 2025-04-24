@@ -23,8 +23,8 @@ namespace TextRPG_13
         public int Max_MP { get; set; }
         public int MP { get; set; }
         public int Potion { get; set; }
-        public float bonusATK { get; private set; }
-        public float bonusDEF { get; private set; }
+        public float bonusATK { get;  set; }
+        public float bonusDEF { get;  set; }
 
         public float Offensivepower => baseATK + bonusATK;
         public float Defensivepower => baseDEF + bonusDEF;

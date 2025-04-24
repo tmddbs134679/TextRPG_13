@@ -90,5 +90,17 @@ namespace TextRPG_13
                 Inven.SetOwner(this);
         }
 
+        public void ReStats()
+        {
+            Stats.bonusATK = 0;
+            Stats.bonusDEF = 0;
+
+            foreach (var item in Inven.GetEquippedItems())
+            {
+                Stats.bonusATK += item.ATKbonus;
+                Stats.bonusDEF += item.DEFbonus;
+            }
+        }
+
     }
 }
