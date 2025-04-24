@@ -14,9 +14,16 @@ namespace TextRPG_13
         public static void BattleStart(Player player, List<Monster> monsters)
         {
             DisplayMonstersAndPlayer(player,monsters);
-
+            DisplayPlayerInfo(player);
             Console.WriteLine("\n1. 공격\n2. 스킬\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
+        }
+
+        public static void DisplayPlayerInfo(Player player)
+        {
+            Console.WriteLine("\n[내정보]");
+            Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
+            Console.WriteLine($"HP.{player.Stats.HP}/{player.Stats.Max_HP}");
         }
 
         public static void DisplayMonstersAndPlayer(Player player, List<Monster> monsters)
@@ -33,44 +40,38 @@ namespace TextRPG_13
 
             }
             Console.ResetColor();
-
-            DisplayPlayerInfo(player);
-
-        }
-        public static void DisplayMonstersAndPlayer(Player player, List<Monster> monsters,int input) //오버로딩
-        {
-            Console.Clear();
-            Console.WriteLine("Battle!!\n");
-
-            for (int i = 0; i < monsters.Count; i++)
-            {
-                var monster = monsters[i];
-                string status = monster.Stats.IsDead ? "Dead" : $"HP {monster.Stats.monsterHP}";
-                Console.ForegroundColor = monster.Stats.IsDead ? ConsoleColor.DarkGray : ConsoleColor.White;
-                Console.WriteLine($"{i + 1} Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
-
-            }
-            Console.ResetColor();
-
-            DisplayPlayerInfo(player);
-            if (input == 1)
-            {
-                Console.WriteLine("\n0. 취소\n");
-                Console.Write("대상을 선택해주세요.\n>> ");
-            }
-            else if (input == 2) 
-            {
-                PrintSkills(player); //스킬창 띄움
-            }
-
         }
 
-        public static void DisplayPlayerInfo(Player player)
-        {
-            Console.WriteLine("\n[내정보]");
-            Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
-            Console.WriteLine($"HP.{player.Stats.HP}/{player.Stats.Max_HP}");
-        }
+
+        //public static void DisplayMonstersAndPlayer(Player player, List<Monster> monsters,int input) //오버로딩
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("Battle!!\n");
+
+        //    for (int i = 0; i < monsters.Count; i++)
+        //    {
+        //        var monster = monsters[i];
+        //        string status = monster.Stats.IsDead ? "Dead" : $"HP {monster.Stats.monsterHP}";
+        //        Console.ForegroundColor = monster.Stats.IsDead ? ConsoleColor.DarkGray : ConsoleColor.White;
+        //        Console.WriteLine($"{i + 1} Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
+
+        //    }
+        //    Console.ResetColor();
+
+        //    DisplayPlayerInfo(player);
+        //    if (input == 1)
+        //    {
+        //        Console.WriteLine("\n0. 취소\n");
+        //        Console.Write("대상을 선택해주세요.\n>> ");
+        //    }
+        //    else if (input == 2) 
+        //    {
+        //        PrintSkills(player); //스킬창 띄움
+        //    }
+
+        //}
+
+        
 
         public static void DisplayAttackResult(string attackerName, Monster target, int damage, int beforeHp)
         {

@@ -44,27 +44,6 @@ namespace TextRPG_13
             Inven.AddInitialPotions();
             Inven.AddSword();
         }
-
-        public static int GetDamageWithVariance(float baseAtk)
-        {
-            Random rand = new Random();
-            double offset = Math.Ceiling(baseAtk * 0.1);
-            int critalChance = rand.Next(1, 101);
-            int avoidAttack = rand.Next(1, 101);
-            int finalDamage = 0;
-
-            if (avoidAttack > 10)
-            {
-                finalDamage = (int)baseAtk + rand.Next(-(int)offset, (int)offset);
-                if (critalChance <= 15)
-                {
-                    finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
-                }
-
-            }
-
-            return finalDamage;
-        }
         private static int GetRequiredExp(int level)
         {
             return (5 * level * level + 35 * level - 20) / 2; //레벨에 따른 필요 경험치 계산식
@@ -104,6 +83,27 @@ namespace TextRPG_13
             defend += 1f;
             attack += 0.5f;
             return (defend, attack);
+        }
+
+        public static int GetDamageWithVariance(float baseAtk)
+        {
+            Random rand = new Random();
+            double offset = Math.Ceiling(baseAtk * 0.1);
+            int critalChance = rand.Next(1, 101);
+            int avoidAttack = rand.Next(1, 101);
+            int finalDamage = 0;
+
+            if (avoidAttack > 10)
+            {
+                finalDamage = (int)baseAtk + rand.Next(-(int)offset, (int)offset);
+                if (critalChance <= 15)
+                {
+                    finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
+                }
+
+            }
+
+            return finalDamage;
         }
         //플레이어에서
         public void UseSkill(Player player,Skill skill, List <Monster> monsters,int index)
