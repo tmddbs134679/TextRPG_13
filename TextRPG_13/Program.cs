@@ -1,18 +1,39 @@
-﻿// See https://aka.ms/new-console-template for more information
-<<<<<<< Updated upstream
-Console.WriteLine("Hello, World!");
-=======
+﻿
 using TextRPG_13;
 
-class Program
+namespace TextRPG_13
 {
-    static void Main()
+    public class Program
     {
-        GameInitalizer start = new GameInitalizer();
+        static void Main(string[] args)
+        {
 
-        start.InitPlayer();
+            var _ = QuestManager.Instance;
 
-        
+            Player player = GameStart();
+
+
+            // GameManager에 저장
+            GameManager.CurrentPlayer = player;
+            GameManager.UI = new UIManager();
+
+            // 게임 시작
+            new Lobby(player).GameLobby();
+        }
+
+        private static Player GameStart()
+        {
+            if (SaveManager.Exists())
+            {
+                return SaveManager.Load();
+
+            }
+            else
+            {
+                GameInitalizer initializer = new GameInitalizer();
+                return initializer.InitPlayer();
+            }
+        }
+
     }
 }
->>>>>>> Stashed changes

@@ -8,25 +8,27 @@ namespace TextRPG_13
 {
     public class Monster
     {
-        public MMONSTERTYPE Type { get; }
+        public MONSTERTYPE Type { get; }
         public MonsterStatement Stats { get; }
 
-        private static readonly Dictionary<MMONSTERTYPE, MonsterStatement> monsterPresets =
-            new Dictionary<MMONSTERTYPE, MonsterStatement>
-            {
-                {MMONSTERTYPE.MINION, new MonsterStatement("미니언", 2, 15, 5 ) },
-                { MMONSTERTYPE.VOIDWORM,    new MonsterStatement("공허충", 3, 10, 9) },
-                { MMONSTERTYPE.SIEGEMINION, new MonsterStatement("대포미니언", 5, 25, 8) },
+        private static readonly Dictionary<MONSTERTYPE, MonsterStatement> monsterPresets =
+            new Dictionary<MONSTERTYPE, MonsterStatement>
+            {                                           // 이름,레벨,체력,공격력,최소골드,최대골드
+                { MONSTERTYPE.MINION,      new MonsterStatement("미니언", 1, 10, 5, 100, 300 ) },
+                { MONSTERTYPE.MELEEMINION, new MonsterStatement("전사미니언", 2, 10, 8, 300, 500)},
+                { MONSTERTYPE.VOIDWORM,    new MonsterStatement("공허충", 3, 15, 8, 500, 700) },
+                { MONSTERTYPE.OCKLEPOD,    new MonsterStatement("외눈박이문어", 4, 18, 9, 700, 1000) },
+                { MONSTERTYPE.SIEGEMINION, new MonsterStatement("대포미니언", 5, 20, 8, 1000, 1500) },
             };
 
         // 내부 생성자
-        private Monster(MMONSTERTYPE type, MonsterStatement stats)
+        private Monster(MONSTERTYPE type, MonsterStatement stats)
         {
             Type = type;
             Stats = stats;
         }
         //새 Monster 인스턴스 생성, 내부에서는 템플릿을 Clone해서 복제본 사용
-        public static Monster Create(MMONSTERTYPE type)
+        public static Monster Create(MONSTERTYPE type)
         {
             var statsCopy = monsterPresets[type].Clone();
             return new Monster(type, statsCopy);
@@ -46,26 +48,47 @@ namespace TextRPG_13
 
         public static void MonsterRandomSpawn()
         {
-            var ui = new UIManager();
-
             // 1~4마리 랜덤 등장
             int count = random.Next(1, 5);
-            if (currentWave == null)
+
+           // 이전 웨이브는 덮어쓰기
+            currentWave = new List<Monster>(count);
+            for (int i = 0; i < count; i++)
             {
-                currentWave = new List<Monster>(count);
-                for (int i = 0; i < count; i++)
-                {
-                    currentWave.Add(CreateRandom());
-                }
+                currentWave.Add(CreateRandom());
             }
 
-            foreach (var m in currentWave)
-            {
-                ui.PrintRandomMonster(m);
-            }
-            Console.WriteLine();
         }
+        //스테이지 기능 추가하면서 만든 코드
+        public static Monster CreateRandomByLevel(int level)
+        {
+            //레벨이 같은 MonsterType 키만 추리기
+            var types = monsterPresets
+                .Where(kv => kv.Value.Lv == level)
+                .Select(kv => kv.Key)
+                .ToArray();
 
+            //그 중 하나를 랜덤 선택
+            var chosen = types[random.Next(types.Length)];
 
+            //기존 Create(type) 메서드 사용
+            return Create(chosen);
+        }
+        public static List<Monster> SpawnWave(
+            int[] allowedLevels,
+            int minCount,
+            int maxCount)
+        {
+            var wave = new List<Monster>();
+            int count = random.Next(minCount, maxCount + 1);
+
+            for (int i = 0; i < count; i++)
+            {
+                int lvl = allowedLevels[random.Next(allowedLevels.Length)];
+                wave.Add(CreateRandomByLevel(lvl));
+            }
+
+            return wave;
+        }
     }
 }

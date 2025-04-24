@@ -1,108 +1,94 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace TextRPG_13
 {
     public class Player
     {
-        public JOBTYPE Type { get; }
-        public PlayerStatement Stats { get; }
-
-<<<<<<< Updated upstream
-        public PlayerStatement _Playerstat = new PlayerStatement();
-        //PlayerStatement 에 있는 Player의 상태 정보를 _playet에 변수별로 가져옴
-        public void PlayerStat()
-        {
-            Console.Clear();
-
-            //int Bonusoff = _player.인벤토리아이템.Where(i => i.IsEquipped).Sum(i => i.); 
-
-            // 인벤토리에서 장착한 아이템을 Bonusoff,Bonusdf 에 선언하여 각각 공격력,방어력에 합산하여 상태 표시 창에서 합산된 값 표시.
-
-            //int Bonusdf = _player.인벤토리아이템.Where(i => i.IsEquipped).Sum(i => i.);
+        //public JOBTYPE Type { get; }
+        public PlayerStatement Stats { get;  set; }
+        public Inventory Inven { get; set; }
 
 
-            //ForegroundColor = ConsoleColor. 각각의 텍스트에 구분되게 컬러를 입혀 유저분들이 텍스트를 더욱 가독성 있게 볼 수 있게 해줌.
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("상태 보기\n");
-            Console.ResetColor();
-
-            Console.WriteLine("캐릭터의 정보가 표시됩니다.\n\n");
-
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("Lv. ");
-            Console.ResetColor();
-
-            Console.WriteLine($"{_Playerstat.Level}");
-            Console.WriteLine($"{_Playerstat.Name}  ( {_Playerstat.Job} )");
-            Console.Write($"공격력 : ");
-
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Playerstat.Offensivepower}");
-
-            // 인벤토리 추가 될 시 인벤토리에서 장착한 아이템을 Bonusoff에 장비에 따른 공격력 추가 및 기본 공격력에 합산,
-            // 기본 공격력엔 Bonusoff가 합산된 전체값 표기
-            // Bonus 에는 장착한 장비유형에 따른 값 표시 (공격력 : 6 일 경우 bonusoff 에는 그 장비의 공격력 6 추가)
-
-            Console.ResetColor();
-
-            Console.Write("방어력 : ");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Playerstat.Defensivepower}");
-
-            // 인벤토리 추가 될 시 인벤토리에서 장착한 아이템을 Bonusdf에 장비에 따른 공격력 추가 및 기본 방어력에 합산,
-            // 기본 공격력엔 Bonusdf가 합산된 전체값 표기
-            // Bonus 에는 장착한 장비유형에 따른 값 표시 (방어력 : 6 일 경우 bonusoff 에는 그 장비의 방어력 6 추가) 
-
-            Console.ResetColor();
-
-            Console.Write("체 력 : ");
-
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Playerstat.HP}");
-            Console.ResetColor();
-
-            Console.Write("Gold : ");
-
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Playerstat.Gold}\n");
-            Console.ResetColor();
-
-            Console.WriteLine("0. 나가기\n\n" +
-                              $"원하시는 행동을 입력해주세요.");
-
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write(">> ");
-            Console.ResetColor();
-
-            int inp = int.Parse(Console.ReadLine());
-
-            if (inp == 0)
-            {
-                Thread.Sleep(1000);
-                Console.Clear();
-                // 게임 로비 출력
-            }
-        }
-    }
-}
-=======
+        public Player() { }
+        // 생성자: 직업을 받아서 해당 프리셋 적용
         public Player(JOBTYPE job)
         {
-            Type = job;
+            //Type = job;
+
+            // 프리셋에서 가져와 복사
             var preset = PlayerStatement.GetPreset(job);
+
             Stats = new PlayerStatement
             {
                 Name = preset.Name,
                 Job = preset.Job,
-                Offensivepower = preset.Offensivepower,
-                Defensivepower = preset.Defensivepower,
+                Level = preset.Level,
+                baseATK = preset.baseATK,
+                baseDEF = preset.baseDEF,
+                Max_HP = preset.Max_HP,
                 HP = preset.HP,
+                Max_MP = preset.Max_MP,
+                MP = preset.MP,
                 Gold = preset.Gold,
-                Level = preset.Level
+                Exp = preset.Exp,
+                Potion = preset.Potion
             };
+            //인벤토리 인스턴스 생성 후 기본 포션 3개 추가
+            Inven = new Inventory(GameManager.CurrentPlayer);
+            Inven.AddInitialPotions();
+            Inven.AddSword();
         }
-    }
+        private static int GetRequiredExp(int level)
+        {
+            return (5 * level * level + 35 * level - 20) / 2; //레벨에 따른 필요 경험치 계산식
+        }
+        public void VictoryBattleResult(Monster target, Player player)
+        {
 
+            var (newLv, newExp, isLvUp) = GetExpAndLevel(target.Stats.Lv, player.Stats.Exp, player.Stats.Level);
+            player.Stats.Level = newLv;
+            player.Stats.Exp = newExp;
+
+            if (isLvUp == true)
+            {
+                var (newDef, newAtk) = LvUpStat(player.Stats.baseDEF, player.Stats.baseATK);
+                player.Stats.baseDEF = newDef;
+                player.Stats.baseATK = newAtk;
+            }
+        }
+
+        private static (int newLv, int newExp, bool isLvUp) GetExpAndLevel(int monsterLv, int currentExp, int currentLv)
+        {
+            currentExp += monsterLv ;
+            int requiredExp = GetRequiredExp(currentLv);
+
+            bool isLvUp = currentExp >= requiredExp;
+
+            if (isLvUp)
+            {
+                currentLv++;
+            }
+
+            return (currentLv, currentExp, isLvUp);
+        }
+
+        private static (float newDefend, float newAttack) LvUpStat(float defend, float attack)
+        {
+            defend += 1f;
+            attack += 0.5f;
+            return (defend, attack);
+        }
+
+        public void RestoreReferences()
+        {
+            if (Stats != null)
+                Stats.SetOwner(this);
+
+            if (Inven != null)
+                Inven.SetOwner(this);
+        }
+
+    }
 }
->>>>>>> Stashed changes
