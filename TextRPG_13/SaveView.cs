@@ -11,7 +11,7 @@ namespace TextRPG_13
         
         public void Enter()
         {
-            //UIManager.AskSaveFile();
+            UIManager.AskSaveFile();
 
             string input = Console.ReadLine();
 

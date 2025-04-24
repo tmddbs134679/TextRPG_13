@@ -2,21 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
     public class Inventory
     {
-        private List<ItemStack> items;
+        [JsonIgnore]
+        public Player owner { get; private set; }
+
+        public List<ItemStack> items { get; set; } = new();
         public int Count => items.Count;
         public bool IsEmpty => !items.Any();
 
-        public Inventory()
+        public Inventory(){ }
+        public Inventory(Player player)
         {
-            items = new List<ItemStack>();
+            owner = player;
         }
 
+        public void SetOwner(Player player)
+        {
+            owner = player;
+        }
         public List<Item> GetEquippedItems()
         {
             return items.Where(stack => stack.Item.IsEquipped).Select(stack => stack.Item).ToList();

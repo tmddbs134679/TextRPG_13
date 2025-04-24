@@ -64,7 +64,7 @@ namespace TextRPG_13
                 Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
 
             Console.Clear();
-            new Lobby(player).GameLobby();
+            //new Lobby(player).GameLobby();
             return player;
         }
 

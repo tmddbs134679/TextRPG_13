@@ -6,15 +6,16 @@ namespace TextRPG_13
 {
     public class Player
     {
-        public JOBTYPE Type { get; }
-        public PlayerStatement Stats { get; private set; }
-        public Inventory Inven { get; }
-        //public QuestManager QuestManager { get; private set; } = new QuestManager();
+        //public JOBTYPE Type { get; }
+        public PlayerStatement Stats { get;  set; }
+        public Inventory Inven { get; set; }
 
+
+        public Player() { }
         // 생성자: 직업을 받아서 해당 프리셋 적용
         public Player(JOBTYPE job)
         {
-            Type = job;
+            //Type = job;
 
             // 프리셋에서 가져와 복사
             var preset = PlayerStatement.GetPreset(job);
@@ -35,7 +36,7 @@ namespace TextRPG_13
                 Potion = preset.Potion
             };
             //인벤토리 인스턴스 생성 후 기본 포션 3개 추가
-            Inven = new Inventory();
+            Inven = new Inventory(GameManager.CurrentPlayer);
             Inven.AddInitialPotions();
             Inven.AddSword();
         }
@@ -79,5 +80,15 @@ namespace TextRPG_13
             attack += 0.5f;
             return (defend, attack);
         }
+
+        public void RestoreReferences()
+        {
+            if (Stats != null)
+                Stats.SetOwner(this);
+
+            if (Inven != null)
+                Inven.SetOwner(this);
+        }
+
     }
 }
