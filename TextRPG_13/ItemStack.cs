@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TextRPG_13
+{
+    public class ItemStack
+    {
+        public Item Item { get; }
+        public int Quantity { get; private set; }
+
+        public ItemStack(Item item, int quantity = 1)
+        {
+            Item = item;
+            Quantity = quantity;
+        }
+
+        public void Add(int amount)
+        {
+            Quantity += amount;
+        }
+
+        public void Remove(int amount)
+        {
+            Quantity -= amount;
+            if (Quantity < 0) Quantity = 0;
+        }
+    }
+}
+

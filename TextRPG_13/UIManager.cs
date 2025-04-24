@@ -152,10 +152,26 @@ namespace TextRPG_13
         public static void DisplayRewards(int gold, List<Item> items)
         {
             Console.WriteLine("\n[획득아이템]");
-            Console.WriteLine($"{gold}");
-            foreach (var item in items)
+            Console.WriteLine($"{gold}G");
+            if (items.Count == 0)
             {
-                Console.WriteLine($"{item.Name}");
+                Console.WriteLine("드롭된 아이템이 없습니다.");
+                return;
+            }
+
+            // 아이템 이름 기준으로 그룹화하여 수량 계산
+            var groupedItems = items
+                .GroupBy(item => item.Name)
+                .Select(group => new
+                {
+                    Name = group.Key,
+                    Count = group.Count(),
+                    Description = group.First().Description
+                });
+
+            foreach (var g in groupedItems)
+            {
+                Console.WriteLine($"{g.Name} x{g.Count} - {g.Description}");
             }
         }
 
@@ -166,11 +182,8 @@ namespace TextRPG_13
             Console.ResetColor();
         }
 
-        public static void ShowInventory(Player player)
+        public static void ItemList(Player player)
         {
-            Console.Clear();
-            Console.WriteLine("인벤토리");
-
             if (player.Inven.Count == 0)
             {
                 Console.WriteLine("인벤토리에 아이템이 없습니다.");
@@ -179,14 +192,25 @@ namespace TextRPG_13
             {
                 int idx = 1;
 
-                foreach (var item in player.Inven.GetItems())
+                foreach (var stack in player.Inven.GetItems())
                 {
+                    var item = stack.Item;
+                    var quantity = stack.Quantity;
                     string statText = item.ATKbonus > 0 ? $"공격력 +{item.ATKbonus}" :
                                         item.DEFbonus > 0 ? $"방어력 +{item.DEFbonus}" :
                                         item.HealAmount > 0 ? $"회복량 +{item.HealAmount}" : "-";
-                    Console.WriteLine($"- {idx++} {item.Name} | {statText} | {item.Description}");
+                    string equipMark = item.IsEquipped ? " [E]" : "";  // 장착여부 표기
+                    Console.WriteLine($"- {idx++} {equipMark} {item.Name} [x{quantity}] | {statText} | {item.Description}");
                 }
             }
+        }
+        public static void ShowInventory(Player player)
+        {
+            Console.Clear();
+            Console.WriteLine("인벤토리");
+
+            ItemList(player);
+
             Console.WriteLine("\n1. 장착관리");
             Console.WriteLine("0. 나가기");
             Console.WriteLine("\n원하시는 행동을 입력해주세요.\n>>");
@@ -197,25 +221,10 @@ namespace TextRPG_13
             Console.Clear();
             Console.WriteLine("인벤토리 - 장착 관리");
 
-            if (player.Inven.Count == 0) //아이템 없다면 장착관리 안되게 구현 후 삭제
-            {
-                Console.WriteLine("인벤토리에 아이템이 없습니다.");
-            }
-            else
-            {
-                int idx = 1;
+            ItemList(player);
 
-                foreach (var item in player.Inven.GetItems())
-                {
-                    string equipMark = item.IsEquipped ? "[E] " : "";
-                    string statText = item.ATKbonus > 0 ? $"공격력 +{item.ATKbonus}" :
-                                        item.DEFbonus > 0 ? $"방어력 +{item.DEFbonus}" :
-                                        item.HealAmount >0 ? $"회복량 +{item.HealAmount}" : "-";
-                    Console.WriteLine($"- {idx++} {equipMark} {item.Name} | {statText} | {item.Description}");
-                }
-            }
-            Console.WriteLine("0. 나가기");
-            Console.WriteLine("\n원하시는 행동을 입력해주세요.\n>>");
+            Console.WriteLine("\n0. 나가기");
+            Console.WriteLine("\n장착/해제할 대상을 입력해주세요.\n>>");
         }
 
 

@@ -96,7 +96,7 @@ namespace TextRPG_13
                                 isLvUp = player.Stats.Level > beforeLv;
 
                                 //퀘스트 몬스터
-                                var quest = player.QuestManager.CurrentQuest;
+                                var quest = QuestManager.Instance.CurrentQuest;
 
                                 if (quest != null && quest.Task is TaskMonster task)
                                 {
