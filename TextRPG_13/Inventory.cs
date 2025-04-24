@@ -8,33 +8,48 @@ namespace TextRPG_13
 {
     public class Inventory
     {
-        private static List<Item> items;
+        private List<ItemStack> items;
         public int Count => items.Count;
         public bool IsEmpty => !items.Any();
 
         public Inventory()
         {
-            items = new List<Item>();
+            items = new List<ItemStack>();
         }
 
         public List<Item> GetEquippedItems()
         {
-            return items.Where(i => i.IsEquipped).ToList();
+            return items.Where(stack => stack.Item.IsEquipped).Select(stack => stack.Item).ToList();
         }
 
-        public List<Item> GetItems()
+        public List<ItemStack> GetItems()
         {
             return items;
         }
 
-        public void AddItem(Item item)
+        public void AddItem(Item newItem)
         {
-            items.Add(item);
+            // 동일 아이템 존재 여부 확인
+            var stack = items.FirstOrDefault(i => i.Item.Id == newItem.Id);
+            if (stack != null)
+            {
+                stack.Add(1);  // 수량 증가
+            }
+            else
+            {
+                items.Add(new ItemStack(newItem, 1));
+            }
         }
 
-        public void RemoveItem(Item item)
+        public void RemoveItem(Item targetItem)
         {
-            items.Remove(item);
+            var stack = items.FirstOrDefault(i => i.Item.Id == targetItem.Id);
+            if (stack != null)
+            {
+                stack.Remove(1);
+                if (stack.Quantity <= 0)
+                    items.Remove(stack);
+            }
         }
 
         public void EquipItem(Item itemEquip)
@@ -46,11 +61,11 @@ namespace TextRPG_13
                 return;
             }
             //동일한 타입의 아이템은 한 개만 장착되게 처리
-            foreach (var item in items)
+            foreach (var stack in items)
             {
-                if (item.ItemCategory == itemEquip.ItemCategory && item.IsEquipped)
+                if (stack.Item.ItemCategory == itemEquip.ItemCategory && stack.Item.IsEquipped)
                 {
-                    item.IsEquipped = false;
+                    stack.Item.IsEquipped = false;
                     break;
                 }
             }

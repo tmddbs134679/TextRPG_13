@@ -59,16 +59,17 @@ namespace TextRPG_13
                 else
                 {
                     int i = choice - 1;
+                    var selectedStack = _player.Inven.GetItems()[i];
+                    var selectedItem = selectedStack.Item;
+
                     //장착 가능한 아이템인지 확인
-                    if (_player.Inven.GetItems()[i].IsEquipable)
+                    if (selectedItem.IsEquipable)
                     {
-                        _player.Inven.EquipItem(_player.Inven.GetItems()[i]);
+                        _player.Inven.EquipItem(selectedItem);
                         _player.Stats.UpdateStats(_player);
-                        break;
                     }
                 }
             }
-
         }
     }
 }
