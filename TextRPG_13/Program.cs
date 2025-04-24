@@ -1,7 +1,4 @@
-﻿
-using TextRPG_13;
-
-namespace TextRPG_13
+﻿namespace TextRPG_13
 {
     public class Program
     {
