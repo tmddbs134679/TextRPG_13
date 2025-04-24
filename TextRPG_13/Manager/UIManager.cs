@@ -283,22 +283,22 @@ namespace TextRPG_13
             WriteColor("상태 보기\n", ConsoleColor.DarkYellow);
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n\n");
 
-            WriteColor("Lv. ", ConsoleColor.DarkGray);
+            WriteColor("Lv. ", ConsoleColor.Yellow);
 
             Console.WriteLine($"{stat.Level}\n");
             Console.WriteLine($"{stat.Name}  ( {stat.Job} )\n");
 
             Console.Write($"공격력 : ");
-            WriteColor($"{atkText}\n", ConsoleColor.DarkGray);
+            WriteColor($"{atkText}\n", ConsoleColor.Red);
 
             Console.Write("방어력 : ");
-            WriteColor($"{defText}\n", ConsoleColor.DarkGray);
+            WriteColor($"{defText}\n", ConsoleColor.Red);
 
             Console.Write("체 력 : ");
-            WriteColor($"{stat.HP}\n", ConsoleColor.DarkGray);
+            WriteColor($"{stat.HP}\n", ConsoleColor.Red);
 
             Console.Write("Gold : ");
-            WriteColor($"{stat.Gold}\n", ConsoleColor.DarkGray);
+            WriteColor($"{stat.Gold}\n", ConsoleColor.Red);
 
             Console.WriteLine("0. 나가기\n\n" +
                               $"원하시는 행동을 입력해주세요.");
@@ -366,13 +366,15 @@ namespace TextRPG_13
         public static void QuestUI()
         {
             Console.Clear();
-            Console.WriteLine(" Quest!! ");
-            Console.WriteLine("1. 마을을 위협하는 미니언 처치");
-            Console.WriteLine("2. 장비를 장착해보자");
+            Console.WriteLine("┏━━━━━━━━━━━━━━━━ Quest Board ━━━━━━━━━━━━━━━━━┓");
+            Console.WriteLine("┃                퀘스트 발생!                  ┃");
+            Console.WriteLine("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+            Console.WriteLine("[1] 마을을 위협하는 미니언 처치");
+            Console.WriteLine("[2] 장비를 장착해보자");
             Console.WriteLine("\n\n");
 
             Console.WriteLine("원하시는 퀘스트를 선택해주세요.");
-            Console.WriteLine(">>");
+            Console.WriteLine(">> ");
         }
 
         public static void Quest_1()
@@ -393,7 +395,7 @@ namespace TextRPG_13
             Console.WriteLine("\n\n");
 
             Console.WriteLine("원하시는 퀘스트를 선택해주세요.");
-            Console.WriteLine(">>");
+            Console.WriteLine(">> ");
 
         }
 
@@ -402,7 +404,7 @@ namespace TextRPG_13
             Console.WriteLine("1. 수락");
             Console.WriteLine("2. 거절");
             Console.WriteLine("원하시는 행동을 입력해주세요");
-            Console.WriteLine(">>");
+            Console.WriteLine(">> ");
         }
 
         public static void AskRewardQuest()
