@@ -38,14 +38,14 @@ namespace TextRPG_13
                     Console.ReadKey();
                     continue;
                 }
-                else if (choice == 1) //공격 선택지 선택
+                else if (choice == 1 || choice == 2) //공격 선택지 선택
                 {
                     if (isPlayerTurn == true)
                     {
                         while (true)
                         {
                             //몬스터 선택 페이지 출력
-                            UIManager.DisplayMonsters(player, monsters);
+                            UIManager.DisplayMonsters(player, monsters, choice);
                             input = Console.ReadLine();
 
                             if (!int.TryParse(input, out int index) || (index < 0 || index > monsters.Count))
@@ -89,8 +89,8 @@ namespace TextRPG_13
                                     }
                                 }
 
-                                    // 경험치 및 레벨업 처리
-                                    player.VictoryBattleResult(target,player);
+                                // 경험치 및 레벨업 처리
+                                player.VictoryBattleResult(target,player);
 
                                 // 레벨업 했는지확인
                                 isLvUp = player.Stats.Level > beforeLv;

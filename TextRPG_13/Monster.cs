@@ -66,5 +66,11 @@ namespace TextRPG_13
             //    }
             //}
         }
+
+        //몬스터에서
+        public void TakeDamage(float dmg,Player player)
+        {
+            Stats.monsterHP -= (int)Math.Ceiling(player.Stats.baseATK * dmg);
+        }
     }
 }

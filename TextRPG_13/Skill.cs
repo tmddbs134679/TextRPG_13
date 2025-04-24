@@ -13,10 +13,10 @@ namespace TextRPG_13
         public string Description { get; }
         public int Mpcost { get; }
 
-        public int Damage { get; }
+        public float Damage { get; }
 
 
-        public Skill(string name, string dis, int mpcost, int damage)
+        public Skill(string name, string dis, int mpcost, float damage)
         {
             Name = name;
             Description = dis;
@@ -27,19 +27,7 @@ namespace TextRPG_13
 }
 
 
-//플레이어에서
-//public void UseSkill(Skill skill, Monster monster)
-//{
-//    if(status.mp < skill.Mpcost) { return};
-
-//    status.mp -= skill.Mpcost;
-//    monster.TakeDamage(skill.Damage);
-
-//}
 
 
-//몬스터에서
-//public void TakeDamage(int dmg)
-//{
-//    Stats.hp -= dmg;
-//}
+
+

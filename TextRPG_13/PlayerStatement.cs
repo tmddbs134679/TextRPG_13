@@ -27,6 +27,8 @@ namespace TextRPG_13
         public float Offensivepower => baseATK + bonusATK;
         public float Defensivepower => baseDEF + bonusDEF;
 
+        public List<Skill> Skills;
+
         public void UpdateStats(Player user)
         {
             bonusATK = user.Inven.GetEquippedItems()
@@ -55,7 +57,12 @@ namespace TextRPG_13
                         Exp = 0,
                         Max_MP = 50,
                         MP = 50,
-                        Potion = 3
+                        Potion = 3,
+                        Skills = new List<Skill>
+                        {
+                            new Skill("알파 스트라이크","공격력 * 2로 하나의 적을 공격합니다.",10,2f),
+                            new Skill("더블 스트라이크","공격력 * 1.5로 2명의 적을 랜덤으로 공격합니다.",15,1.5f)
+                        }
 
                     }
                 },
@@ -72,7 +79,12 @@ namespace TextRPG_13
                         Exp = 0,
                         Max_MP = 50,
                         MP = 50,
-                        Potion = 3
+                        Potion = 3,
+                        Skills = new List<Skill>
+                        {
+                            new Skill("메테오 샤워","공격력 * 3로 모든 적을 공격합니다.",50,3f),
+                            new Skill("얼음송곳","공격력 * 1.7로 하나의 적을 공격합니다.",10,1.7f)
+                        }
                     }
                 },
                 { JOBTYPE.ASSASSIN, new PlayerStatement
@@ -88,7 +100,12 @@ namespace TextRPG_13
                         Exp = 0,
                         Max_MP = 50,
                         MP = 50,
-                        Potion = 3
+                        Potion = 3,
+                        Skills = new List<Skill>
+                        {
+                            new Skill("암습","공격력 * 4로 하나의 적을 공격합니다.",40,4f),
+                            new Skill("수리검투척","공격력 * 1.2로 하나의 적을 공격합니다.",5,1.2f)
+                        }
                     }
                 }
             }; 

@@ -10,6 +10,7 @@ namespace TextRPG_13
         public PlayerStatement Stats { get; private set; }
         public Inventory Inven { get; }
         public QuestManager QuestManager { get; private set; } = new QuestManager();
+        public Skill Skill { get; }
 
         // 생성자: 직업을 받아서 해당 프리셋 적용
         public Player(JOBTYPE job)
@@ -77,6 +78,15 @@ namespace TextRPG_13
             defend += 1f;
             attack += 0.5f;
             return (defend, attack);
+        }
+        //플레이어에서
+        public void UseSkill(Player player,Skill skill, Monster monster)
+        {
+            if (player.Stats.MP < skill.Mpcost) return;
+
+            player.Stats.MP -= skill.Mpcost;
+            monster.TakeDamage(skill.Damage,player);
+
         }
     }
 }

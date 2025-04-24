@@ -30,11 +30,11 @@ namespace TextRPG_13
 
             DisplayPlayerInfo(player);
 
-            Console.WriteLine("\n1. 공격\n");
+            Console.WriteLine("\n1. 공격\n2. 스킬\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
         }
 
-        public static void DisplayMonsters(Player player, List<Monster> monsters)
+        public static void DisplayMonsters(Player player, List<Monster> monsters, int choice)
         {
             Console.Clear();
             Console.WriteLine("Battle!!\n");
@@ -50,7 +50,15 @@ namespace TextRPG_13
             Console.ResetColor();
 
             DisplayPlayerInfo(player);
-
+            if(choice == 2)
+            {
+                for (int i = 0; i < player.Stats.Skills.Count;i++)
+                {
+                    Console.WriteLine($"{i+1}. {player.Stats.Skills[i].Name} - MP{player.Stats.Skills[i].Mpcost}" +
+                        $"{player.Stats.Skills[i].Description}");
+                }
+               
+            }
             Console.WriteLine("\n0. 취소\n");
             Console.Write("대상을 선택해주세요.\n>> ");
         }
@@ -88,7 +96,7 @@ namespace TextRPG_13
             Console.WriteLine("\n0. 다음\n>>");
         }
         
-        public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) //머지 할때 
+        public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) 
         {
             Console.Clear();
 
@@ -131,9 +139,9 @@ namespace TextRPG_13
 
             Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
             Console.Write($"Lv.{beforerLv} {player.Stats.Name}");
-            if (isLvUp == true) Console.WriteLine($" -> Lv.{player.Stats.Level} {player.Stats.Name}");
-            Console.WriteLine($"exp {beforeExp} -> {player.Stats.Exp}");
-            Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
+            if (isLvUp == true) Console.Write($" -> Lv.{player.Stats.Level} {player.Stats.Name}");
+            Console.WriteLine($"\nexp {beforeExp} -> {player.Stats.Exp}");
+            Console.WriteLine($"HP {player.Stats.Max_HP} -> {player.Stats.HP}");
 
             DisplayRewards(gold, items);
 
