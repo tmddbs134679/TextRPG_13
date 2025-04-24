@@ -9,8 +9,8 @@ namespace TextRPG_13
         public JOBTYPE Type { get; }
         public PlayerStatement Stats { get; private set; }
         public Inventory Inven { get; }
-        public QuestManager QuestManager { get; private set; } = new QuestManager();
-        public Skill Skill { get; }
+        //public QuestManager QuestManager { get; private set; } = new QuestManager();
+        public List<Skill> Skills { get; private set; }
 
         // 생성자: 직업을 받아서 해당 프리셋 적용
         public Player(JOBTYPE job)
@@ -19,6 +19,9 @@ namespace TextRPG_13
 
             // 프리셋에서 가져와 복사
             var preset = PlayerStatement.GetPreset(job);
+
+            // 직업에 따른 스킬 세팅
+            Skills = AllSkills.GetSkills(job);
 
             Stats = new PlayerStatement
             {
@@ -86,7 +89,7 @@ namespace TextRPG_13
             if (player.Stats.MP < skill.Mpcost) return;
 
             player.Stats.MP -= skill.Mpcost;
-            monster.TakeDamage(skill.Damage,player);
+            monster.TakeDamage(skill.Damage, player);
 
         }
     }

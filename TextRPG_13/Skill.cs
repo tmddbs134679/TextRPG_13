@@ -12,16 +12,17 @@ namespace TextRPG_13
         public string Name { get; }
         public string Description { get; }
         public int Mpcost { get; }
-
+        public int HitCount { get; }
         public float Damage { get; }
 
 
-        public Skill(string name, string dis, int mpcost, float damage)
+        public Skill(string name, string dis, int mpcost, float damage,int hitCount)
         {
             Name = name;
             Description = dis;
             Mpcost = mpcost;
             Damage = damage;
+            HitCount = hitCount;
         }
     }
 }

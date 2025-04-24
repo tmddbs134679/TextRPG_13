@@ -50,17 +50,16 @@ namespace TextRPG_13
             Console.ResetColor();
 
             DisplayPlayerInfo(player);
-            if(choice == 2)
+
+            if(choice == 2) //스킬 공격창
             {
-                for (int i = 0; i < player.Stats.Skills.Count;i++)
-                {
-                    Console.WriteLine($"{i+1}. {player.Stats.Skills[i].Name} - MP{player.Stats.Skills[i].Mpcost}" +
-                        $"{player.Stats.Skills[i].Description}");
-                }
-               
+                PrintSkills(player);
             }
-            Console.WriteLine("\n0. 취소\n");
-            Console.Write("대상을 선택해주세요.\n>> ");
+            else //일반 공격창
+            {
+                Console.WriteLine("\n0. 취소\n");
+                Console.Write("대상을 선택해주세요.\n>> ");
+            }
         }
         public static void DisplayPlayerInfo(Player player)
         {
@@ -95,7 +94,18 @@ namespace TextRPG_13
             }
             Console.WriteLine("\n0. 다음\n>>");
         }
-        
+        public static void PrintSkills(Player player)
+        {
+
+                for (int i = 0; i < player.Skills.Count;i++)
+                {
+                    Console.WriteLine($"{i+1}. {player.Skills[i].Name} - MP:{player.Skills[i].Mpcost}\n" +
+                        $"{player.Skills[i].Description}");
+                }
+                Console.WriteLine("\n0. 취소\n");
+                Console.Write("스킬을 선택해주세요");
+        }
+
         public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) 
         {
             Console.Clear();
@@ -152,11 +162,10 @@ namespace TextRPG_13
         public static void DisplayRewards(int gold, List<Item> items)
         {
             Console.WriteLine("\n[획득아이템]");
-            Console.WriteLine($"{gold}G");
-            if (items.Count == 0)
+            Console.WriteLine($"{gold}");
+            foreach (var item in items)
             {
-                Console.WriteLine("드롭된 아이템이 없습니다.");
-                return;
+                Console.WriteLine($"{item.Name}");
             }
 
             // 아이템 이름 기준으로 그룹화하여 수량 계산
@@ -221,10 +230,16 @@ namespace TextRPG_13
             Console.Clear();
             Console.WriteLine("인벤토리 - 장착 관리");
 
-            ItemList(player);
-
-            Console.WriteLine("\n0. 나가기");
-            Console.WriteLine("\n장착/해제할 대상을 입력해주세요.\n>>");
+            if (player.Inven.Count == 0) //아이템 없다면 장착관리 안되게 구현 후 삭제
+            {
+                Console.WriteLine("인벤토리에 아이템이 없습니다.");
+            }
+            else
+            {
+                int idx = 1;                
+            }
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine("\n원하시는 행동을 입력해주세요.\n>>");
         }
 
 
