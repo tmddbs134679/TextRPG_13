@@ -11,7 +11,7 @@ namespace TextRPG_13
     {
         private static readonly string path_ = "player.json";
         private static readonly string questpath_ = "quest.json";
-
+        private static readonly string stagepath_ = "stage.json";
         public static void Save(Player player, string path = null)
         {
             if (path == null)
@@ -98,10 +98,19 @@ namespace TextRPG_13
             if (path == null)
                 path = path_;
 
+            string[] files = {
+                                         path_,              
+                                         stagepath_,      
+                                         questpath_,  
+                                       
+                                     };
 
-            if (File.Exists(path))
+            foreach (string file in files)
             {
-                File.Delete(path);
+                if (File.Exists(file))
+                {
+                    File.Delete(file);
+                }
             }
         }
 
