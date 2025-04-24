@@ -36,7 +36,8 @@ namespace TextRPG_13
             };
             //인벤토리 인스턴스 생성 후 기본 포션 3개 추가
             Inven = new Inventory();
-            Inven.AddInitialPotions(3);
+            Inven.AddInitialPotions();
+            Inven.AddSword();
         }
         private static int GetRequiredExp(int level)
         {

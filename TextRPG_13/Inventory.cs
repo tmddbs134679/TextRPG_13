@@ -58,12 +58,19 @@ namespace TextRPG_13
         }
 
         //기본적으로 존재하는 포션 생성
-        public void AddInitialPotions(int count)
+        public void AddInitialPotions()
         {
             for (int i = 0; i < 3; i++)
             {
                 AddItem(ItemDatabase.Items.FirstOrDefault(item => item.Id == 100));
             }
+        }
+
+        //삭제 예정
+        //초기 검  생성
+        public void AddSword()
+        {
+            AddItem(ItemDatabase.Items.FirstOrDefault(item => item.Id == 4));
         }
     }
 }
