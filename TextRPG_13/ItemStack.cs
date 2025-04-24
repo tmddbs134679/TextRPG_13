@@ -9,7 +9,7 @@ namespace TextRPG_13
     public class ItemStack
     {
         public Item Item { get; set; }
-        public int Quantity { get; private set; }
+        public int Quantity { get; set; }
 
         public ItemStack() {}
         public ItemStack(Item item, int quantity = 1)

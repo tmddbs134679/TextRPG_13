@@ -43,8 +43,22 @@ namespace TextRPG_13
                 if (File.Exists(questpath_))
                         File.Delete(questpath_);
             }
-        }
 
+            File.WriteAllText("stage.json", GameManager.Stage.CurrentStage.ToString());
+
+        }
+        public static void LoadStage()
+        {
+            if (File.Exists("stage.json"))
+            {
+                string text = File.ReadAllText("stage.json");
+
+                if (int.TryParse(text, out int savedStage))
+                {
+                    GameManager.Stage.SetStage(savedStage);
+                }
+            }
+        }
 
         public static Player Load(string path = null)
         {

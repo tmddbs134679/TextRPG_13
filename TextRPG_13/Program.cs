@@ -9,7 +9,7 @@ namespace TextRPG_13
         {
 
             var _ = QuestManager.Instance;
-
+            SaveManager.LoadStage();
             Player player = GameStart();
 
 

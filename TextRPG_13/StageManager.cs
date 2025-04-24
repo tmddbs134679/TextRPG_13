@@ -32,7 +32,12 @@ namespace TextRPG_13
             new StageConfig(4, new[]{4,5}, (1,4))
         };
 
-        public int CurrentStage { get; private set; } = 1; //초기 스테이지는 1
+        public void SetStage(int stage)
+        {
+            CurrentStage = stage;
+
+        }
+        public int CurrentStage { get;  set; } = 1; //초기 스테이지는 1
 
         public void NextStage()//배틀에서 승리할때만 다음 스테이지로
         {
