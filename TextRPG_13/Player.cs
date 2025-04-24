@@ -105,32 +105,37 @@ namespace TextRPG_13
             attack += 0.5f;
             return (defend, attack);
         }
-        //플레이어에서
-        public void UseSkill(Player player,Skill skill, List <Monster> monsters,int index)
+        
+        public int UseSkill(Player player, Skill skill, List<Monster> monsters, int index)
         {
-            if (player.Stats.MP < skill.Mpcost) return;
-
+            int damage = 0;
             player.Stats.MP -= skill.Mpcost;
-            if(skill.HitCount > 1)
-                HitMultiEnemy(player, skill, monsters);
+            if (skill.HitCount > 1)
+                damage = HitMultiEnemy(player, skill, monsters);
             else
-                monsters[index].TakeSkillDamage(skill.Damage, player);
-
+                damage = monsters[index-1].TakeSkillDamage(skill.Damage, player);
+            return damage;
         }
-        private void  HitMultiEnemy(Player player, Skill skill, List<Monster> monsters)
+        private int HitMultiEnemy(Player player, Skill skill, List<Monster> monsters)
         {
             Random random = new Random();
             int hits = 0;
-            while (skill.HitCount < hits)
+            int totalDamage = 0;
+
+            while (skill.HitCount > hits)
             {
                 int rand = random.Next(0, skill.HitCount);
-                if (!monsters[hits].Stats.IsDead)
+                var target = monsters[rand];
+
+                if (!monsters[rand].Stats.IsDead)
                 {
-                    monsters[rand].TakeSkillDamage(skill.Damage, player);
+                    int damage = target.TakeSkillDamage(skill.Damage, player);
+                    totalDamage += damage;
                     hits++;
                 }
 
             }
+            return totalDamage;
         }
     }
 }

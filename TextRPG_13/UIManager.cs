@@ -71,7 +71,20 @@ namespace TextRPG_13
             Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
             Console.WriteLine($"HP.{player.Stats.HP}/{player.Stats.Max_HP}");
         }
+        public static void DisplayMultiSkillResult(Player player, List<Monster> targets, Skill skill, int totalDamage)
+        {
+            Console.Clear();
+            Console.WriteLine($"{player.Stats.Name}의 [{skill.Name}] 다중 타격");
 
+            foreach (var target in targets)
+            {
+                if (target.Stats.IsDead) continue;
+
+                Console.WriteLine($" - {target.Stats.monsterName} 총{totalDamage / targets.Count}");
+            }
+
+            Console.WriteLine("\n0. 다음\n>>");
+        }
         public static void DisplayAttackResult(string attackerName, Monster target, int damage, int beforeHp)
         {
             Console.Clear();

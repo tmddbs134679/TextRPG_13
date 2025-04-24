@@ -68,9 +68,11 @@ namespace TextRPG_13
         }
 
         //몬스터에서
-        public void TakeSkillDamage(float dmg,Player player)
+        public int TakeSkillDamage(float dmg,Player player)
         {
             Stats.monsterHP -= (int)Math.Ceiling(player.Stats.baseATK * dmg);
+
+            return (int)Math.Ceiling(player.Stats.baseATK * dmg);
         }
         public static int GetDamageWithVariance(float baseAtk) 
         {
