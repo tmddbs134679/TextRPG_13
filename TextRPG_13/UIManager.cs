@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -43,7 +44,6 @@ namespace TextRPG_13
                 var monster = monsters[i];
                 string status = monster.Stats.IsDead ? "Dead" : $"HP {monster.Stats.monsterHP}";
                 Console.ForegroundColor = monster.Stats.IsDead ? ConsoleColor.DarkGray : ConsoleColor.White;
-                //Console.WriteLine($"{i + 1} {monster.Stats.monsterName}  {status}");
                 Console.WriteLine($"{i + 1} Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
 
             }
@@ -61,7 +61,7 @@ namespace TextRPG_13
             Console.WriteLine($"HP.{player.Stats.HP}/{player.Stats.Max_HP}");
         }
 
-        public static void DisplayAttackResult(string attackerName, Monster target, int damage, int beforeHp, int afterHp)
+        public static void DisplayAttackResult(string attackerName, Monster target, int damage, int beforeHp)
         {
             Console.Clear();
             Console.WriteLine("Battle!! - Result\n");
@@ -75,232 +75,293 @@ namespace TextRPG_13
                 Console.WriteLine($"{attackerName}의 공격!");
                 Console.WriteLine($"{target.Stats.monsterName} 을(를) 맞췄습니다. [데미지 : {damage}]");
 
-                string hpText = afterHp <= 0 ? $"{beforeHp} -> Dead" : $"{beforeHp} -> {afterHp}";
                 Console.WriteLine($"\n{target.Stats.monsterName}");
-                Console.WriteLine($"HP {hpText}");
-                //나연 추가구현 확인용
-                //확인용이므로 몬스터가 죽지 않아도 출력됩니다. 
-                //아래는 로직 예시이니 참고하여 수정부탁드립니다.
-                var dropper = new MonsterItemDrop();
-                var result = dropper.MonsterDrops(target.Stats.Lv);
-                Console.WriteLine("\n[획득아이템]");
-                Console.WriteLine($"{target.Stats.goldDrop} Gold");
-                foreach (var p in result.PotionDrops)//포션
+                if(target.Stats.IsDead)
                 {
-                    Console.WriteLine($"{p.name} - {p.count}");
+                    Console.WriteLine($"{beforeHp} -> Dead\n");
                 }
-                foreach (var e in result.EquipDrops)//장비
-                { 
-                    Console.WriteLine($"{e.name} - {e.count}");
+                else
+                {
+                    Console.WriteLine($"{beforeHp} -> {target.Stats.monsterHP}");
                 }
-                //플레이어가 소지한 골드에 추가하는 로직 구현 부탁합니다.
-                //몬스터 처치 후 아이템 획득했을 때 종류, 수량 정보 등 인벤토리에 넣는 것 부탁합니다.
-
             }
-            
             Console.WriteLine("\n0. 다음\n>>");
         }
         
         public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) //머지 할때 
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("Battle!!\n");
-            Console.ResetColor();
 
+            WriteColor("Battle!!\n", ConsoleColor.DarkRed);
             Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}의 공격! ");
             if (damage == 0)
             {
                 Console.WriteLine($"{player.Stats.Name}을(를) 공격했지만 아무일도 일어나지 않았습니다.\n");
             }
-            else 
+            else
             {
                 Console.WriteLine($"{player.Stats.Name}을(를) 맞췄습니다. [데미지: {damage}]\n");
                 Console.WriteLine($"HP {beforeHp} -> {player.Stats.HP}\n");
             }
-           
+
             Console.WriteLine("\n0.다음");
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
-        public static void PrintPlayerLose(Player player) //플레이어 매개변수는 플레이어 클래스 미구현으로 임시변수로 임시로 사용
+        public static void PrintPlayerLose(Player player, int gold, List<Item> items) 
         {
             Console.Clear();
-            Console.WriteLine("You Lose\n", Color.Red);
-            Console.ResetColor();
+            WriteColor("You Lose\n", ConsoleColor.Red);
 
+            Console.WriteLine("\n[내정보]");
             Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
             Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
+
+            DisplayRewards(gold, items);
             Console.WriteLine("\n0.다음");
 
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
-        public static void PrintPlayerVictory(Player player, int maxMonster)
+        public static void PrintPlayerVictory(Player player, int maxMonster,int beforerLv,int beforeExp,bool isLvUp, int gold, List<Item> items)
         {
             Console.Clear();
-            Console.WriteLine("Vicoty\n", Color.DarkOliveGreen);
+            WriteColor("Vicoty\n", ConsoleColor.DarkGreen);
             Console.ResetColor();
 
             Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
-            Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
+            Console.Write($"Lv.{beforerLv} {player.Stats.Name}");
+            if (isLvUp == true) Console.WriteLine($" -> Lv.{player.Stats.Level} {player.Stats.Name}");
+            Console.WriteLine($"exp {beforeExp} -> {player.Stats.Exp}");
             Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
 
+            DisplayRewards(gold, items);
+
             Console.WriteLine("\n0.다음");
-            WriteColor(">>",ConsoleColor.DarkYellow);
+            WriteColor(">>", ConsoleColor.DarkYellow);
+            Console.ReadLine();
         }
+        public static void DisplayRewards(int gold, List<Item> items)
+        {
+            Console.WriteLine("\n[획득아이템]");
+            Console.WriteLine($"{gold}G");
+            if (items.Count == 0)
+            {
+                Console.WriteLine("드롭된 아이템이 없습니다.");
+                return;
+            }
+
+            // 아이템 이름 기준으로 그룹화하여 수량 계산
+            var groupedItems = items
+                .GroupBy(item => item.Name)
+                .Select(group => new
+                {
+                    Name = group.Key,
+                    Count = group.Count(),
+                    Description = group.First().Description
+                });
+
+            foreach (var g in groupedItems)
+            {
+                Console.WriteLine($"{g.Name} x{g.Count} - {g.Description}");
+            }
+        }
+
         public static void WriteColor(string text, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.Write(text);
-            Console.ResetColor ();
+            Console.ResetColor();
         }
 
-        private readonly Player _player;
-        //내부 생성자 추가
-        public UIManager(Player player) 
+        public static void ItemList(Player player)
         {
-            _player = player;
-        }
-        public void Gamelobby()
-        {
-            while (true)
+            if (player.Inven.Count == 0)
             {
-                Console.Clear();
-                Console.WriteLine("스파르타 마을에 오신 여러분, 환영합니다.\n" +
-                                  "이제 전투를 시작할 수 있습니다.\n");
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write("1. ");
-                Console.ResetColor();
+                Console.WriteLine("인벤토리에 아이템이 없습니다.");
+            }
+            else
+            {
+                int idx = 1;
 
-                Console.WriteLine("상태 보기");
-
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write("2. ");
-                Console.ResetColor();
-
-                Console.WriteLine("전투 시작");
-
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write("3. ");
-                Console.ResetColor();
-
-                Console.WriteLine("회복 아이템\n\n");
-
-                Console.WriteLine("원하시는 행동을 입력해주세요.\n");
-
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
-                Console.Write(">> ");
-                Console.ResetColor();
-
-                Battle Denjeon = new Battle();
-                string input = Console.ReadLine();
-
-                if (int.TryParse(input, out int inp))
+                foreach (var stack in player.Inven.GetItems())
                 {
-                    if (inp >= 1 && inp <= 3)
-                    {
-                        switch ((LOBBYCHOICE)inp)
-                        {
-                            case LOBBYCHOICE.PLYAYERSTAT:
-                                PlayerStat();
-                                break;
-                            case LOBBYCHOICE.DENJEON:
-                                Denjeon.BattleSequence();
-                                break;
-                            case LOBBYCHOICE.POTION:
-
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("화면에 나와있는 번호중 하나를 선택해주세요.");
-                        Thread.Sleep(1000);
-                        Console.Clear();
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("잘못된 입력입니다. 다시 시도해주세요.");
-                    Thread.Sleep(1000);
-                    Console.Clear();
+                    var item = stack.Item;
+                    var quantity = stack.Quantity;
+                    string statText = item.ATKbonus > 0 ? $"공격력 +{item.ATKbonus}" :
+                                        item.DEFbonus > 0 ? $"방어력 +{item.DEFbonus}" :
+                                        item.HealAmount > 0 ? $"회복량 +{item.HealAmount}" : "-";
+                    string equipMark = item.IsEquipped ? " [E]" : "";  // 장착여부 표기
+                    Console.WriteLine($"- {idx++} {equipMark} {item.Name} [x{quantity}] | {statText} | {item.Description}");
                 }
             }
         }
-        public void PlayerStat()
+        public static void ShowInventory(Player player)
         {
-            PlayerStatement _Playerstat = GameManager.CurrentPlayer.Stats;
+            Console.Clear();
+            Console.WriteLine("인벤토리");
+
+            ItemList(player);
+
+            Console.WriteLine("\n1. 장착관리");
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine("\n원하시는 행동을 입력해주세요.\n>>");
+        }
+
+        public static void ShowEquipMenu(Player player)
+        {
+            Console.Clear();
+            Console.WriteLine("인벤토리 - 장착 관리");
+
+            ItemList(player);
+
+            Console.WriteLine("\n0. 나가기");
+            Console.WriteLine("\n장착/해제할 대상을 입력해주세요.\n>>");
+        }
+
+
+        public static void Gamelobby(Player player)
+        { 
+            Console.Clear();
+            Console.WriteLine("스파르타 마을에 오신 여러분, 환영합니다.\n" +
+                              "이제 전투를 시작할 수 있습니다.\n");
+
+            WriteColor("1. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("상태 보기");
+
+            WriteColor("2. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("전투 시작");
+
+            WriteColor("3. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("회복 아이템");
+
+            WriteColor("4. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("인벤토리");
+
+            WriteColor("5. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("퀘스트\n\n");
+
+            Console.WriteLine("원하시는 행동을 입력해주세요.\n");
+            WriteColor(">> ", ConsoleColor.DarkGreen);
+
+        }
+        public static void PlayerStat(Player player)
+        {
+            // 플레이어 초기 스탯 불러오기
+            var stat = player.Stats;
+
+            string atkText = stat.bonusATK > 0 ? $"{stat.Offensivepower} (+{stat.bonusATK})" : $"{stat.baseATK}";
+            string defText = stat.bonusDEF > 0 ? $"{stat.Defensivepower} (+{stat.bonusDEF})" : $"{stat.baseDEF}";
+
             Console.Clear();
 
-            //int Bonusoff = _player.인벤토리아이템.Where(i => i.IsEquipped).Sum(i => i.); 
-
-            // 인벤토리에서 장착한 아이템을 Bonusoff,Bonusdf 에 선언하여 각각 공격력,방어력에 합산하여 상태 표시 창에서 합산된 값 표시.
-
-            //int Bonusdf = _player.인벤토리아이템.Where(i => i.IsEquipped).Sum(i => i.);
-
-
-            //ForegroundColor = ConsoleColor. 각각의 텍스트에 구분되게 컬러를 입혀 유저분들이 텍스트를 더욱 가독성 있게 볼 수 있게 해줌.
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("상태 보기\n");
-            Console.ResetColor();
-
+            WriteColor("상태 보기\n", ConsoleColor.DarkYellow);
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n\n");
 
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("Lv. ");
-            Console.ResetColor();
+            WriteColor("Lv. ", ConsoleColor.DarkGray);
 
-            Console.WriteLine($"{_Playerstat.Level}");
-            Console.WriteLine($"{_Playerstat.Name}  ( {_Playerstat.Job} )");
+            Console.WriteLine($"{stat.Level}\n");
+            Console.WriteLine($"{stat.Name}  ( {stat.Job} )\n");
+
             Console.Write($"공격력 : ");
-
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Playerstat.Offensivepower}");
-
-            // 인벤토리 추가 될 시 인벤토리에서 장착한 아이템을 Bonusoff에 장비에 따른 공격력 추가 및 기본 공격력에 합산,
-            // 기본 공격력엔 Bonusoff가 합산된 전체값 표기
-            // Bonus 에는 장착한 장비유형에 따른 값 표시 (공격력 : 6 일 경우 bonusoff 에는 그 장비의 공격력 6 추가)
-
-            Console.ResetColor();
+            WriteColor($"{atkText}\n", ConsoleColor.DarkGray);
 
             Console.Write("방어력 : ");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Playerstat.Defensivepower}");
-
-            // 인벤토리 추가 될 시 인벤토리에서 장착한 아이템을 Bonusdf에 장비에 따른 공격력 추가 및 기본 방어력에 합산,
-            // 기본 공격력엔 Bonusdf가 합산된 전체값 표기
-            // Bonus 에는 장착한 장비유형에 따른 값 표시 (방어력 : 6 일 경우 bonusoff 에는 그 장비의 방어력 6 추가) 
-
-            Console.ResetColor();
+            WriteColor($"{defText}\n", ConsoleColor.DarkGray);
 
             Console.Write("체 력 : ");
-
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Playerstat.HP}");
-            Console.ResetColor();
+            WriteColor($"{stat.HP}\n", ConsoleColor.DarkGray);
 
             Console.Write("Gold : ");
+            WriteColor($"{stat.Gold}\n", ConsoleColor.DarkGray);
 
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine($"{_Playerstat.Gold}\n");
-            Console.ResetColor();
+            Console.Write("회복약 : ");
+            WriteColor($"{stat.Potion}\n\n", ConsoleColor.DarkGray);
 
             Console.WriteLine("0. 나가기\n\n" +
                               $"원하시는 행동을 입력해주세요.");
 
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write(">> ");
-            Console.ResetColor();
-
-            int inp = int.Parse(Console.ReadLine());
-
-            if (inp == 0)
-            {
-                Thread.Sleep(1000);
-                Console.Clear();
-                Gamelobby();
-            }
+            WriteColor(">> ", ConsoleColor.DarkGreen);
         }
+
+        public static void PlayerRecovery(Player player)
+        {
+            var stat = player.Stats;
+
+            Console.Clear();
+
+            WriteColor("회복\n", ConsoleColor.DarkYellow);
+            Console.Write("포션을 사용하면 체력을 ");
+            WriteColor("30 ", ConsoleColor.Red);
+            Console.Write($"회복 할 수 있습니다. (남은 포션 : ");
+            WriteColor($"{stat.Potion}", ConsoleColor.Red);
+            Console.Write(")\n\n");
+
+
+            WriteColor("1", ConsoleColor.Red);
+            Console.WriteLine(". 사용하기");
+            WriteColor("0", ConsoleColor.Red);
+            Console.WriteLine(". 나가기\n\n");
+
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
+            WriteColor(">> ", ConsoleColor.DarkGreen);
+        }
+
+
+        public static void QuestUI()
+        {
+            Console.Clear();
+            Console.WriteLine(" Quest!! ");
+            Console.WriteLine("1. 마을을 위협하는 미니언 처치");
+            Console.WriteLine("2. 장비를 장착해보자");
+            Console.WriteLine("2. 더욱 더 강해지기!");
+            Console.WriteLine("\n\n");
+
+            Console.WriteLine("원하시는 퀘스트를 선택해주세요.");
+            Console.WriteLine(">>");
+        }
+
+        public static void Quest_1()
+        {
+            Console.Clear();
+            Console.WriteLine(" Quest!! \n");
+            Console.WriteLine("마을을 위협하는 미니언 처치\n");
+            Console.WriteLine("이봐! 마을 근처에 미니언들이 너무 많아졌다고 생각하지 않나?\r\n마을주민들의 안전을 위해서라도 저것들 수를 좀 줄여야 한다고!\r\n모험가인 자네가 좀 처치해주게!");
+
+        }
+
+        public static void Quest_2()
+        {
+            Console.Clear();
+            Console.WriteLine(" Quest!! ");
+            Console.WriteLine("1. 마을을 위협하는 미니언 처치");
+            Console.WriteLine("2. 장비를 장착해보자");
+            Console.WriteLine("2. 더욱 더 강해지기!");
+            Console.WriteLine("\n\n");
+
+            Console.WriteLine("원하시는 퀘스트를 선택해주세요.");
+            Console.WriteLine(">>");
+
+        }
+
+        public static void AskToAcceptQuest()
+        {
+            Console.WriteLine("1. 수락");
+            Console.WriteLine("2. 거절");
+            Console.WriteLine("원하시는 행동을 입력해주세요");
+            Console.WriteLine(">>");
+        }
+
+        public static void AskRewardQuest()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("1. 보상받기");
+            Console.WriteLine("2. 돌아가기");
+            Console.WriteLine("원하시는 행동을 입력해주세요");
+            Console.WriteLine(">>");
+        }
+
+
     }
+
 }

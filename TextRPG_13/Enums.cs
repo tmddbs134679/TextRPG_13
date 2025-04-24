@@ -24,7 +24,9 @@ namespace TextRPG_13
     {
         PLYAYERSTAT = 1,
         DENJEON = 2,
-        POTION =3
+        POTION =3,
+        INVENTORY =4,
+        QUEST = 5
     }
     public enum ITEMTYPE
     {
@@ -32,4 +34,11 @@ namespace TextRPG_13
         WEAPON,
         POTION
     }
+
+    public enum EQUESTTYPE
+    {
+        MINION = 1,
+        EQUIP
+    }
+
 }

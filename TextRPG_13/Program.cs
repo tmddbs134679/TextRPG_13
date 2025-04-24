@@ -14,10 +14,10 @@ namespace TextRPG_13
 
             // GameManager에 저장
             GameManager.CurrentPlayer = player;
-            GameManager.UI = new UIManager(player);
+            GameManager.UI = new UIManager();
 
             // 게임 시작
-            GameManager.UI.Gamelobby();
+            initializer.InitPlayer();
         }
     }
 }

@@ -8,35 +8,48 @@ namespace TextRPG_13
 {
     public class Inventory
     {
-        private List<Item> items;
+        private List<ItemStack> items;
         public int Count => items.Count;
         public bool IsEmpty => !items.Any();
 
         public Inventory()
         {
-            items = new List<Item>();
+            items = new List<ItemStack>();
         }
-
 
         public List<Item> GetEquippedItems()
         {
-            return items.Where(i => i.IsEquipped).ToList();
+            return items.Where(stack => stack.Item.IsEquipped).Select(stack => stack.Item).ToList();
         }
 
-        //public List<Item> GetItems()
-        //{
-        //    return items;
-        //}
-
-        //public void AddItem(Item item, ITEMTYPE type)
-        //{
-        //    item.Type = type;
-        //    items.Add(item);
-        //}
-
-        public void RemoveItem(Item item)
+        public List<ItemStack> GetItems()
         {
-            items.Remove(item);
+            return items;
+        }
+
+        public void AddItem(Item newItem)
+        {
+            // 동일 아이템 존재 여부 확인
+            var stack = items.FirstOrDefault(i => i.Item.Id == newItem.Id);
+            if (stack != null)
+            {
+                stack.Add(1);  // 수량 증가
+            }
+            else
+            {
+                items.Add(new ItemStack(newItem, 1));
+            }
+        }
+
+        public void RemoveItem(Item targetItem)
+        {
+            var stack = items.FirstOrDefault(i => i.Item.Id == targetItem.Id);
+            if (stack != null)
+            {
+                stack.Remove(1);
+                if (stack.Quantity <= 0)
+                    items.Remove(stack);
+            }
         }
 
         public void EquipItem(Item itemEquip)
@@ -47,20 +60,34 @@ namespace TextRPG_13
                 itemEquip.IsEquipped = false;
                 return;
             }
-
-            //foreach (var item in items)
-            //{
-            //    if (item.Type == itemEquip.Type && item.IsEquipped)
-            //    {
-            //        item.IsEquipped = false;
-            //        break;
-            //    }
-            //}
-
+            //동일한 타입의 아이템은 한 개만 장착되게 처리
+            foreach (var stack in items)
+            {
+                if (stack.Item.ItemCategory == itemEquip.ItemCategory && stack.Item.IsEquipped)
+                {
+                    stack.Item.IsEquipped = false;
+                    break;
+                }
+            }
             itemEquip.IsEquipped = true;
 
+            QuestManager.Instance.OnItemEquipped(itemEquip);
         }
 
+        //기본적으로 존재하는 포션 생성
+        public void AddInitialPotions()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                AddItem(ItemDatabase.Items.FirstOrDefault(item => item.Id == 100));
+            }
+        }
 
+        //삭제 예정
+        //초기 검  생성
+        public void AddSword()
+        {
+            AddItem(ItemDatabase.Items.FirstOrDefault(item => item.Id == 4));
+        }
     }
 }
