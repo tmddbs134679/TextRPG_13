@@ -144,10 +144,26 @@ namespace TextRPG_13
         public static void DisplayRewards(int gold, List<Item> items)
         {
             Console.WriteLine("\n[획득아이템]");
-            Console.WriteLine($"{gold}");
-            foreach (var item in items)
+            Console.WriteLine($"{gold}G");
+            if (items.Count == 0)
             {
-                Console.WriteLine($"{item.Name}");
+                Console.WriteLine("드롭된 아이템이 없습니다.");
+                return;
+            }
+
+            // 아이템 이름 기준으로 그룹화하여 수량 계산
+            var groupedItems = items
+                .GroupBy(item => item.Name)
+                .Select(group => new
+                {
+                    Name = group.Key,
+                    Count = group.Count(),
+                    Description = group.First().Description
+                });
+
+            foreach (var g in groupedItems)
+            {
+                Console.WriteLine($"{g.Name} x{g.Count} - {g.Description}");
             }
         }
 
