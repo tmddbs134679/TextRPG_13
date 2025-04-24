@@ -17,13 +17,8 @@ namespace TextRPG_13
             Console.ResetColor();
         }
 
-        public static void intro(string text)
+        public static void intro(string text) //인트로 구분하기 위해 추가
         {
-            Console.SetWindowSize(100, 40);
-
-            int WindowsWidth = Console.WindowWidth;
-            int WindowsHeight = Console.WindowHeight;
-
             //텍스트(인트로) 추가
             Console.WriteLine(text);
         }
@@ -41,7 +36,7 @@ namespace TextRPG_13
             //이름 저장
             player.Stats.Name = name;
 
-            
+
             GameManager.CurrentPlayer = player;
 
             Console.Write("\n캐릭터를 생성하는 중");
@@ -62,17 +57,17 @@ namespace TextRPG_13
             Thread.Sleep(5000);
 
             Console.Write("로비로 이동 중");
-                for (int i = 0; i < 1; i++)
-                {
-                    Thread.Sleep(500);
-                    Console.Write(".");
-                }
+            for (int i = 0; i < 1; i++)
+            {
                 Thread.Sleep(500);
+                Console.Write(".");
+            }
+            Thread.Sleep(500);
 
-                // 메시지 지우기
-                Console.SetCursorPosition(0, Console.CursorTop);
-                Console.Write(new string(' ', Console.WindowWidth));
-                Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
+            // 메시지 지우기
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
 
             Console.Clear();
             //new Lobby(player).GameLobby();
