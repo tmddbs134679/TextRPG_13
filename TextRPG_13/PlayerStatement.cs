@@ -9,6 +9,8 @@ namespace TextRPG_13
 {
     public class PlayerStatement
     {
+        private Player owner;
+
         public string Name { get; set; }
         public JOBTYPE Job { get; set; }
         public int Level { get; set; } = 1; //기본값 1
@@ -20,12 +22,25 @@ namespace TextRPG_13
         public int Exp { get; set; } = 0;
         public int Max_MP { get; set; }
         public int MP { get; set; }
-        public int Potion { get; set; }
         public float bonusATK { get; private set; }
         public float bonusDEF { get; private set; }
 
         public float Offensivepower => baseATK + bonusATK;
         public float Defensivepower => baseDEF + bonusDEF;
+
+        public PlayerStatement() { }
+
+        public PlayerStatement(Player player)
+        {
+            owner = player;
+        }
+
+        public void SetOwner(Player player)
+        {
+            owner = player;
+        }
+
+
         public void UpdateStats(Player user)
         {
             bonusATK = user.Inven.GetEquippedItems()
@@ -53,8 +68,7 @@ namespace TextRPG_13
                         Gold = 1500,
                         Exp = 0,
                         Max_MP = 50,
-                        MP = 50,
-                        Potion = 3
+                        MP = 50
 
                     }
                 },

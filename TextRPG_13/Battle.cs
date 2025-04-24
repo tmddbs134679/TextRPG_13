@@ -14,7 +14,13 @@ namespace TextRPG_13
     public class Battle
     {
         private List<Item> droppedItems = new List<Item>();  // 드롭된 아이템을 저장할 리스트
+        private StageManager stageManager;
 
+        // 생성자에서 외부의 StageManager를 받아 저장
+        public Battle()
+        {
+            stageManager = GameManager.Stage;
+        }
         public void BattleSequence()
         {
             Player player = GameManager.CurrentPlayer;
@@ -28,8 +34,8 @@ namespace TextRPG_13
             int beforeHp = 0;
             int damage = 0;
 
-            Monster.MonsterRandomSpawn();
-            List<Monster> monsters = Monster.CurrentWave.ToList();
+            //전투 시작할때마다 SpawnWave()호출
+            List<Monster> monsters = stageManager.SpawnWave();
 
             while ((player.Stats.HP > 0) && monsters.Any(m => !m.Stats.IsDead))
             {
@@ -135,6 +141,9 @@ namespace TextRPG_13
                                     while (true)
                                     {
                                         UIManager.PrintPlayerVictory(player, deathCount, beforeLv, beforeExp, isLvUp, rewardsGold, droppedItems); //수정 윈화면 출력되다가 몬스터턴으로 넘어감
+
+                                        //승리할때만 다음 스테이지
+                                        stageManager.NextStage();
                                         input = Console.ReadLine();
                                         if (!int.TryParse(input, out int j) || (j != 0))
                                         {

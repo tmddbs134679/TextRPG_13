@@ -40,7 +40,7 @@ namespace TextRPG_13
                 Potion = preset.Potion
             };
             //인벤토리 인스턴스 생성 후 기본 포션 3개 추가
-            Inven = new Inventory();
+            Inven = new Inventory(GameManager.CurrentPlayer);
             Inven.AddInitialPotions();
             Inven.AddSword();
         }
@@ -137,5 +137,15 @@ namespace TextRPG_13
             }
             return totalDamage;
         }
+
+        public void RestoreReferences()
+        {
+            if (Stats != null)
+                Stats.SetOwner(this);
+
+            if (Inven != null)
+                Inven.SetOwner(this);
+        }
+
     }
 }
