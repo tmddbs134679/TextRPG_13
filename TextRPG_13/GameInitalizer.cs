@@ -17,12 +17,9 @@ namespace TextRPG_13
             Console.ResetColor();
         }
 
-        public static void intro(string text)
+        public static void intro(string text) //
         {
-            Console.SetWindowSize(100, 40);
-
-            int WindowsWidth = Console.WindowWidth;
-            int WindowsHeight = Console.WindowHeight;
+            
 
             //텍스트(인트로) 추가
             Console.WriteLine(text);
