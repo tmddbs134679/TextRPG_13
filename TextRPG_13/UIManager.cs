@@ -13,27 +13,13 @@ namespace TextRPG_13
     {
         public static void BattleStart(Player player, List<Monster> monsters)
         {
-            Console.Clear();
-            Console.WriteLine("Battle!!\n");
-
-            for (int i = 0; i < monsters.Count; i++)
-            {
-                var monster = monsters[i];
-                string status = monster.Stats.IsDead ? "Dead" : $"HP {monster.Stats.monsterHP}";
-                Console.ForegroundColor = monster.Stats.IsDead ? ConsoleColor.DarkGray : ConsoleColor.White;
-                //Console.WriteLine($"{i + 1} {monster.Stats.monsterName}  {status}");
-                Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
-
-            }
-            Console.ResetColor();
-
-            DisplayPlayerInfo(player);
+            DisplayMonstersAndPlayer(player,monsters);
 
             Console.WriteLine("\n1. 공격\n2. 스킬\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
         }
 
-        public static void DisplayMonsters(Player player, List<Monster> monsters, int choice)
+        public static void DisplayMonstersAndPlayer(Player player, List<Monster> monsters)
         {
             Console.Clear();
             Console.WriteLine("Battle!!\n");
@@ -50,16 +36,33 @@ namespace TextRPG_13
 
             DisplayPlayerInfo(player);
 
-            if(choice == 2) //스킬 공격창
+        }
+        public static void DisplayMonstersAndPlayer(Player player, List<Monster> monsters,int input) //오버로딩
+        {
+            Console.Clear();
+            Console.WriteLine("Battle!!\n");
+
+            for (int i = 0; i < monsters.Count; i++)
             {
-                PrintSkills(player);
+                var monster = monsters[i];
+                string status = monster.Stats.IsDead ? "Dead" : $"HP {monster.Stats.monsterHP}";
+                Console.ForegroundColor = monster.Stats.IsDead ? ConsoleColor.DarkGray : ConsoleColor.White;
+                Console.WriteLine($"{i + 1} Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
+
             }
-            else //일반 공격창
+            Console.ResetColor();
+
+            DisplayPlayerInfo(player);
+            if (input == 1)
             {
                 Console.WriteLine("\n0. 취소\n");
                 Console.Write("대상을 선택해주세요.\n>> ");
             }
+            else if (input == 2) PrintSkills(player);
+
+
         }
+
         public static void DisplayPlayerInfo(Player player)
         {
             Console.WriteLine("\n[내정보]");
@@ -95,14 +98,13 @@ namespace TextRPG_13
         }
         public static void PrintSkills(Player player)
         {
-
                 for (int i = 0; i < player.Skills.Count;i++)
                 {
-                    Console.WriteLine($"{i+1}. {player.Skills[i].Name} - MP:{player.Skills[i].Mpcost}\n" +
+                    Console.WriteLine($"\n{i+1}. {player.Skills[i].Name} - MP:{player.Skills[i].Mpcost}\n" +
                         $"{player.Skills[i].Description}");
                 }
                 Console.WriteLine("\n0. 취소\n");
-                Console.Write("스킬을 선택해주세요");
+                Console.Write("스킬을 선택해주세요\n>>");
         }
 
         public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) 

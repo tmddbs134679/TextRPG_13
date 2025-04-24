@@ -29,7 +29,7 @@ namespace TextRPG_13
 
             while ((player.Stats.HP > 0) && monsters.Any(m => !m.Stats.IsDead))
             {
-                UIManager.BattleStart(player, monsters); //공격 선택지 페이지 출력
+                UIManager.BattleStart(player, monsters); //공격 스킬 선택지 페이지 출력
                 string input = Console.ReadLine();
 
                 if (!int.TryParse(input, out int choice))
@@ -44,8 +44,8 @@ namespace TextRPG_13
                     {
                         while (true)
                         {
-                            //몬스터 선택 페이지 출력
-                            UIManager.DisplayMonsters(player, monsters, choice);
+                            //choice에 따라 몬스터 선택 아니면 스킬창 페이지 출력
+                            UIManager.DisplayMonstersAndPlayer(player, monsters, choice);
                             input = Console.ReadLine();
 
                             if (!int.TryParse(input, out int index) || (index < 0 || index > monsters.Count))
@@ -56,7 +56,8 @@ namespace TextRPG_13
                             }
                             else if (index == 0) break; //0.취소 선택
 
-                            Monster target = monsters[index - 1];
+
+                                Monster target = monsters[index - 1];
 
                             if (target.Stats.IsDead) //몬스터 Dead 여부
                             {
@@ -67,7 +68,7 @@ namespace TextRPG_13
                             else
                             {
                                 //플레이어 공격
-                                float damage = GetDamageWithVariance(player.Stats.Offensivepower);
+                                float damage = Player.GetDamageWithVariance(player.Stats.Offensivepower);
                                 int beforeHp = target.Stats.monsterHP;
                                 target.Stats.monsterHP -= (int)damage;
                                 if (target.Stats.monsterHP <= 0)
@@ -152,7 +153,7 @@ namespace TextRPG_13
                         if (!monsters[i].Stats.IsDead)
                         {
                             //몬스터의 공격
-                            int monsterDamage = GetDamageWithVariance(monsters[i].Stats.monsterATK);
+                            int monsterDamage = Monster.GetDamageWithVariance(monsters[i].Stats.monsterATK);
                             int beforePlayerHP = player.Stats.HP;
                             player.Stats.HP -= monsterDamage;
                             if (player.Stats.HP <= 0) player.Stats.HP = 0;
@@ -201,27 +202,6 @@ namespace TextRPG_13
             //2. 스킬사용 추가
             //3. 포션 사용
         }   
-
-        private static int GetDamageWithVariance(float baseAtk) //스킬 로직 추가
-        {
-            Random rand = new Random();
-            double offset = Math.Ceiling(baseAtk * 0.1);
-            int critalChance = rand.Next(1, 101);
-            int avoidAttack = rand.Next(1, 101);
-            int finalDamage = 0;
-
-            if (avoidAttack > 10)
-            {
-                finalDamage = (int)baseAtk + rand.Next(-(int)offset, (int)offset);
-                if (critalChance <= 15)
-                {
-                    finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
-                }
-
-            }
-
-            return finalDamage;
-        }
 
     }
 }

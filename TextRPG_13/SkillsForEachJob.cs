@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    public static class AllSkills
+    public static class SkillsForEachJob
     {
         public static List<Skill> GetSkills(JOBTYPE job)
         {
