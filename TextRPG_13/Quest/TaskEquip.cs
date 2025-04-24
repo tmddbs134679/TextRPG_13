@@ -14,6 +14,8 @@ namespace TextRPG_13
 
         public bool IsCompleted => equipped;
 
+        public TaskEquip() { }
+
         public TaskEquip(string itemName)
         {
             requiredItemName = itemName;

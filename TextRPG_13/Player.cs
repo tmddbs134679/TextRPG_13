@@ -13,10 +13,12 @@ namespace TextRPG_13
         //public QuestManager QuestManager { get; private set; } = new QuestManager();
         public List<Skill> Skills { get; private set; }
 
+
+        public Player() { }
         // 생성자: 직업을 받아서 해당 프리셋 적용
         public Player(JOBTYPE job)
         {
-            Type = job;
+            //Type = job;
 
             // 프리셋에서 가져와 복사
             var preset = PlayerStatement.GetPreset(job);
@@ -40,7 +42,7 @@ namespace TextRPG_13
                 Potion = preset.Potion
             };
             //인벤토리 인스턴스 생성 후 기본 포션 3개 추가
-            Inven = new Inventory();
+            Inven = new Inventory(GameManager.CurrentPlayer);
             Inven.AddInitialPotions();
             Inven.AddSword();
         }
@@ -85,6 +87,28 @@ namespace TextRPG_13
             return (defend, attack);
         }
 
+        public void RestoreReferences()
+        {
+            if (Stats != null)
+                Stats.SetOwner(this);
+
+            if (Inven != null)
+                Inven.SetOwner(this);
+        }
+
+        public void ReStats()
+        {
+            Stats.bonusATK = 0;
+            Stats.bonusDEF = 0;
+
+            foreach (var item in Inven.GetEquippedItems())
+            {
+                Stats.bonusATK += item.ATKbonus;
+                Stats.bonusDEF += item.DEFbonus;
+            }
+        }
+
+
         public static int GetDamageWithVariance(float baseAtk)
         {
             Random rand = new Random();
@@ -105,32 +129,33 @@ namespace TextRPG_13
 
             return finalDamage;
         }
+        
         //플레이어에서
-        public void UseSkill(Player player,Skill skill, List <Monster> monsters,int index)
-        {
-            if (player.Stats.MP < skill.Mpcost) return;
+        //public void UseSkill(Player player,Skill skill, List <Monster> monsters,int index)
+        //{
+        //    if (player.Stats.MP < skill.Mpcost) return;
 
-            player.Stats.MP -= skill.Mpcost;
-            if(skill.HitCount > 1)
-                HitMultiEnemy(player, skill, monsters);
-            else
-                monsters[index].TakeSkillDamage(skill.Damage, player);
+        //    player.Stats.MP -= skill.Mpcost;
+        //    if(skill.HitCount > 1)
+        //        HitMultiEnemy(player, skill, monsters);
+        //    else
+        //        monsters[index].TakeSkillDamage(skill.Damage, player);
 
-        }
-        private void  HitMultiEnemy(Player player, Skill skill, List<Monster> monsters)
-        {
-            Random random = new Random();
-            int hits = 0;
-            while (skill.HitCount < hits)
-            {
-                int rand = random.Next(0, skill.HitCount);
-                if (!monsters[hits].Stats.IsDead)
-                {
-                    monsters[rand].TakeSkillDamage(skill.Damage, player);
-                    hits++;
-                }
+        //}
+        //private void  HitMultiEnemy(Player player, Skill skill, List<Monster> monsters)
+        //{
+        //    Random random = new Random();
+        //    int hits = 0;
+        //    while (skill.HitCount < hits)
+        //    {
+        //        int rand = random.Next(0, skill.HitCount);
+        //        if (!monsters[hits].Stats.IsDead)
+        //        {
+        //            monsters[rand].TakeSkillDamage(skill.Damage, player);
+        //            hits++;
+        //        }
 
-            }
-        }
+        //    }
+        //}
     }
 }

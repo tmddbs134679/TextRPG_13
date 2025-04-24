@@ -17,10 +17,12 @@ namespace TextRPG_13
     {
         public string QuestName { get; set; }
         public IQuestTask Task { get; set; }
+        public string TaskType { get; set; }  // ← 이걸로 실제 타입 구분
+
         public QuestReward Reward { get; set; }
         public bool IsRewarded { get; set; } = false;
-        public bool IsCompleted => Task.IsCompleted;
-        public bool IsFinished => IsCompleted && IsRewarded;
+        public bool IsCompleted => Task?.IsCompleted ?? false;
+        public bool IsFinished => Task?.IsCompleted == true && !IsRewarded;
 
         public void QuestInProgress() => Task.InProgress();
 

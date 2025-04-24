@@ -1,23 +1,35 @@
-﻿
-using TextRPG_13;
-
-namespace TextRPG_13
+﻿namespace TextRPG_13
 {
     public class Program
     {
         static void Main(string[] args)
         {
-            GameInitalizer initializer = new GameInitalizer();
+            var _ = QuestManager.Instance;
+            SaveManager.LoadStage();
+            Player player = GameStart();
 
-            // 플레이어 생성
-            Player player = initializer.InitPlayer();
 
             // GameManager에 저장
             GameManager.CurrentPlayer = player;
             GameManager.UI = new UIManager();
 
             // 게임 시작
-            initializer.InitPlayer();
+            new Lobby(player).GameLobby();
         }
+
+        private static Player GameStart()
+        {
+            if (SaveManager.Exists())
+            {
+                return SaveManager.Load();
+
+            }
+            else
+            {
+                GameInitalizer initializer = new GameInitalizer();
+                return initializer.InitPlayer();
+            }
+        }
+
     }
 }

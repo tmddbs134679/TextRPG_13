@@ -22,6 +22,7 @@ namespace TextRPG_13
     }
     public enum LOBBYCHOICE
     {
+        SAVE = 0,
         PLYAYERSTAT = 1,
         DENJEON = 2,
         POTION =3,
@@ -39,6 +40,13 @@ namespace TextRPG_13
     {
         MINION = 1,
         EQUIP
+    }
+
+    public enum DENJOENCHOICE
+    {
+        BATTLE = 1,
+        INVENTORY = 2,
+        LOBBY = 0
     }
 
 }

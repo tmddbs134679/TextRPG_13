@@ -9,6 +9,8 @@ namespace TextRPG_13
 {
     public class PlayerStatement
     {
+        private Player owner;
+
         public string Name { get; set; }
         public JOBTYPE Job { get; set; }
         public int Level { get; set; } = 1; //기본값 1
@@ -21,11 +23,25 @@ namespace TextRPG_13
         public int Max_MP { get; set; }
         public int MP { get; set; }
         public int Potion { get; set; }
-        public float bonusATK { get; private set; }
-        public float bonusDEF { get; private set; }
+        public float bonusATK { get;  set; }
+        public float bonusDEF { get;  set; }
 
         public float Offensivepower => baseATK + bonusATK;
         public float Defensivepower => baseDEF + bonusDEF;
+
+        public PlayerStatement() { }
+
+        public PlayerStatement(Player player)
+        {
+            owner = player;
+        }
+
+        public void SetOwner(Player player)
+        {
+            owner = player;
+        }
+
+
         public void UpdateStats(Player user)
         {
             bonusATK = user.Inven.GetEquippedItems()
@@ -90,7 +106,7 @@ namespace TextRPG_13
                         Potion = 3
                     }
                 }
-            }; 
+            };
 
         //GameInitalizer 에서 선택한 직업을 보관
         public static PlayerStatement GetPreset(JOBTYPE job)
