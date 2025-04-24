@@ -9,6 +9,8 @@ namespace TextRPG_13
 {
     public class PlayerStatement
     {
+        private Player owner;
+
         public string Name { get; set; }
         public JOBTYPE Job { get; set; }
         public int Level { get; set; } = 1; //기본값 1
@@ -25,6 +27,19 @@ namespace TextRPG_13
 
         public float Offensivepower => baseATK + bonusATK;
         public float Defensivepower => baseDEF + bonusDEF;
+
+        public PlayerStatement() { }
+
+        public PlayerStatement(Player player)
+        {
+            owner = player;
+        }
+
+        public void SetOwner(Player player)
+        {
+            owner = player;
+        }
+
 
         public void UpdateStats(Player user)
         {
@@ -87,7 +102,7 @@ namespace TextRPG_13
                         MP = 50
                     }
                 }
-            }; 
+            };
 
         //GameInitalizer 에서 선택한 직업을 보관
         public static PlayerStatement GetPreset(JOBTYPE job)

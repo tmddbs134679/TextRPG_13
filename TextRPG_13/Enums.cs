@@ -22,6 +22,7 @@ namespace TextRPG_13
     }
     public enum LOBBYCHOICE
     {
+        SAVE = 0,
         PLYAYERSTAT = 1,
         DENJEON = 2,
         POTION =3,

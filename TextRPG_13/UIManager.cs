@@ -219,7 +219,7 @@ namespace TextRPG_13
 
 
         public static void Gamelobby(Player player)
-        { 
+        {
             Console.Clear();
             Console.WriteLine("스파르타 마을에 오신 여러분, 환영합니다.\n" +
                               "이제 전투를 시작할 수 있습니다.\n");
@@ -228,7 +228,7 @@ namespace TextRPG_13
             Console.WriteLine("상태 보기");
 
             WriteColor("2. ", ConsoleColor.DarkYellow);
-            Console.WriteLine($"전투 시작 (현재 스테이지: {GameManager.Stage.CurrentStage})");
+            Console.WriteLine("전투 시작");
 
             WriteColor("3. ", ConsoleColor.DarkYellow);
             Console.WriteLine("회복 아이템");
@@ -237,7 +237,10 @@ namespace TextRPG_13
             Console.WriteLine("인벤토리");
 
             WriteColor("5. ", ConsoleColor.DarkYellow);
-            Console.WriteLine("퀘스트\n\n");
+            Console.WriteLine("퀘스트");
+
+            WriteColor("0. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("게임 저장\n\n");
 
             Console.WriteLine("원하시는 행동을 입력해주세요.\n");
             WriteColor(">> ", ConsoleColor.DarkGreen);
@@ -389,6 +392,15 @@ namespace TextRPG_13
             Console.WriteLine(">>");
         }
 
+        public static void AskSaveFile()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("1. 저장하기");
+            Console.WriteLine("2. 삭제하기");
+            Console.WriteLine("0. 돌아가기");
+            Console.WriteLine("원하시는 행동을 입력해주세요");
+            Console.WriteLine(">>");
+        }
 
     }
 
