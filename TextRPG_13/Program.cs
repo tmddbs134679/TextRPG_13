@@ -23,16 +23,16 @@ namespace TextRPG_13
 
         private static Player GameStart()
         {
-            if (SaveManager.Exists())
-            {
-                return SaveManager.Load();
+            //if (SaveManager.Exists())
+            //{
+            //    return SaveManager.Load();
 
-            }
-            else
-            {
+            //}
+            //else
+            //{
                 GameInitalizer initializer = new GameInitalizer();
                 return initializer.InitPlayer();
-            }
+            //}
         }
 
     }

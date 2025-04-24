@@ -62,15 +62,15 @@ namespace TextRPG_13
 
             if (player?.Stats != null)
             {
-                player.Stats.SetOwner(player);
+              //  player.Stats.SetOwner(player);
             }
 
             if (player?.Inven != null)
             {
-                player.Inven.SetOwner(player);
+               // player.Inven.SetOwner(player);
             }
 
-            player?.RestoreReferences();
+          //  player?.RestoreReferences();
 
             if (File.Exists(questpath_))
             {
