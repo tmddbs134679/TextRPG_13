@@ -31,8 +31,7 @@ namespace TextRPG_13
                 Max_MP = preset.Max_MP,
                 MP = preset.MP,
                 Gold = preset.Gold,
-                Exp = preset.Exp,
-                Potion = preset.Potion
+                Exp = preset.Exp
             };
             //인벤토리 인스턴스 생성 후 기본 포션 3개 추가
             Inven = new Inventory();
