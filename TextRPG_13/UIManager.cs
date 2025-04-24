@@ -240,7 +240,7 @@ namespace TextRPG_13
             Console.WriteLine("퀘스트");
 
             WriteColor("0. ", ConsoleColor.DarkYellow);
-            Console.WriteLine("게임 저장\n\n");
+            Console.WriteLine("설정 창\n\n");
 
             Console.WriteLine("원하시는 행동을 입력해주세요.\n");
             WriteColor(">> ", ConsoleColor.DarkGreen);
@@ -366,7 +366,6 @@ namespace TextRPG_13
             Console.WriteLine(" Quest!! ");
             Console.WriteLine("1. 마을을 위협하는 미니언 처치");
             Console.WriteLine("2. 장비를 장착해보자");
-            Console.WriteLine("2. 더욱 더 강해지기!");
             Console.WriteLine("\n\n");
 
             Console.WriteLine("원하시는 퀘스트를 선택해주세요.");
