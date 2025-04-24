@@ -31,7 +31,7 @@ namespace TextRPG_13
 
                 if (int.TryParse(Console.ReadLine(), out int inp))
                 {
-                    if (inp >= 1 && inp <= 5)
+                    if (inp >= 0 && inp <= 5)
                     {
                         switch ((LOBBYCHOICE)inp)
                         {
@@ -63,7 +63,6 @@ namespace TextRPG_13
                                 Console.SetCursorPosition(0, Console.CursorTop);
                                 Console.Write(new string(' ', Console.WindowWidth));
                                 Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
-                                //new Battle().BattleSequence();
                                 _battle.BattleSequence();
                                 break;
                             case LOBBYCHOICE.POTION:
@@ -111,6 +110,10 @@ namespace TextRPG_13
                                 Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
                                 Console.Clear();
                                 new QuestLobby().Enter();
+                                break;
+                            case LOBBYCHOICE.SAVE:
+                                Console.Clear();
+                                new SaveView().Enter();
                                 break;
 
                         }

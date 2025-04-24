@@ -25,7 +25,6 @@ namespace TextRPG_13
                 Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
 
             }
-
             Console.ResetColor();
 
             DisplayPlayerInfo(player);
@@ -85,7 +84,7 @@ namespace TextRPG_13
                     Console.WriteLine($"{beforeHp} -> {target.Stats.monsterHP}");
                 }
             }
-            Console.WriteLine("\n0. 다음\n>>");
+            Console.Write("\n0. 다음\n>>");
         }
         
         public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) //머지 할때 
@@ -118,8 +117,8 @@ namespace TextRPG_13
             Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
 
             DisplayRewards(gold, items);
-            Console.WriteLine("\n0.다음");
 
+            Console.WriteLine("\n0.다음");
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
@@ -129,7 +128,9 @@ namespace TextRPG_13
             WriteColor("Vicoty\n", ConsoleColor.DarkGreen);
             Console.ResetColor();
 
-            Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
+            Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.\n");
+
+            Console.WriteLine("[캐릭터 정보]");
             Console.Write($"Lv.{beforerLv} {player.Stats.Name}");
             if (isLvUp == true) Console.WriteLine($" -> Lv.{player.Stats.Level} {player.Stats.Name}");
             Console.WriteLine($"exp {beforeExp} -> {player.Stats.Exp}");
@@ -139,7 +140,6 @@ namespace TextRPG_13
 
             Console.WriteLine("\n0.다음");
             WriteColor(">>", ConsoleColor.DarkYellow);
-            Console.ReadLine();
         }
         public static void DisplayRewards(int gold, List<Item> items)
         {
@@ -151,19 +151,17 @@ namespace TextRPG_13
                 return;
             }
 
-            // 아이템 이름 기준으로 그룹화하여 수량 계산
             var groupedItems = items
                 .GroupBy(item => item.Name)
                 .Select(group => new
                 {
                     Name = group.Key,
                     Count = group.Count(),
-                    Description = group.First().Description
                 });
 
             foreach (var g in groupedItems)
             {
-                Console.WriteLine($"{g.Name} x{g.Count} - {g.Description}");
+                Console.WriteLine($"{g.Name} x{g.Count}");
             }
         }
 
@@ -221,7 +219,7 @@ namespace TextRPG_13
 
 
         public static void Gamelobby(Player player)
-        { 
+        {
             Console.Clear();
             Console.WriteLine("스파르타 마을에 오신 여러분, 환영합니다.\n" +
                               "이제 전투를 시작할 수 있습니다.\n");
@@ -239,7 +237,10 @@ namespace TextRPG_13
             Console.WriteLine("인벤토리");
 
             WriteColor("5. ", ConsoleColor.DarkYellow);
-            Console.WriteLine("퀘스트\n\n");
+            Console.WriteLine("퀘스트");
+
+            WriteColor("0. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("게임 저장\n\n");
 
             Console.WriteLine("원하시는 행동을 입력해주세요.\n");
             WriteColor(">> ", ConsoleColor.DarkGreen);
@@ -275,9 +276,6 @@ namespace TextRPG_13
             Console.Write("Gold : ");
             WriteColor($"{stat.Gold}\n", ConsoleColor.DarkGray);
 
-            Console.Write("회복약 : ");
-            WriteColor($"{stat.Potion}\n\n", ConsoleColor.DarkGray);
-
             Console.WriteLine("0. 나가기\n\n" +
                               $"원하시는 행동을 입력해주세요.");
 
@@ -287,26 +285,59 @@ namespace TextRPG_13
         public static void PlayerRecovery(Player player)
         {
             var stat = player.Stats;
-
             Console.Clear();
-
             WriteColor("회복\n", ConsoleColor.DarkYellow);
-            Console.Write("포션을 사용하면 체력을 ");
-            WriteColor("30 ", ConsoleColor.Red);
-            Console.Write($"회복 할 수 있습니다. (남은 포션 : ");
-            WriteColor($"{stat.Potion}", ConsoleColor.Red);
-            Console.Write(")\n\n");
+            Console.WriteLine("포션을 사용하면 체력을 회복할 수 있습니다.");
 
+            PotionList(player);
 
-            WriteColor("1", ConsoleColor.Red);
-            Console.WriteLine(". 사용하기");
+            WriteColor("\n1", ConsoleColor.Red);
+            Console.WriteLine(". 사용하기"); 
             WriteColor("0", ConsoleColor.Red);
-            Console.WriteLine(". 나가기\n\n");
+            Console.WriteLine(". 나가기\n");
 
             Console.WriteLine("원하시는 행동을 입력해주세요.");
             WriteColor(">> ", ConsoleColor.DarkGreen);
         }
 
+        public static void SelectPotion(Player player)
+        {
+            Console.Clear();
+            WriteColor("회복\n", ConsoleColor.DarkYellow);
+            Console.WriteLine("포션을 사용하면 체력을 회복할 수 있습니다.");
+
+            PotionList(player);
+
+            Console.WriteLine("\n1. 소형 포션");
+            Console.WriteLine("2. 중형 포션");
+            Console.WriteLine("0. 나가기\n");
+
+            Console.WriteLine("사용할 포션을 입력해주세요.");
+            WriteColor(">> ", ConsoleColor.DarkGreen);
+        }
+
+        public static void PotionList(Player player)
+        {
+            var s_potionCount = player.Inven.GetItems()
+                .FirstOrDefault(stack => stack.Item.Id == 100)?.Quantity ?? 0;
+            var m_potionCount = player.Inven.GetItems()
+                .FirstOrDefault(stack => stack.Item.Id == 101)?.Quantity ?? 0;
+
+            if (s_potionCount > 0)
+            {
+                Console.Write($"\n소형 포션\n- 체력을 30 회복 할 수 있습니다. (남은 개수 : ");
+                WriteColor($"{s_potionCount})\n", ConsoleColor.Red);
+            }
+            if (m_potionCount > 0)
+            {
+                Console.Write($"\n중형 포션\n- 체력을 50 회복 할 수 있습니다. (남은 개수 : ");
+                WriteColor($"{m_potionCount})\n", ConsoleColor.Red);
+            }
+            if((s_potionCount == 0) && (m_potionCount == 0))
+            {
+                Console.WriteLine("포션이 없습니다.\n");
+            }
+        }
 
         public static void QuestUI()
         {
@@ -314,7 +345,6 @@ namespace TextRPG_13
             Console.WriteLine(" Quest!! ");
             Console.WriteLine("1. 마을을 위협하는 미니언 처치");
             Console.WriteLine("2. 장비를 장착해보자");
-            Console.WriteLine("2. 더욱 더 강해지기!");
             Console.WriteLine("\n\n");
 
             Console.WriteLine("원하시는 퀘스트를 선택해주세요.");
@@ -361,6 +391,15 @@ namespace TextRPG_13
             Console.WriteLine(">>");
         }
 
+        public static void AskSaveFile()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("1. 저장하기");
+            Console.WriteLine("2. 삭제하기");
+            Console.WriteLine("0. 돌아가기");
+            Console.WriteLine("원하시는 행동을 입력해주세요");
+            Console.WriteLine(">>");
+        }
 
     }
 

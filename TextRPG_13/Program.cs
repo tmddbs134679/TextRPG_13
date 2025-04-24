@@ -7,17 +7,33 @@ namespace TextRPG_13
     {
         static void Main(string[] args)
         {
-            GameInitalizer initializer = new GameInitalizer();
 
-            // 플레이어 생성
-            Player player = initializer.InitPlayer();
+            var _ = QuestManager.Instance;
+            SaveManager.LoadStage();
+            Player player = GameStart();
+
 
             // GameManager에 저장
             GameManager.CurrentPlayer = player;
             GameManager.UI = new UIManager();
 
             // 게임 시작
-            initializer.InitPlayer();
+            new Lobby(player).GameLobby();
         }
+
+        private static Player GameStart()
+        {
+            if (SaveManager.Exists())
+            {
+                return SaveManager.Load();
+
+            }
+            else
+            {
+                GameInitalizer initializer = new GameInitalizer();
+                return initializer.InitPlayer();
+            }
+        }
+
     }
 }
