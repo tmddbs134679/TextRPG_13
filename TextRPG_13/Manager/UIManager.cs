@@ -221,25 +221,28 @@ namespace TextRPG_13
         public static void Gamelobby(Player player)
         {
             Console.Clear();
-            Console.WriteLine("스파르타 마을에 오신 여러분, 환영합니다.\n" +
-                              "이제 전투를 시작할 수 있습니다.\n");
+            Console.WriteLine("┏" + new string('━', 51) + "┓");
+            Console.WriteLine("┃" + "     스파르타 마을에 오신 여러분, 환영합니다!   ".PadRight(34) + "┃");
+            Console.WriteLine("┃" + "        이제 용기를 내어 전투를 시작하세요.        ".PadRight(35) + "┃");
+            Console.WriteLine("┗" + new string('━', 51) + "┛");
+            Console.WriteLine();
 
-            WriteColor("1. ", ConsoleColor.DarkYellow);
+            WriteColor("[1] ", ConsoleColor.DarkYellow);
             Console.WriteLine("상태 보기");
 
-            WriteColor("2. ", ConsoleColor.DarkYellow);
+            WriteColor("[2] ", ConsoleColor.DarkYellow);
             Console.WriteLine($"던전 입장");
 
-            WriteColor("3. ", ConsoleColor.DarkYellow);
+            WriteColor("[3] ", ConsoleColor.DarkYellow);
             Console.WriteLine("회복 아이템");
 
-            WriteColor("4. ", ConsoleColor.DarkYellow);
+            WriteColor("[4] ", ConsoleColor.DarkYellow);
             Console.WriteLine("인벤토리");
 
-            WriteColor("5. ", ConsoleColor.DarkYellow);
+            WriteColor("[5] ", ConsoleColor.DarkYellow);
             Console.WriteLine("퀘스트");
 
-            WriteColor("0. ", ConsoleColor.DarkYellow);
+            WriteColor("[0] ", ConsoleColor.DarkYellow);
             Console.WriteLine("설정 창\n\n");
 
             Console.WriteLine("원하시는 행동을 입력해주세요.\n");
