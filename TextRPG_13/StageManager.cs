@@ -44,7 +44,7 @@ namespace TextRPG_13
             int idx = Math.Min(CurrentStage, configs.Length - 1);
             var cfg = configs[idx];
 
-            //count
+            //몇 마리 뽑을지
             int count = random.Next(cfg.SpawnRange.Min, cfg.SpawnRange.Max + 1);
 
             var wave = new List<Monster>(capacity: count);

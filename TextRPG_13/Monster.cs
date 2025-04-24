@@ -52,7 +52,7 @@ namespace TextRPG_13
             int count = random.Next(1, 5);
 
             // 이전 웨이브는 덮어쓰기
-            currentWave = new List<Monster>(capacity: count);
+            currentWave = new List<Monster>(count);
             for (int i = 0; i < count; i++)
             {
                 currentWave.Add(CreateRandom());
@@ -60,6 +60,7 @@ namespace TextRPG_13
 
         }
 
+        //스테이지 기능 추가하면서 만든 코드
         public static Monster CreateRandomByLevel(int level)
         {
             //레벨이 같은 MonsterType 키만 추리기
@@ -85,6 +86,7 @@ namespace TextRPG_13
             for (int i = 0; i < count; i++)
             {
                 int lvl = allowedLevels[random.Next(allowedLevels.Length)];
+                //해당 레벨 몬스터 생성
                 wave.Add(CreateRandomByLevel(lvl));
             }
 

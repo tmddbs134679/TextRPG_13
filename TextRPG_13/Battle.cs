@@ -31,6 +31,7 @@ namespace TextRPG_13
             int beforeExp = player.Stats.Exp;
             int rewardsGold = 0;
 
+            //전투 시작할때마다 SpawnWave()호출
             List<Monster> monsters = stageManager.SpawnWave();
 
             while ((player.Stats.HP > 0) && monsters.Any(m => !m.Stats.IsDead))
@@ -135,6 +136,7 @@ namespace TextRPG_13
                                         player.Inven.AddItem(item); //인벤토리에 아이템 저장
                                         player.Stats.Gold += rewardsGold; // 드롭된 골드를 플레이어의 골드에 추가
                                     }
+                                    //승리할때만 다음 스테이지
                                     stageManager.NextStage();
                                     Thread.Sleep(1000);
                                     break;
