@@ -124,19 +124,13 @@ namespace TextRPG_13
            
             int hits = 0;
             int totalDamage = 0;
+            var aliveMonsters = monsters.Where(m => !m.Stats.IsDead).ToList();
+            var targets = aliveMonsters.OrderBy(m => random.Next()).Take(skill.HitCount);
 
-            while (skill.HitCount > hits)
+            foreach (var target in targets)
             {
-                int rand = random.Next(skill.HitCount);
-                var target = monsters[rand];
-
-                if (!monsters[rand].Stats.IsDead)
-                {
-                    int damage = target.TakeSkillDamage(skill.Damage, player);
-                    totalDamage += damage;
-                    hits++;
-                }
-
+                int damage = target.TakeSkillDamage(skill.Damage, player);
+                totalDamage += damage;
             }
             return totalDamage;
         }
