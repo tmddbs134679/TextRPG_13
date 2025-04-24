@@ -58,8 +58,10 @@ namespace TextRPG_13
                 Console.WriteLine("\n0. 취소\n");
                 Console.Write("대상을 선택해주세요.\n>> ");
             }
-            else if (input == 2) PrintSkills(player);
-
+            else if (input == 2) 
+            {
+                PrintSkills(player); //스킬창 띄움
+            }
 
         }
 
