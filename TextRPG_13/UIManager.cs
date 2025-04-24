@@ -25,7 +25,6 @@ namespace TextRPG_13
                 Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
 
             }
-
             Console.ResetColor();
 
             DisplayPlayerInfo(player);
@@ -85,7 +84,7 @@ namespace TextRPG_13
                     Console.WriteLine($"{beforeHp} -> {target.Stats.monsterHP}");
                 }
             }
-            Console.WriteLine("\n0. 다음\n>>");
+            Console.Write("\n0. 다음\n>>");
         }
         
         public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) //머지 할때 
@@ -118,8 +117,8 @@ namespace TextRPG_13
             Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
 
             DisplayRewards(gold, items);
-            Console.WriteLine("\n0.다음");
 
+            Console.WriteLine("\n0.다음");
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
@@ -129,7 +128,9 @@ namespace TextRPG_13
             WriteColor("Vicoty\n", ConsoleColor.DarkGreen);
             Console.ResetColor();
 
-            Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.");
+            Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.\n");
+
+            Console.WriteLine("[캐릭터 정보]");
             Console.Write($"Lv.{beforerLv} {player.Stats.Name}");
             if (isLvUp == true) Console.WriteLine($" -> Lv.{player.Stats.Level} {player.Stats.Name}");
             Console.WriteLine($"exp {beforeExp} -> {player.Stats.Exp}");
@@ -139,7 +140,6 @@ namespace TextRPG_13
 
             Console.WriteLine("\n0.다음");
             WriteColor(">>", ConsoleColor.DarkYellow);
-            Console.ReadLine();
         }
         public static void DisplayRewards(int gold, List<Item> items)
         {
@@ -151,19 +151,17 @@ namespace TextRPG_13
                 return;
             }
 
-            // 아이템 이름 기준으로 그룹화하여 수량 계산
             var groupedItems = items
                 .GroupBy(item => item.Name)
                 .Select(group => new
                 {
                     Name = group.Key,
                     Count = group.Count(),
-                    Description = group.First().Description
                 });
 
             foreach (var g in groupedItems)
             {
-                Console.WriteLine($"{g.Name} x{g.Count} - {g.Description}");
+                Console.WriteLine($"{g.Name} x{g.Count}");
             }
         }
 
