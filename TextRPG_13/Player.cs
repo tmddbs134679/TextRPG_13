@@ -124,7 +124,7 @@ namespace TextRPG_13
 
             while (skill.HitCount > hits)
             {
-                int rand = random.Next(0, skill.HitCount);
+                int rand = random.Next(skill.HitCount);
                 var target = monsters[rand];
 
                 if (!monsters[rand].Stats.IsDead)
