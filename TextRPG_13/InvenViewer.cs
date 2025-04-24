@@ -9,6 +9,13 @@ namespace TextRPG_13
     public class InvenViewer
     {
         private readonly Player _player;
+
+        public static void WriteColor(string text, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(text);
+            Console.ResetColor();
+        }
         public InvenViewer(Player player)
         {
             _player = player;
@@ -22,7 +29,7 @@ namespace TextRPG_13
 
                 if (!int.TryParse(input, out int choice))
                 {
-                    Console.WriteLine("\n잘못된 입력입니다.");
+                    WriteColor("화면에 표기된 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
                     Console.ReadKey();
                     continue;
                 }
@@ -48,7 +55,7 @@ namespace TextRPG_13
 
                 if (!int.TryParse(input, out int choice) || choice < 0 || choice > _player.Inven.Count)
                 {
-                    Console.WriteLine("\n잘못된 입력입니다.");
+                    WriteColor("화면에 표기된 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
                     Console.ReadKey();
                     continue;
                 }

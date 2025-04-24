@@ -14,6 +14,13 @@ namespace TextRPG_13
         private List<Item> droppedItems = new List<Item>();  // 드롭된 아이템을 저장할 리스트
         private StageManager stageManager;
 
+        public static void WriteColor(string text, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(text);
+            Console.ResetColor();
+        }
+
         // 생성자에서 외부의 StageManager를 받아 저장
         public Battle()
         {
@@ -40,7 +47,7 @@ namespace TextRPG_13
 
                 if (!int.TryParse(input, out int choice))
                 {
-                    Console.WriteLine("\n잘못된 입력입니다.");
+                    WriteColor("화면에 표기된 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
                     Console.ReadKey();
                     continue;
                 }
@@ -56,7 +63,7 @@ namespace TextRPG_13
 
                             if (!int.TryParse(input, out int index) || (index < 0 || index > monsters.Count))
                             {
-                                Console.WriteLine("\n잘못된 입력입니다.");
+                                WriteColor("화면에 표기된 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
                                 Console.ReadKey();
                                 continue;
                             }
@@ -115,7 +122,7 @@ namespace TextRPG_13
                                     input = Console.ReadLine();
                                     if (!int.TryParse(input, out int i) || (i != 0))
                                     {
-                                        Console.WriteLine("\n잘못된 입력입니다.");
+                                        WriteColor("화면에 표기된 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
                                         Console.ReadKey();
                                         continue;
                                     }
@@ -141,7 +148,7 @@ namespace TextRPG_13
                                         input = Console.ReadLine();
                                         if (!int.TryParse(input, out int j) || (j != 0))
                                         {
-                                            Console.WriteLine("\n잘못된 입력입니다.");
+                                            WriteColor("화면에 표기된 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
                                             Console.ReadKey();
                                             continue;
                                         }

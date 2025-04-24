@@ -228,7 +228,7 @@ namespace TextRPG_13
             Console.WriteLine("상태 보기");
 
             WriteColor("2. ", ConsoleColor.DarkYellow);
-            Console.WriteLine($"전투 시작 (현재 스테이지: {GameManager.Stage.CurrentStage})");
+            Console.WriteLine($"던전 입장");
 
             WriteColor("3. ", ConsoleColor.DarkYellow);
             Console.WriteLine("회복 아이템");
@@ -246,6 +246,26 @@ namespace TextRPG_13
             WriteColor(">> ", ConsoleColor.DarkGreen);
 
         }
+
+        public static void Deonjoenlobby(Player player)
+        {
+            Console.Clear();
+            WriteColor("던전\n",ConsoleColor.DarkYellow);
+            Console.WriteLine("전투 시작 전, 만반의 준비를 마친 뒤 시작해 주세요.\n");
+
+            WriteColor("1. ", ConsoleColor.DarkYellow);
+            Console.WriteLine($"전투 시작 (현재 스테이지: {GameManager.Stage.CurrentStage})");
+
+            WriteColor("2. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("인벤토리");
+
+            WriteColor("0. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("나가기\n\n");
+
+            Console.WriteLine("원하시는 행동을 입력해주세요.\n");
+            WriteColor(">> ", ConsoleColor.DarkGreen);
+        }
+
         public static void PlayerStat(Player player)
         {
             // 플레이어 초기 스탯 불러오기

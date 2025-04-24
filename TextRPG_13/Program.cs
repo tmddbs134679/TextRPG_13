@@ -7,7 +7,6 @@ namespace TextRPG_13
     {
         static void Main(string[] args)
         {
-
             var _ = QuestManager.Instance;
             SaveManager.LoadStage();
             Player player = GameStart();
