@@ -203,7 +203,8 @@ namespace TextRPG_13
 
             Console.WriteLine("\n1. 장착관리");
             Console.WriteLine("0. 나가기");
-            Console.WriteLine("\n원하시는 행동을 입력해주세요.\n>>");
+            Console.WriteLine("\n원하시는 행동을 입력해주세요.");
+            Console.Write(">> ");
         }
 
         public static void ShowEquipMenu(Player player)
