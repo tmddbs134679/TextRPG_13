@@ -35,7 +35,7 @@ namespace TextRPG_13
                         {
                             case LOBBYCHOICE.PLYAYERSTAT:
                                 Console.Write("\n상태 보기로 이동 중");
-                                for (int i = 0; i < 5; i++)
+                                for (int i = 0; i < 1; i++)
                                 {
                                     Thread.Sleep(500);
                                     Console.Write(".");
@@ -50,7 +50,7 @@ namespace TextRPG_13
                                 break;
                             case LOBBYCHOICE.DENJEON:
                                 Console.Write("\n던전으로 이동 중");
-                                for (int i = 0; i < 5; i++)
+                                for (int i = 0; i < 1; i++)
                                 {
                                     Thread.Sleep(500);
                                     Console.Write(".");
@@ -65,7 +65,7 @@ namespace TextRPG_13
                                 break;
                             case LOBBYCHOICE.POTION:
                                 Console.Write("\n회복 하기로 이동 중");
-                                for (int i = 0; i < 5; i++)
+                                for (int i = 0; i < 1; i++)
                                 {
                                     Thread.Sleep(500);
                                     Console.Write(".");
@@ -80,7 +80,7 @@ namespace TextRPG_13
                                 break;
                             case LOBBYCHOICE.INVENTORY:
                                 Console.Write("\n인벤토리로 이동 중");
-                                for (int i = 0; i < 5; i++)
+                                for (int i = 0; i < 1; i++)
                                 {
                                     Thread.Sleep(500);
                                     Console.Write(".");
@@ -95,7 +95,7 @@ namespace TextRPG_13
                                 break;
                             case LOBBYCHOICE.QUEST:
                                 Console.Write("\n퀘스트 선택으로 이동 중");
-                                for (int i = 0; i < 5; i++)
+                                for (int i = 0; i < 1; i++)
                                 {
                                     Thread.Sleep(500);
                                     Console.Write(".");
@@ -106,7 +106,8 @@ namespace TextRPG_13
                                 Console.SetCursorPosition(0, Console.CursorTop);
                                 Console.Write(new string(' ', Console.WindowWidth));
                                 Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
-                                new QuestLobby().Enter();
+                                Console.Clear();
+                        new QuestLobby().Enter();
                                 break;
 
                         }

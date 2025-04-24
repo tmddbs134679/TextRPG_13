@@ -34,7 +34,7 @@ namespace TextRPG_13
             GameManager.CurrentPlayer = player;
 
             Console.Write("\n캐릭터를 생성하는 중");
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
             {
                 Thread.Sleep(500);
                 Console.Write(".");
@@ -51,7 +51,7 @@ namespace TextRPG_13
             Thread.Sleep(5000);
 
             Console.Write("\n로비로 이동 중");
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 1; i++)
                 {
                     Thread.Sleep(500);
                     Console.Write(".");

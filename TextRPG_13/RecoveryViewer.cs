@@ -58,7 +58,7 @@ namespace TextRPG_13
                 else if (choice == 0)
                 {
                     Console.Write("\n로비로 이동 중");
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < 1; i++)
                     {
                         Thread.Sleep(500);
                         Console.Write(".");

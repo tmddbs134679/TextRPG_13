@@ -130,7 +130,7 @@ namespace TextRPG_13
                                         player.Stats.Gold += rewardsGold; // 드롭된 골드를 플레이어의 골드에 추가
                                     }
 
-                                    Thread.Sleep(3000);
+                                    Thread.Sleep(1000);
                                     break;
                                 }
                             }
@@ -173,7 +173,7 @@ namespace TextRPG_13
                                     player.Stats.Gold += rewardsGold; // 드롭된 골드를 플레이어의 골드에 추가
                                 }
 
-                                Thread.Sleep(3000);
+                                Thread.Sleep(1000);
                                 break;
                             }
                         }
