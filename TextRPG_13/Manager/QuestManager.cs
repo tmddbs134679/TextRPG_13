@@ -24,7 +24,7 @@ namespace TextRPG_13
 
         private QuestManager()
         {
-
+            
         }
 
         private Quest quest = new Quest();
@@ -63,8 +63,7 @@ namespace TextRPG_13
             JsonElement root = doc.RootElement;
 
             string questName = root.GetProperty("QuestName").GetString();
-            string taskType = root.GetProperty("TaskType").GetString(); // 반드시 있어야 함
-            string taskType = root.GetProperty("TaskType").GetString();
+            string taskType = root.GetProperty("TaskType").GetString(); 
 
             // 보상 역직렬화
             QuestReward reward = JsonSerializer.Deserialize<QuestReward>(root.GetProperty("Reward").ToString());
@@ -80,8 +79,6 @@ namespace TextRPG_13
             // Task 수동으로 분기해서 역직렬화
             IQuestTask task = taskType switch
             {
-                "Monster" => JsonSerializer.Deserialize<TaskMonster>(root.GetProperty("Task").ToString()),
-                "Equip" => JsonSerializer.Deserialize<TaskEquip>(root.GetProperty("Task").ToString()),
                 "Monster" => JsonSerializer.Deserialize<TaskMonster>(root.GetProperty("Task").ToString(), options),
                 "Equip" => JsonSerializer.Deserialize<TaskEquip>(root.GetProperty("Task").ToString(), options),
                 _ => throw new Exception($"알 수 없는 TaskType: {taskType}")
@@ -97,7 +94,7 @@ namespace TextRPG_13
             };
 
             QuestManager.instance.CurrentQuest = loaded;
-        }
+            }
 
     }
 }

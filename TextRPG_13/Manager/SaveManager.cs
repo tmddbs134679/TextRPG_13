@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace TextRPG_13
@@ -20,7 +21,9 @@ namespace TextRPG_13
             var op = new JsonSerializerOptions
             {
                 WriteIndented = true,
-                IncludeFields = true
+                IncludeFields = true,
+                PropertyNameCaseInsensitive = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.Never
             };
 
             string json = JsonSerializer.Serialize(player, op);
@@ -39,9 +42,9 @@ namespace TextRPG_13
                 File.WriteAllText(questpath_, questJson);
             }
             else
-            { 
+            {
                 if (File.Exists(questpath_))
-                        File.Delete(questpath_);
+                    File.Delete(questpath_);
             }
 
             File.WriteAllText("stage.json", GameManager.Stage.CurrentStage.ToString());
@@ -85,6 +88,7 @@ namespace TextRPG_13
             }
 
             player?.RestoreReferences();
+            player?.ReStats();
 
             if (File.Exists(questpath_))
             {

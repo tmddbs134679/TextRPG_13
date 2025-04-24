@@ -27,6 +27,10 @@ namespace TextRPG_13
                 Console.Clear();
                 Environment.Exit(0);
             }
+            else if(input == "3")
+            {
+                Environment.Exit(0);
+            }
             else
             {
                 return;
