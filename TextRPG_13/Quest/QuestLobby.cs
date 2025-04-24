@@ -17,20 +17,21 @@ namespace TextRPG_13
             player = GameManager.CurrentPlayer;
 
                 Console.Clear();
-
-                if (player.QuestManager.IsQuesting)
+                
+                //퀘스트 이미 받은 경우
+                if (QuestManager.Instance.IsQuesting)
                 {
                     //퀘스트 완료 시
-                    if(player.QuestManager.CurrentQuest.IsCompleted)
+                    if(QuestManager.Instance.CurrentQuest.IsCompleted)
                     {
                     
-                        ShowQuestDetail(player.QuestManager.CurrentQuest);
+                        ShowQuestDetail(QuestManager.Instance.CurrentQuest);
                         HandleQuestReward();
                         return;
                     }
                     else
                     {
-                        ShowQuestDetail(player.QuestManager.CurrentQuest);
+                        ShowQuestDetail(QuestManager.Instance.CurrentQuest);
                         Console.WriteLine("\n[진행 중인 퀘스트입니다]");
                         Console.ReadKey();
                         return;
@@ -38,6 +39,7 @@ namespace TextRPG_13
                 
                 }
 
+                //퀘스트 안받은 경우
                 UIManager.QuestUI();
                 HandleQuestSelection();
                 return;
@@ -81,7 +83,7 @@ namespace TextRPG_13
             switch (choice)
             {
                 case 1:
-                    player.QuestManager.AddQuest(quest);
+                    QuestManager.Instance.AddQuest(quest);
                     Console.WriteLine($"\n퀘스트 '{quest.QuestName}'를 수락했습니다!");
                     break;
                 case 2:
@@ -105,10 +107,18 @@ namespace TextRPG_13
                     {
                         QuestName = "미니언 퇴치",
                         Task = new TaskMonster(),
-                        Reward = new QuestReward { Gold = 100 }
+                        Reward = new QuestReward { Gold = 100,
+                                                   RewardItem = new Item(100, ITEMTYPE.POTION, "소형물약", 0, 0, 100, "체력을 조금 회복시켜준다.", 30)
+                        }
                     };
 
-                // case EQUESTTYPE.EQUIP: 등 추가 가능
+                case EQUESTTYPE.EQUIP:
+                    return new Quest
+                    {
+                        QuestName = "낡은 검 장착 해보기",
+                        Task = new TaskEquip("낡은 검"),
+                        Reward = new QuestReward { Gold = 100 }
+                    };
                 default:
                     return null;
             }
@@ -122,10 +132,15 @@ namespace TextRPG_13
             Console.ResetColor();
 
             Console.WriteLine($"\n{quest.QuestName}");
-            Console.WriteLine((quest.Task as TaskMonster)?.Descript ?? "퀘스트 설명 없음");
+            Console.WriteLine(quest.Task .Descript ?? "퀘스트 설명 없음");
+
 
             Console.WriteLine("\n- 보상 -");
             Console.WriteLine($"골드: {quest.Reward.Gold}");
+            if (quest.Reward.RewardItem != null)
+            {
+                Console.WriteLine($"아이템: {quest.Reward.RewardItem.Name}\n");
+            }
         }
 
         private void HandleQuestReward()
@@ -136,7 +151,7 @@ namespace TextRPG_13
 
             if (input == "1")
             {
-                player.QuestManager.Reward(player);
+                QuestManager.Instance.Reward(player);
 
                 Console.WriteLine("\n보상을 받았습니다!");
                 Console.WriteLine("\n아무키나 누르세요..");

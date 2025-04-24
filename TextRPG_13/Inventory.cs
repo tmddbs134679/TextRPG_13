@@ -70,6 +70,8 @@ namespace TextRPG_13
                 }
             }
             itemEquip.IsEquipped = true;
+
+            QuestManager.Instance.OnItemEquipped(itemEquip);
         }
 
         //기본적으로 존재하는 포션 생성
