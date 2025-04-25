@@ -56,10 +56,9 @@ namespace TextRPG_13
         private static readonly Dictionary<JOBTYPE, PlayerStatement> Presets =
             new Dictionary<JOBTYPE, PlayerStatement>
             {
-                { JOBTYPE.WARRIOR, new PlayerStatement
+                { JOBTYPE.전사, new PlayerStatement
                     {
-                        Name = "전사",
-                        Job = JOBTYPE.WARRIOR,
+                        Job = JOBTYPE.전사,
                         Level = 1,
                         baseATK = 10,
                         baseDEF = 10,
@@ -71,10 +70,9 @@ namespace TextRPG_13
                         MP = 50
                     }
                 },
-                { JOBTYPE.WIZARD, new PlayerStatement
+                { JOBTYPE.마법사, new PlayerStatement
                     {
-                        Name = "위자드",
-                        Job = JOBTYPE.WIZARD,
+                        Job = JOBTYPE.마법사,
                         Level = 1,
                         baseATK = 13,
                         baseDEF = 5,
@@ -86,10 +84,9 @@ namespace TextRPG_13
                         MP = 50
                     }
                 },
-                { JOBTYPE.ASSASSIN, new PlayerStatement
+                { JOBTYPE.도적, new PlayerStatement
                     {
-                        Name = "어쌔신",
-                        Job = JOBTYPE.ASSASSIN,
+                        Job = JOBTYPE.도적,
                         Level = 1,
                         baseATK = 8,
                         baseDEF = 8,

@@ -114,8 +114,8 @@ namespace TextRPG_13
             {
                 Console.WriteLine("\n직업을 선택해주세요:");
                 Console.WriteLine("1. 전사");
-                Console.WriteLine("2. 위자드");
-                Console.WriteLine("3. 어쌔신");
+                Console.WriteLine("2. 마법사");
+                Console.WriteLine("3. 도적");
                 Console.Write(">> ");
 
                 if (int.TryParse(Console.ReadLine(), out int input) &&

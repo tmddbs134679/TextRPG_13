@@ -12,19 +12,19 @@ namespace TextRPG_13
         {
             switch(job)
             {
-                case JOBTYPE.WARRIOR:
+                case JOBTYPE.전사:
                     return new List<Skill>
                     {
                         new Skill("알파 스트라이크","공격력 * 2로 하나의 적을 공격합니다.",10,2f,1),
                         new Skill("더블 스트라이크","공격력 * 1.5로 2명의 적을 랜덤으로 공격합니다.",15,1.5f,2)
                     };
-                case JOBTYPE.WIZARD:
+                case JOBTYPE.마법사:
                     return new List<Skill>
                     {
                         new Skill("메테오 샤워", "공격력 * 3로 3명의 적을 랜덤으로 공격합니다.", 50, 3f,3),
                         new Skill("얼음송곳", "공격력 * 1.7로 하나의 적을 공격합니다.", 10, 1.7f,1)
                     };
-                case JOBTYPE.ASSASSIN:
+                case JOBTYPE.도적:
                     return new List<Skill>
                     {
                         new Skill("암습","공격력 * 4로 하나의 적을 공격합니다.",40,4f,1),

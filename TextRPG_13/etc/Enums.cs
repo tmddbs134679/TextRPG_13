@@ -16,9 +16,9 @@ namespace TextRPG_13
     }
     public enum JOBTYPE
     {
-        WARRIOR = 1,
-        WIZARD = 2,
-        ASSASSIN = 3
+        전사 = 1,
+        마법사 = 2,
+        도적 = 3
     }
     public enum LOBBYCHOICE
     {
