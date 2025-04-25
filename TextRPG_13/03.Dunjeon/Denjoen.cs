@@ -33,41 +33,53 @@ namespace TextRPG_13
                 UIManager.Deonjoenlobby(_player);
 
 
-                if (int.TryParse(Console.ReadLine(), out int input) && input >= 0 && input <= 3)
+                if (int.TryParse(Console.ReadLine(), out int input))
                 {
 
-                    switch ((DENJOENCHOICE)input)
+                    if (input >= 0 || input <= 3)
                     {
+                        switch ((DENJOENCHOICE)input)
+                        {
 
-                        case DENJOENCHOICE.BATTLE:
-                            WriteColor("전투 시작!", ConsoleColor.DarkYellow); // 전투 시작의 경우 긴장감을 주기 위해 컬러 추가
-                            Thread.Sleep(1500);
-                            _battle.BattleSequence();
-                            break;
-                        case DENJOENCHOICE.INVENTORY:
-                            Console.Write("인벤토리로 이동 중");
-                            for (int i = 0; i < 3; i++)
-                            {
+                            case DENJOENCHOICE.BATTLE:
+                                    WriteColor("전투 시작!", ConsoleColor.DarkYellow); // 전투 시작의 경우 긴장감을 주기 위해 컬러 추가
+                                    Thread.Sleep(1500);
+                                    _battle.BattleSequence();
+                                    break;
+                            case DENJOENCHOICE.INVENTORY:
+                                Console.Write("인벤토리로 이동 중");
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Thread.Sleep(500);
+                                    Console.Write(".");
+                                }
                                 Thread.Sleep(500);
-                                Console.Write(".");
-                            }
-                            Thread.Sleep(500);
-                            new InvenViewer(_player).ShowInventory();
-                            break;
-                        case DENJOENCHOICE.LOBBY:
-                            Console.Write("로비로 이동 중");
-                            for (int i = 0; i < 3; i++)
-                            {
+                                new InvenViewer(_player).ShowInventory();
+                                break;
+                            case DENJOENCHOICE.LOBBY:
+                                Console.Write("로비로 이동 중");
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Thread.Sleep(500);
+                                    Console.Write(".");
+                                }
                                 Thread.Sleep(500);
-                                Console.Write(".");
-                            }
-                            Thread.Sleep(500);
-                            new Lobby(_player).GameLobby();
-                            break;
+                                new Lobby(_player).GameLobby();
+                                break;
+                        }
+                    }else
+                    {
+                        WriteColor("화면에 표기된 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
+                        Thread.Sleep(1000);
+                        Console.Clear();
+                        continue;
                     }
+                }else
+                {
                     WriteColor("화면에 표기된 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
                     Thread.Sleep(1000);
                     Console.Clear();
+                    continue;
                 }
             }
         }
