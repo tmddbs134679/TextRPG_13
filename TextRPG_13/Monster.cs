@@ -91,7 +91,7 @@ namespace TextRPG_13
             return wave;
         }
 
-        //몬스터에서
+        //몬스터에서 스킬데미지 처리
         public int TakeSkillDamage(float dmg,Player player)
         {
             Stats.monsterHP -= (int)Math.Ceiling(player.Stats.baseATK * dmg);
