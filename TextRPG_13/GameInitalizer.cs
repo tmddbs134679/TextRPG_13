@@ -77,7 +77,7 @@ namespace TextRPG_13
                 Console.WriteLine($"\n입력한 이름: '{name}'");
                 Console.WriteLine("1. 저장");
                 Console.WriteLine("2. 다시 입력");
-                Console.Write(">> ");
+                Console.Write("▶ ");
                 string choice = Console.ReadLine();
 
                 if (choice == "1")
@@ -136,7 +136,7 @@ namespace TextRPG_13
                 Console.WriteLine("1. 전사");
                 Console.WriteLine("2. 마법사");
                 Console.WriteLine("3. 도적");
-                Console.Write(">> ");
+                Console.Write("▶ ");
 
                 if (int.TryParse(Console.ReadLine(), out int input) &&
                     Enum.IsDefined(typeof(JOBTYPE), input))
