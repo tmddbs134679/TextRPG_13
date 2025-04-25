@@ -8,8 +8,8 @@ namespace TextRPG_13
     public class Player
     {
         public JOBTYPE Type { get; }
-        public PlayerStatement Stats { get; private set; }
-        public Inventory Inven { get; }
+        public PlayerStatement Stats { get;  set; }
+        public Inventory Inven { get; set; }
         //public QuestManager QuestManager { get; private set; } = new QuestManager();
         public List<Skill> Skills { get; private set; }
 
