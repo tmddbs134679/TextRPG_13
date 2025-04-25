@@ -230,7 +230,7 @@ namespace TextRPG_13
                 }
             }
             Console.WriteLine("\n0. 나가기");
-            Console.WriteLine("\n장착/해체할 아이템을 선택해주세요.\n>>");
+            Console.Write("\n장착/해체할 아이템을 선택해주세요.\n>>");
         }
 
 
@@ -403,7 +403,7 @@ namespace TextRPG_13
             Console.WriteLine("\n\n");
 
             Console.WriteLine("원하시는 퀘스트를 선택해주세요.");
-            Console.WriteLine(">> ");
+            Console.Write(">> ");
         }
 
         public static void Quest_1()
@@ -424,7 +424,7 @@ namespace TextRPG_13
             Console.WriteLine("\n\n");
 
             Console.WriteLine("원하시는 퀘스트를 선택해주세요.");
-            Console.WriteLine(">> ");
+            Console.Write(">> ");
 
         }
 
@@ -433,7 +433,7 @@ namespace TextRPG_13
             Console.WriteLine("1. 수락");
             Console.WriteLine("2. 거절");
             Console.WriteLine("원하시는 행동을 입력해주세요");
-            Console.WriteLine(">> ");
+            Console.Write(">> ");
         }
 
         public static void AskRewardQuest()
@@ -442,7 +442,7 @@ namespace TextRPG_13
             Console.WriteLine("1. 보상받기");
             Console.WriteLine("2. 돌아가기");
             Console.WriteLine("원하시는 행동을 입력해주세요");
-            Console.WriteLine(">>");
+            Console.Write(">>");
         }
 
         public static void AskSaveFile()
@@ -453,7 +453,7 @@ namespace TextRPG_13
             Console.WriteLine("3. 게임종료");
             Console.WriteLine("0. 돌아가기");
             Console.WriteLine("원하시는 행동을 입력해주세요");
-            Console.WriteLine(">>");
+            Console.Write(">>");
         }
 
         public static void AskNameSave()
@@ -461,7 +461,7 @@ namespace TextRPG_13
             Console.WriteLine("1. 저장하기");
             Console.WriteLine("2. 삭제하기\n");
             Console.WriteLine("원하시는 행동을 입력해주세요");
-            Console.WriteLine(">>");
+            Console.Write(">>");
         }
 
     }
