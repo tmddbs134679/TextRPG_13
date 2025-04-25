@@ -19,13 +19,6 @@ namespace TextRPG_13
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
         }
 
-        public static void DisplayPlayerInfo(Player player)
-        {
-            Console.WriteLine("\n[내정보]");
-            Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
-            Console.WriteLine($"HP.{player.Stats.HP}/{player.Stats.Max_HP}");
-        }
-
         public static void DisplayMonstersAndPlayer(Player player, List<Monster> monsters)
         {
             Console.Clear();

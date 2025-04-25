@@ -120,7 +120,7 @@ namespace TextRPG_13
             return damage;
         }
         private int HitMultiEnemy(Player player, Skill skill, List<Monster> monsters)
-           
+        { 
             int totalDamage = 0;
             var aliveMonsters = monsters.Where(m => !m.Stats.IsDead).ToList();
             int targetCount = Math.Min(skill.HitCount, aliveMonsters.Count);
@@ -142,17 +142,17 @@ namespace TextRPG_13
             if (Inven != null)
                 Inven.SetOwner(this);
         }
+        public void ReStats()
+        {
+            Stats.bonusATK = 0;
+            Stats.bonusDEF = 0;
 
-public void ReStats()
-{
-    Stats.bonusATK = 0;
-    Stats.bonusDEF = 0;
+            foreach (var item in Inven.GetEquippedItems())
+            {
+                Stats.bonusATK += item.ATKbonus;
+                Stats.bonusDEF += item.DEFbonus;
+            }
+        }
 
-    foreach (var item in Inven.GetEquippedItems())
-    {
-        Stats.bonusATK += item.ATKbonus;
-        Stats.bonusDEF += item.DEFbonus;
-    }
-}
     }
 }
