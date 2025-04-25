@@ -18,7 +18,8 @@ namespace TextRPG_13
             new Item(6, ITEMTYPE.WEAPON, "스파르타의 창", 7, 0, 5000, "스파르타의 전사들이 사용했다는 전설의 창입니다."),//무기3
 
             new Item(100, ITEMTYPE.POTION, "소형물약", 0, 0, 100, "체력을 조금 회복시켜준다.", 30),//더 추가 가능
-            new Item(101, ITEMTYPE.POTION, "중형물약", 0, 0, 200, "체력을 어느정도 회복시켜준다.", 50)
+            new Item(101, ITEMTYPE.POTION, "중형물약", 0, 0, 200, "체력을 어느정도 회복시켜준다.", 50),
+            new Item(103, ITEMTYPE.POTION, "마나물약", 0, 0, 200, "마나를 어느정도 회복시켜준다.", 30)
         };
     }
 }
