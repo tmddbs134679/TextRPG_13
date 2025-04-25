@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace TextRPG_13
 {
     public class Player
     {
-        //public JOBTYPE Type { get; }
+        public JOBTYPE Type { get; }
         public PlayerStatement Stats { get;  set; }
         public Inventory Inven { get; set; }
+        //public QuestManager QuestManager { get; private set; } = new QuestManager();
+        public List<Skill> Skills { get; private set; }
 
 
         public Player() { }
@@ -19,6 +22,9 @@ namespace TextRPG_13
 
             // 프리셋에서 가져와 복사
             var preset = PlayerStatement.GetPreset(job);
+
+            // 직업에 따른 스킬 세팅
+            Skills = SkillsForEachJob.GetSkills(job);
 
             Stats = new PlayerStatement
             {
@@ -89,5 +95,37 @@ namespace TextRPG_13
                 Inven.SetOwner(this);
         }
 
+        public void ReStats()
+        {
+            Stats.bonusATK = 0;
+            Stats.bonusDEF = 0;
+
+            foreach (var item in Inven.GetEquippedItems())
+            {
+                Stats.bonusATK += item.ATKbonus;
+                Stats.bonusDEF += item.DEFbonus;
+            }
+        }
+
+        public static int GetDamageWithVariance(float baseAtk)
+        {
+            Random rand = new Random();
+            double offset = Math.Ceiling(baseAtk * 0.1);
+            int critalChance = rand.Next(1, 101);
+            int avoidAttack = rand.Next(1, 101);
+            int finalDamage = 0;
+
+            if (avoidAttack > 10)
+            {
+                finalDamage = (int)baseAtk + rand.Next(-(int)offset, (int)offset);
+                if (critalChance <= 15)
+                {
+                    finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
+                }
+
+            }
+
+            return finalDamage;
+        }
     }
 }

@@ -42,4 +42,11 @@ namespace TextRPG_13
         EQUIP
     }
 
+    public enum DENJOENCHOICE
+    {
+        BATTLE = 1,
+        INVENTORY = 2,
+        LOBBY = 0
+    }
+
 }

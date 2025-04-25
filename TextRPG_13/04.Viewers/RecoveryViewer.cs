@@ -76,18 +76,12 @@ namespace TextRPG_13
                                 else if (choice == 0)
                                 {
                                     Console.Write("\n로비로 이동 중");
-                                    for (int i = 0; i < 1; i++)
+                                    for (int i = 0; i < 3; i++)
                                     {
                                         Thread.Sleep(500);
                                         Console.Write(".");
                                     }
                                     Thread.Sleep(500);
-
-                                    // 메시지 지우기
-                                    Console.SetCursorPosition(0, Console.CursorTop);
-                                    Console.Write(new string(' ', Console.WindowWidth));
-                                    Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
-                                    Console.Clear();
                                     new Lobby(_player).GameLobby();
                                 }
                                 break;
@@ -104,17 +98,12 @@ namespace TextRPG_13
                 else if (choice == 0)
                 {
                     Console.Write("\n로비로 이동 중");
-                    for (int i = 0; i < 1; i++)
+                    for (int i = 0; i < 3; i++)
                     {
                         Thread.Sleep(500);
                         Console.Write(".");
                     }
                     Thread.Sleep(500);
-
-                    // 메시지 지우기
-                    Console.SetCursorPosition(0, Console.CursorTop);
-                    Console.Write(new string(' ', Console.WindowWidth));
-                    Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
                     Console.Clear();
                     new Lobby(_player).GameLobby();
                 }
