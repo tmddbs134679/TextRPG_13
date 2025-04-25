@@ -442,7 +442,7 @@ namespace TextRPG_13
             Console.WriteLine("1. 보상받기");
             Console.WriteLine("2. 돌아가기");
             Console.WriteLine("원하시는 행동을 입력해주세요");
-            Console.Write(">>");
+            Console.Write(">> ");
         }
 
         public static void AskSaveFile()
@@ -453,7 +453,7 @@ namespace TextRPG_13
             Console.WriteLine("3. 게임종료");
             Console.WriteLine("0. 돌아가기");
             Console.WriteLine("원하시는 행동을 입력해주세요");
-            Console.Write(">>");
+            Console.Write(">> ");
         }
 
         public static void AskNameSave()
@@ -461,7 +461,7 @@ namespace TextRPG_13
             Console.WriteLine("1. 저장하기");
             Console.WriteLine("2. 삭제하기\n");
             Console.WriteLine("원하시는 행동을 입력해주세요");
-            Console.Write(">>");
+            Console.Write(">> ");
         }
 
     }
