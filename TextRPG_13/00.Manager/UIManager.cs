@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
-using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +15,7 @@ namespace TextRPG_13
         {
             DisplayMonstersAndPlayer(player,monsters);
             DisplayPlayerInfo(player);
-            Console.WriteLine("\n1. 공격\n2. 스킬\n3. 포션\n");
+            Console.WriteLine("\n1. 공격\n2. 스킬\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
         }
 
@@ -25,7 +24,6 @@ namespace TextRPG_13
             Console.WriteLine("\n[내정보]");
             Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
             Console.WriteLine($"HP.{player.Stats.HP}/{player.Stats.Max_HP}");
-            Console.WriteLine($"MP.{player.Stats.MP}/{player.Stats.Max_MP}");
         }
 
         public static void DisplayMonstersAndPlayer(Player player, List<Monster> monsters)
@@ -50,6 +48,36 @@ namespace TextRPG_13
             DisplayPlayerInfo(player);
             Console.WriteLine("대상을 선택해주세요.\n>>");
         }
+
+        //public static void DisplayMonstersAndPlayer(Player player, List<Monster> monsters,int input) //오버로딩
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("Battle!!\n");
+
+        //    for (int i = 0; i < monsters.Count; i++)
+        //    {
+        //        var monster = monsters[i];
+        //        string status = monster.Stats.IsDead ? "Dead" : $"HP {monster.Stats.monsterHP}";
+        //        Console.ForegroundColor = monster.Stats.IsDead ? ConsoleColor.DarkGray : ConsoleColor.White;
+        //        Console.WriteLine($"{i + 1} Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
+
+        //    }
+        //    Console.ResetColor();
+
+        //    DisplayPlayerInfo(player);
+        //    if (input == 1)
+        //    {
+        //        Console.WriteLine("\n0. 취소\n");
+        //        Console.Write("대상을 선택해주세요.\n>> ");
+        //    }
+        //    else if (input == 2) 
+        //    {
+        //        PrintSkills(player); //스킬창 띄움
+        //    }
+
+        //}
+
+        
 
         public static void DisplayAttackResult(string attackerName, Monster target, int damage, int beforeHp)
         {
@@ -108,15 +136,14 @@ namespace TextRPG_13
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
-        public static void PrintPlayerLose(Player player,int beforeHP, int beforeMP, int gold, List<Item> items) 
+        public static void PrintPlayerLose(Player player, int gold, List<Item> items) 
         {
             Console.Clear();
             WriteColor("You Lose\n", ConsoleColor.Red);
 
             Console.WriteLine("\n[내정보]");
             Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
-            Console.WriteLine($"HP{beforeHP} -> {player.Stats.HP}");
-            Console.WriteLine($"HP{beforeMP} -> {player.Stats.MP}");
+            Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
 
             DisplayRewards(gold, items);
 
@@ -124,7 +151,7 @@ namespace TextRPG_13
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
-        public static void PrintPlayerVictory(Player player, int maxMonster,int beforerLv,int beforeExp, int beforeHP, int beforeMP, bool isLvUp, int gold, List<Item> items)
+        public static void PrintPlayerVictory(Player player, int maxMonster,int beforerLv,int beforeExp,bool isLvUp, int gold, List<Item> items)
         {
             Console.Clear();
             WriteColor("Vicoty\n", ConsoleColor.DarkGreen);
@@ -136,8 +163,7 @@ namespace TextRPG_13
             Console.Write($"Lv.{beforerLv} {player.Stats.Name}");
             if (isLvUp == true) Console.Write($" -> Lv.{player.Stats.Level} {player.Stats.Name}");
             Console.WriteLine($"\nexp {beforeExp} -> {player.Stats.Exp}");
-            Console.WriteLine($"HP {beforeHP} -> {player.Stats.HP}");
-            Console.WriteLine($"HP {beforeMP} -> {player.Stats.MP}");
+            Console.WriteLine($"HP {player.Stats.Max_HP} -> {player.Stats.HP}");
 
             DisplayRewards(gold, items);
 
