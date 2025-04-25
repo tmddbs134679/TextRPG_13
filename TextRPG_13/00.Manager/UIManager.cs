@@ -374,10 +374,10 @@ namespace TextRPG_13
                 Console.Write($"\n중형 포션\n- 체력을 50 회복 할 수 있습니다. (남은 개수 : ");
                 WriteColor($"{m_potionCount})\n", ConsoleColor.Red);
             }
-            if (m_potionCount > 0)
+            if (MP_potionCount > 0)
             {
                 Console.Write($"\n마나 포션\n- 마나를 30 회복 할 수 있습니다. (남은 개수 : ");
-                WriteColor($"{m_potionCount})\n", ConsoleColor.Red);
+                WriteColor($"{MP_potionCount})\n", ConsoleColor.Red);
             }
             if ((s_potionCount == 0) && (m_potionCount == 0))
             {

@@ -36,7 +36,7 @@ namespace TextRPG_13
 
                 if (int.TryParse(input, out int choice) && choice == 1)
                 {
-                    if ((s_potionStack == null || s_potionStack.Quantity <= 0) && ((m_potionStack == null || m_potionStack.Quantity <= 0)))
+                    if ((s_potionStack == null || s_potionStack.Quantity <= 0) && (m_potionStack == null || m_potionStack.Quantity <= 0) && (MP_potionStack == null || MP_potionStack.Quantity <= 0))
                     {
                         Console.WriteLine("\n사용할 포션이 없습니다.");
                         Thread.Sleep(1000);
@@ -60,25 +60,36 @@ namespace TextRPG_13
                                     Thread.Sleep(1000);
                                     break;
                                 }
-                                else if (choice == 1)
+                                else if (choice == 1 && s_potionStack.Quantity > 0)
                                 {
                                     s_potionStack.Add(-1);
                                     stat.HP += 30;
                                     if (stat.HP > stat.Max_HP) stat.HP = stat.Max_HP;
-                                    Console.WriteLine("소형 포션을 사용하여 체력이 30 회복 되었습니다.");
-                                    Thread.Sleep(1000);
-                                    continue;
+                                    Console.WriteLine("소형 포션 사용! 체력 30 회복");
+                                    break;
                                 }
-                                else if (choice == 2)
+                                else if (choice == 2 && m_potionStack.Quantity > 0)
                                 {
                                     m_potionStack.Add(-1);
                                     stat.HP += 50;
                                     if (stat.HP > stat.Max_HP) stat.HP = stat.Max_HP;
-                                    Console.WriteLine("중형 포션을 사용하여 체력이 50 회복 되었습니다.");
-                                    Thread.Sleep(1000);
-                                    continue;
+                                    Console.WriteLine("중형 포션 사용! 체력 50 회복");
+                                    break;
                                 }
-                                else if (choice == 3)
+                                else
+                                {
+                                    Console.WriteLine("해당 포션이 부족합니다.");
+                                }
+                            }
+                            if (int.TryParse(input, out int c) && c == 3)
+                            {
+                                if (stat.MP == stat.Max_MP)
+                                {
+                                    Console.WriteLine($"현재 HP가 {stat.MP} 이기에 회복이 불가능 합니다.");
+                                    Thread.Sleep(1000);
+                                    break;
+                                }
+                                else if (choice == 3 && MP_potionStack.Quantity > 0)
                                 {
                                     MP_potionStack.Add(-1);
                                     stat.MP += 30;
@@ -87,17 +98,21 @@ namespace TextRPG_13
                                     Thread.Sleep(1000);
                                     continue;
                                 }
-                                else if (choice == 0)
+                                else
                                 {
-                                    Console.Write("\n로비로 이동 중");
-                                    for (int i = 0; i < 3; i++)
-                                    {
-                                        Thread.Sleep(500);
-                                        Console.Write(".");
-                                    }
-                                    Thread.Sleep(500);
-                                    new Lobby(_player).GameLobby();
+                                    Console.WriteLine("해당 포션이 부족합니다.");
                                 }
+                            }
+                            else if (choice == 0)
+                            {
+                                Console.Write("\n로비로 이동 중");
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Thread.Sleep(500);
+                                    Console.Write(".");
+                                }
+                                Thread.Sleep(500);
+                                new Lobby(_player).GameLobby();
                                 break;
                             }
                             else
@@ -171,6 +186,19 @@ namespace TextRPG_13
                         stat.HP += 50;
                         if (stat.HP > stat.Max_HP) stat.HP = stat.Max_HP;
                         Console.WriteLine("중형 포션 사용! 체력 50 회복");
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("해당 포션이 부족합니다.");
+                    }
+                }
+                if (int.TryParse(input, out int c) && c == 3)
+                {
+                    if (stat.MP == stat.Max_MP)
+                    {
+                        Console.WriteLine($"현재 HP가 {stat.MP} 이기에 회복이 불가능 합니다.");
+                        Thread.Sleep(1000);
                         break;
                     }
                     else if (choice == 3 && MP_potionStack.Quantity > 0)
