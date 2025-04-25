@@ -315,6 +315,9 @@ namespace TextRPG_13
             Console.Write("체 력 : ");
             WriteColor($"{stat.HP}\n", ConsoleColor.Red);
 
+            Console.Write("마 나 : ");
+            WriteColor($"{stat.MP}\n", ConsoleColor.Red);
+
             Console.Write("Gold : ");
             WriteColor($"{stat.Gold}\n", ConsoleColor.Red);
 
@@ -368,17 +371,20 @@ namespace TextRPG_13
             if (s_potionCount > 0)
             {
                 Console.Write($"\n소형 포션\n- 체력을 30 회복 할 수 있습니다. (남은 개수 : ");
-                WriteColor($"{s_potionCount})\n", ConsoleColor.Red);
+                WriteColor($"{s_potionCount}", ConsoleColor.Red);
+                Console.Write(")\n");
             }
             if (m_potionCount > 0)
             {
                 Console.Write($"\n중형 포션\n- 체력을 50 회복 할 수 있습니다. (남은 개수 : ");
-                WriteColor($"{m_potionCount})\n", ConsoleColor.Red);
+                WriteColor($"{m_potionCount}", ConsoleColor.Red);
+                Console.Write(")\n");
             }
             if (MP_potionCount > 0)
             {
                 Console.Write($"\n마나 포션\n- 마나를 30 회복 할 수 있습니다. (남은 개수 : ");
-                WriteColor($"{MP_potionCount})\n", ConsoleColor.Red);
+                WriteColor($"{MP_potionCount}", ConsoleColor.Red);
+                Console.Write(")\n");
             }
             if ((s_potionCount == 0) && (m_potionCount == 0))
             {
