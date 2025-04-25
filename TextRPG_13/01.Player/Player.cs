@@ -14,6 +14,7 @@ namespace TextRPG_13
         //public QuestManager QuestManager { get; private set; } = new QuestManager();
         public List<Skill> Skills { get; private set; }
 
+        public Player() { }
         // 생성자: 직업을 받아서 해당 프리셋 적용
         public Player(JOBTYPE job)
         {
