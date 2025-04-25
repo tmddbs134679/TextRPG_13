@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Threading;
 
 namespace TextRPG_13
 {
@@ -128,8 +129,12 @@ namespace TextRPG_13
 
                foreach (var target in targets)
                 {
-                    int damage = target.TakeSkillDamage(skill.Damage, player);
-                    totalDamage += damage;
+                    if (!target.Stats.IsDead)
+                    {
+                        int damage = target.TakeSkillDamage(skill.Damage, player);
+                        totalDamage += damage;
+                    }
+               
                 }
             return totalDamage;
         }
