@@ -10,9 +10,7 @@ namespace TextRPG_13
 {
     public class SaveManager
     {
-        //private static readonly string path_ = "player.json";
-        //private static readonly string questpath_ = "quest.json";
-        //private static readonly string stagepath_ = "stage.json";
+
         public static void Save(Player player, string path = null)
         {
             if (path == null)

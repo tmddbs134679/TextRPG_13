@@ -49,7 +49,7 @@ namespace TextRPG_13
 
                 if (string.IsNullOrWhiteSpace(name))
                 {
-                    Console.WriteLine("\n⚠ 이름은 공백일 수 없습니다. 다시 입력해주세요.");
+                    Console.WriteLine("\n다시 입력해주세요.");
                     Thread.Sleep(1000);
                     continue;
                 }
@@ -66,13 +66,13 @@ namespace TextRPG_13
                 }
                 else if (choice == "2")
                 {
-                    Console.WriteLine("\n이름 입력을 다시 시작합니다...");
+                    Console.WriteLine("\n이름 입력을 다시 시작합니다..");
                     Thread.Sleep(1000);
                     continue;
                 }
                 else
                 {
-                    Console.WriteLine("\n⚠ 잘못된 입력입니다. 다시 선택해주세요.");
+                    Console.WriteLine("\n 잘못된 입력입니다. 다시 선택해주세요.");
                     Thread.Sleep(1000);
                     continue;
                 }

@@ -85,11 +85,11 @@ namespace TextRPG_13
                                 }
                                 Thread.Sleep(500);
                                 Console.Clear();
-                                new QuestLobby().Enter();
+                                new QuestViewer().Enter();
                                 break;
                             case LOBBYCHOICE.SAVE:
                                 Console.Clear();
-                                new SaveView().Enter();
+                                new SaveViewer().Enter();
                                 break;
 
                         }

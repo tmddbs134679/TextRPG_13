@@ -57,7 +57,7 @@ namespace TextRPG_13
 
         public void LoadFromFile()
         {
-            string json = File.ReadAllText("quest.json");
+            string json = File.ReadAllText(Constants.QuestFilePath);
 
             using var doc = JsonDocument.Parse(json);
             JsonElement root = doc.RootElement;
