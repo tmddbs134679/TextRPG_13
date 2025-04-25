@@ -109,7 +109,7 @@ namespace TextRPG_13
         
         public int UseSkill(Player player, Skill skill, List<Monster> monsters, int index)
         {
-            int damage = 0;
+            int damage;
             if (player.Stats.MP < skill.Mpcost) return -1;
 
             player.Stats.MP -= skill.Mpcost;
@@ -122,16 +122,16 @@ namespace TextRPG_13
         private int HitMultiEnemy(Player player, Skill skill, List<Monster> monsters)
         {
            
-            int hits = 0;
             int totalDamage = 0;
             var aliveMonsters = monsters.Where(m => !m.Stats.IsDead).ToList();
-            var targets = aliveMonsters.OrderBy(m => random.Next()).Take(skill.HitCount);
+            int targetCount = Math.Min(skill.HitCount, aliveMonsters.Count);
+            var targets = aliveMonsters.OrderBy(m => random.Next()).Take(targetCount);
 
-            foreach (var target in targets)
-            {
-                int damage = target.TakeSkillDamage(skill.Damage, player);
-                totalDamage += damage;
-            }
+               foreach (var target in targets)
+                {
+                    int damage = target.TakeSkillDamage(skill.Damage, player);
+                    totalDamage += damage;
+                }
             return totalDamage;
         }
 

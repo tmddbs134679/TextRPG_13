@@ -85,7 +85,7 @@ namespace TextRPG_13
                         Exp = 0,
                         Max_MP = 50,
                         MP = 50,
-                        Potion = 3
+                        //Potion = 3
                     }
                 },
                 { JOBTYPE.ASSASSIN, new PlayerStatement
@@ -101,7 +101,7 @@ namespace TextRPG_13
                         Exp = 0,
                         Max_MP = 50,
                         MP = 50,
-                        Potion = 3
+                        //Potion = 3
                     }
                 }
             }; 

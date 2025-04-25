@@ -130,32 +130,35 @@ namespace TextRPG_13
                                         isPlayerTurn = false;
                                         break;
                                     }
-                                }
-                                if (deathCount == monsters.Count) //몬스터 모두 처치
-                                {
-                                    foreach (var item in droppedItems)
-                                    {
-                                        player.Inven.AddItem(item); //인벤토리에 아이템 저장
-                                        player.Stats.Gold += rewardsGold; // 드롭된 골드를 플레이어의 골드에 추가
-                                    }
-                                    while (true)
-                                    {
-                                        UIManager.PrintPlayerVictory(player, deathCount, beforeLv, beforeExp, isLvUp, rewardsGold, droppedItems); //수정 윈화면 출력되다가 몬스터턴으로 넘어감
 
-                                        //승리할때만 다음 스테이지
-                                        stageManager.NextStage();
-                                        input = Console.ReadLine();
-                                        if (!int.TryParse(input, out int j) || (j != 0))
+                                    if (deathCount == monsters.Count) //몬스터 모두 처치
+                                    {
+                                        foreach (var item in droppedItems)
                                         {
-                                            Console.WriteLine("\n잘못된 입력입니다.");
-                                            Console.ReadKey();
-                                            continue;
+                                            player.Inven.AddItem(item); //인벤토리에 아이템 저장
+                                            player.Stats.Gold += rewardsGold; // 드롭된 골드를 플레이어의 골드에 추가
                                         }
-                                        else if (j == 0) break; //0.취소 선택
+                                        while (true)
+                                        {
+                                            UIManager.PrintPlayerVictory(player, deathCount, beforeLv, beforeExp, isLvUp, rewardsGold, droppedItems); //수정 윈화면 출력되다가 몬스터턴으로 넘어감
+
+                                            //승리할때만 다음 스테이지
+                                            stageManager.NextStage();
+                                            input = Console.ReadLine();
+                                            if (!int.TryParse(input, out int j) || (j != 0))
+                                            {
+                                                Console.WriteLine("\n잘못된 입력입니다.");
+                                                Console.ReadKey();
+                                                continue;
+                                            }
+                                            else if (j == 0) break; //0.취소 선택
+                                        }
+                                        return;
                                     }
+                                    
                                 }
                             }
-                            break;
+                            
                         }
                     }
                 }
@@ -284,9 +287,12 @@ namespace TextRPG_13
                                             }
                                             else if (j == 0) break; //0.취소 선택
                                         }
-                                    }
-                                }
 
+                                        return;
+                                    }
+                                   
+                                }
+                               
                             }
                             else
                             {
@@ -329,9 +335,11 @@ namespace TextRPG_13
                                         }
                                         else if (j == 0) break; //0.취소 선택
                                     }
+                                    return;
                                 }
+                                
                             }
-                            break;
+                           
                         }
                     }
                 }
