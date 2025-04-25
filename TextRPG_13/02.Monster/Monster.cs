@@ -90,5 +90,31 @@ namespace TextRPG_13
 
             return wave;
         }
+
+        //몬스터에서
+        public void TakeSkillDamage(float dmg,Player player)
+        {
+            Stats.monsterHP -= (int)Math.Ceiling(player.Stats.baseATK * dmg);
+        }
+        public static int GetDamageWithVariance(float baseAtk) 
+        {
+            Random rand = new Random();
+            double offset = Math.Ceiling(baseAtk * 0.1);
+            int critalChance = rand.Next(1, 101);
+            int avoidAttack = rand.Next(1, 101);
+            int finalDamage = 0;
+
+            if (avoidAttack > 10)
+            {
+                finalDamage = (int)baseAtk + rand.Next(-(int)offset, (int)offset);
+                if (critalChance <= 15)
+                {
+                    finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
+                }
+
+            }
+
+            return finalDamage;
+        }
     }
 }

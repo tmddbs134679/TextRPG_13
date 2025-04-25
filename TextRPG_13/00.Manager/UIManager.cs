@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,27 +14,21 @@ namespace TextRPG_13
     {
         public static void BattleStart(Player player, List<Monster> monsters)
         {
-            Console.Clear();
-            Console.WriteLine("Battle!!\n");
-
-            for (int i = 0; i < monsters.Count; i++)
-            {
-                var monster = monsters[i];
-                string status = monster.Stats.IsDead ? "Dead" : $"HP {monster.Stats.monsterHP}";
-                Console.ForegroundColor = monster.Stats.IsDead ? ConsoleColor.DarkGray : ConsoleColor.White;
-                //Console.WriteLine($"{i + 1} {monster.Stats.monsterName}  {status}");
-                Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
-
-            }
-            Console.ResetColor();
-
+            DisplayMonstersAndPlayer(player,monsters);
             DisplayPlayerInfo(player);
-
-            Console.WriteLine("\n1. 공격\n");
+            Console.WriteLine("\n1. 공격\n2. 스킬\n3. 포션\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
         }
 
-        public static void DisplayMonsters(Player player, List<Monster> monsters)
+        public static void DisplayPlayerInfo(Player player)
+        {
+            Console.WriteLine("\n[내정보]");
+            Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
+            Console.WriteLine($"HP.{player.Stats.HP}/{player.Stats.Max_HP}");
+            Console.WriteLine($"MP.{player.Stats.MP}/{player.Stats.Max_MP}");
+        }
+
+        public static void DisplayMonstersAndPlayer(Player player, List<Monster> monsters)
         {
             Console.Clear();
             Console.WriteLine("Battle!!\n");
@@ -47,17 +42,13 @@ namespace TextRPG_13
 
             }
             Console.ResetColor();
-
-            DisplayPlayerInfo(player);
-
-            Console.WriteLine("\n0. 취소\n");
-            Console.Write("대상을 선택해주세요.\n>> ");
         }
-        public static void DisplayPlayerInfo(Player player)
+
+        public static void ChooseMonster(Player player, List<Monster> monsters)
         {
-            Console.WriteLine("\n[내정보]");
-            Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
-            Console.WriteLine($"HP.{player.Stats.HP}/{player.Stats.Max_HP}");
+            DisplayMonstersAndPlayer(player, monsters);
+            DisplayPlayerInfo(player);
+            Console.WriteLine("대상을 선택해주세요.\n>>");
         }
 
         public static void DisplayAttackResult(string attackerName, Monster target, int damage, int beforeHp)
@@ -86,8 +77,18 @@ namespace TextRPG_13
             }
             Console.Write("\n0. 다음\n>>");
         }
-        
-        public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) //머지 할때 
+        public static void PrintSkills(Player player)
+        {
+                for (int i = 0; i < player.Skills.Count;i++)
+                {
+                    Console.WriteLine($"\n{i+1}. {player.Skills[i].Name} - MP:{player.Skills[i].Mpcost}\n" +
+                        $"{player.Skills[i].Description}");
+                }
+                Console.WriteLine("\n0. 취소\n");
+                Console.Write("스킬을 선택해주세요\n>>");
+        }
+
+        public static void PrintEnemyPhase(Monster monster, Player player, int damage, int beforeHp) 
         {
             Console.Clear();
 
@@ -107,14 +108,15 @@ namespace TextRPG_13
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
-        public static void PrintPlayerLose(Player player, int gold, List<Item> items) 
+        public static void PrintPlayerLose(Player player,int beforeHP, int beforeMP, int gold, List<Item> items) 
         {
             Console.Clear();
             WriteColor("You Lose\n", ConsoleColor.Red);
 
             Console.WriteLine("\n[내정보]");
             Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
-            Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
+            Console.WriteLine($"HP{beforeHP} -> {player.Stats.HP}");
+            Console.WriteLine($"HP{beforeMP} -> {player.Stats.MP}");
 
             DisplayRewards(gold, items);
 
@@ -122,7 +124,7 @@ namespace TextRPG_13
             WriteColor(">>", ConsoleColor.DarkYellow);
         }
 
-        public static void PrintPlayerVictory(Player player, int maxMonster,int beforerLv,int beforeExp,bool isLvUp, int gold, List<Item> items)
+        public static void PrintPlayerVictory(Player player, int maxMonster,int beforerLv,int beforeExp, int beforeHP, int beforeMP, bool isLvUp, int gold, List<Item> items)
         {
             Console.Clear();
             WriteColor("Vicoty\n", ConsoleColor.DarkGreen);
@@ -132,9 +134,10 @@ namespace TextRPG_13
 
             Console.WriteLine("[캐릭터 정보]");
             Console.Write($"Lv.{beforerLv} {player.Stats.Name}");
-            if (isLvUp == true) Console.WriteLine($" -> Lv.{player.Stats.Level} {player.Stats.Name}");
-            Console.WriteLine($"exp {beforeExp} -> {player.Stats.Exp}");
-            Console.WriteLine($"HP{player.Stats.Max_HP} -> {player.Stats.HP}");
+            if (isLvUp == true) Console.Write($" -> Lv.{player.Stats.Level} {player.Stats.Name}");
+            Console.WriteLine($"\nexp {beforeExp} -> {player.Stats.Exp}");
+            Console.WriteLine($"HP {beforeHP} -> {player.Stats.HP}");
+            Console.WriteLine($"HP {beforeMP} -> {player.Stats.MP}");
 
             DisplayRewards(gold, items);
 
@@ -144,12 +147,7 @@ namespace TextRPG_13
         public static void DisplayRewards(int gold, List<Item> items)
         {
             Console.WriteLine("\n[획득아이템]");
-            Console.WriteLine($"{gold}G");
-            if (items.Count == 0)
-            {
-                Console.WriteLine("드롭된 아이템이 없습니다.");
-                return;
-            }
+            Console.WriteLine($"{gold}");
 
             var groupedItems = items
                 .GroupBy(item => item.Name)
@@ -212,10 +210,16 @@ namespace TextRPG_13
             Console.Clear();
             Console.WriteLine("인벤토리 - 장착 관리");
 
-            ItemList(player);
-
-            Console.WriteLine("\n0. 나가기");
-            Console.WriteLine("\n장착/해제할 대상을 입력해주세요.\n>>");
+            if (player.Inven.Count == 0) //아이템 없다면 장착관리 안되게 구현 후 삭제
+            {
+                Console.WriteLine("인벤토리에 아이템이 없습니다.");
+            }
+            else
+            {
+                int idx = 1;                
+            }
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine("\n원하시는 행동을 입력해주세요.\n>>");
         }
 
 
