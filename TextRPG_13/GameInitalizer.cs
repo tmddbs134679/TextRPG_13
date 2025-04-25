@@ -55,7 +55,8 @@ namespace TextRPG_13
                 Console.WriteLine("           $$ |                                                                              $$\\   $$ |   ");
                 Console.WriteLine("           $$ |                                                                              \\$$$$$$  |      ");
                 Console.WriteLine("           \\__|                                                                               \\______/           ");
-                Console.WriteLine("                                                아무키나 눌러주세요                                     ");
+                Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n                                                아무키나 눌러주세요                                     ");
+                Console.CursorVisible = false;
                 Console.ReadKey();
                 
                 Console.Clear();
