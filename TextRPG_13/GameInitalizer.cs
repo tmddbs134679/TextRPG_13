@@ -59,8 +59,11 @@ namespace TextRPG_13
                 Console.ReadKey();
                 
                 Console.Clear();
-                Console.WriteLine("스파르타 던전에 오신 여러분 환영합니다.");
-                Console.WriteLine("원하시는 이름을 설정해주세요.\n");
+                Console.WriteLine("┏" + new string('━', 51) + "┓");
+                Console.WriteLine("┃" + "     스파르타 마을에 오신 여러분, 환영합니다!   ".PadRight(34) + "┃");
+                Console.WriteLine("┃" + "            당신의 이름은 무엇인가요?           ".PadRight(40) + "┃");
+                Console.WriteLine("┗" + new string('━', 51) + "┛");
+                Console.WriteLine();
                 Console.Write("이름 : ");
                 string name = Console.ReadLine();
 
