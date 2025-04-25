@@ -64,7 +64,7 @@ namespace TextRPG_13
                                     Console.Write(".");
                                 }
                                 Thread.Sleep(500);
-                                new RecoveryViewer(_player).RecoveryInBattle();
+                                new RecoveryViewer(_player).Recovery();
                                 break;
                             case DENJOENCHOICE.LOBBY:
                                 Console.Write("로비로 이동 중");
