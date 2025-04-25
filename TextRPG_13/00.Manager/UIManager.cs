@@ -48,7 +48,7 @@ namespace TextRPG_13
         {
             DisplayMonstersAndPlayer(player, monsters);
             DisplayPlayerInfo(player);
-            Console.WriteLine("대상을 선택해주세요.\n>>");
+            Console.Write("\n대상을 선택해주세요.\n>>");
         }
 
         public static void DisplayAttackResult(string attackerName, Monster target, int damage, int beforeHp)
@@ -327,71 +327,45 @@ namespace TextRPG_13
             WriteColor(">> ", ConsoleColor.DarkGreen);
         }
 
-        public static void PlayerRecovery(Player player)
-        {
-            var stat = player.Stats;
-            Console.Clear();
-            WriteColor("포션 사용\n", ConsoleColor.DarkYellow);
-            Console.WriteLine("포션을 사용하면 체력 및 마나를 회복할 수 있습니다.");
-
-            PotionList(player);
-
-            WriteColor("\n1", ConsoleColor.Red);
-            Console.WriteLine(". 사용하기"); 
-            WriteColor("0", ConsoleColor.Red);
-            Console.WriteLine(". 나가기\n");
-
-            Console.WriteLine("원하시는 행동을 입력해주세요.");
-            WriteColor(">> ", ConsoleColor.DarkGreen);
-        }
-
-        public static void SelectPotion(Player player)
+        public static Dictionary<int, int> SelectPotion(Player player)
         {
             Console.Clear();
             WriteColor("포션 사용\n", ConsoleColor.DarkYellow);
-            Console.WriteLine("포션을 사용하면 체력 및 마나를 회복할 수 있습니다.");
+            Console.WriteLine("포션을 사용하면 체력 및 마나를 회복할 수 있습니다.\n");
 
-            PotionList(player);
+            var potionOptions = new Dictionary<int, int>(); // Key: 번호, Value: 아이템 ID
+            int optionNum = 1;
 
-            Console.WriteLine("\n1. 소형 포션");
-            Console.WriteLine("2. 중형 포션");
-            Console.WriteLine("3. 마나 포션");
-            Console.WriteLine("0. 나가기\n");
+            var inventory = player.Inven.GetItems();
+            var sPotion = inventory.FirstOrDefault(i => i.Item.Id == 100);
+            var mPotion = inventory.FirstOrDefault(i => i.Item.Id == 101);
+            var mpPotion = inventory.FirstOrDefault(i => i.Item.Id == 103);
 
-            Console.WriteLine("사용할 포션을 입력해주세요.");
-            WriteColor(">> ", ConsoleColor.DarkGreen);
+            if (sPotion != null && sPotion.Quantity > 0)
+            {
+                Console.WriteLine($"{optionNum}. 소형 포션 (HP +30) | 남은 개수: {sPotion.Quantity}");
+                potionOptions[optionNum++] = 100;
+            }
+
+            if (mPotion != null && mPotion.Quantity > 0)
+            {
+                Console.WriteLine($"{optionNum}. 중형 포션 (HP +50) | 남은 개수: {mPotion.Quantity}");
+                potionOptions[optionNum++] = 101;
+            }
+
+            if (mpPotion != null && mpPotion.Quantity > 0)
+            {
+                Console.WriteLine($"{optionNum}. 마나 포션 (MP +30) | 남은 개수: {mpPotion.Quantity}");
+                potionOptions[optionNum++] = 103;
+            }
+
+            Console.WriteLine("\n0. 나가기");
+            WriteColor("\n>> ", ConsoleColor.DarkGreen);
+
+            return potionOptions; // 선택지 번호 ↔ 포션ID 매핑 반환
         }
-
-        public static void PotionList(Player player)
-        {
-            var s_potionCount = player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 100)?.Quantity ?? 0;
-            var m_potionCount = player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 101)?.Quantity ?? 0;
-            var MP_potionCount = player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 103)?.Quantity ?? 0;
-
-            if (s_potionCount > 0)
-            {
-                Console.Write($"\n소형 포션\n- 체력을 30 회복 할 수 있습니다. (남은 개수 : ");
-                WriteColor($"{s_potionCount}", ConsoleColor.Red);
-                Console.Write(")\n");
-            }
-            if (m_potionCount > 0)
-            {
-                Console.Write($"\n중형 포션\n- 체력을 50 회복 할 수 있습니다. (남은 개수 : ");
-                WriteColor($"{m_potionCount}", ConsoleColor.Red);
-                Console.Write(")\n");
-            }
-            if (MP_potionCount > 0)
-            {
-                Console.Write($"\n마나 포션\n- 마나를 30 회복 할 수 있습니다. (남은 개수 : ");
-                WriteColor($"{MP_potionCount}", ConsoleColor.Red);
-                Console.Write(")\n");
-            }
-            if ((s_potionCount == 0) && (m_potionCount == 0))
-            {
-                Console.WriteLine("포션이 없습니다.\n");
-            }
-        }
-
+        
+        
         public static void QuestUI()
         {
             Console.Clear();

@@ -206,11 +206,12 @@ namespace TextRPG_13
             {
                 if (monster.Stats.IsDead) continue;
 
+                int beforePlayerHP = player.Stats.HP;
                 int damage = Monster.GetDamageWithVariance(monster.Stats.monsterATK,player);
                 player.Stats.HP -= damage;
                 if (player.Stats.HP < 0) player.Stats.HP = 0;
 
-                UIManager.PrintEnemyPhase(monster, player, damage, beforeHP);
+                UIManager.PrintEnemyPhase(monster, player, damage, beforePlayerHP);
                 WaitForZeroInput();
 
                 if (player.Stats.HP == 0)
@@ -317,7 +318,7 @@ namespace TextRPG_13
             var recoveryViewer = new RecoveryViewer(player);
             recoveryViewer.RecoveryInBattle();
 
-            return true; // 회복 후 다시 플레이어 턴으로 돌아오기 위해 true 반환
+            return false; // 턴을 소비하여 회복
         }
 
         private bool InvalidChoice()
