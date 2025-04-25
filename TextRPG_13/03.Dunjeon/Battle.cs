@@ -205,7 +205,7 @@ namespace TextRPG_13
             {
                 if (monster.Stats.IsDead) continue;
 
-                int damage = Monster.GetDamageWithVariance(monster.Stats.monsterATK);
+                int damage = Monster.GetDamageWithVariance(monster.Stats.monsterATK,player);
                 player.Stats.HP -= damage;
                 if (player.Stats.HP < 0) player.Stats.HP = 0;
 

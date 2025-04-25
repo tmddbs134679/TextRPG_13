@@ -98,7 +98,7 @@ namespace TextRPG_13
 
             return (int)Math.Ceiling(player.Stats.baseATK * dmg);
         }
-        public static int GetDamageWithVariance(float baseAtk) 
+        public static int GetDamageWithVariance(float baseAtk,Player player) 
         {
             Random rand = new Random();
             double offset = Math.Ceiling(baseAtk * 0.1);
@@ -114,9 +114,12 @@ namespace TextRPG_13
                     finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
                 }
 
+                finalDamage -= (int)Math.Ceiling(player.Stats.baseDEF / 2);
+
+                if(finalDamage < 0) finalDamage = 0;
             }
 
-            return finalDamage;
+            return finalDamage ;
         }
     }
 }
