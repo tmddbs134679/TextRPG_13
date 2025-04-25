@@ -216,10 +216,20 @@ namespace TextRPG_13
             }
             else
             {
-                int idx = 1;                
+                int idx = 1;
+                foreach (var stack in player.Inven.GetItems())
+                {
+                    var item = stack.Item;
+                    var quantity = stack.Quantity;
+                    string statText = item.ATKbonus > 0 ? $"공격력 +{item.ATKbonus}" :
+                                        item.DEFbonus > 0 ? $"방어력 +{item.DEFbonus}" :
+                                        item.HealAmount > 0 ? $"회복량 +{item.HealAmount}" : "-";
+                    string equipMark = item.IsEquipped ? " [E]" : "";  // 장착여부 표기
+                    Console.WriteLine($"- {idx++} {equipMark} {item.Name} [x{quantity}] | {statText} | {item.Description}");
+                }
             }
-            Console.WriteLine("0. 나가기");
-            Console.WriteLine("\n원하시는 행동을 입력해주세요.\n>>");
+            Console.WriteLine("\n0. 나가기");
+            Console.WriteLine("\n장착/해체할 아이템을 선택해주세요.\n>>");
         }
 
 
