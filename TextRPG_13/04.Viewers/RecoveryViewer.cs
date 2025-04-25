@@ -103,7 +103,7 @@ namespace TextRPG_13
                                     Console.WriteLine("해당 포션이 부족합니다.");
                                 }
                             }
-                            else if (choice == 0)
+                            else if (int.TryParse(input, out choice) && choice == 0)
                             {
                                 Console.Write("\n로비로 이동 중");
                                 for (int i = 0; i < 3; i++)
@@ -124,7 +124,7 @@ namespace TextRPG_13
                         }
                     }
                 }
-                else if (choice == 0)
+                else if (int.TryParse(input, out choice) && choice == 0)
                 {
                     Console.Write("\n로비로 이동 중");
                     for (int i = 0; i < 3; i++)
@@ -193,7 +193,7 @@ namespace TextRPG_13
                         Console.WriteLine("해당 포션이 부족합니다.");
                     }
                 }
-                if (int.TryParse(input, out int c) && c == 3)
+                if (int.TryParse(input, out choice) && choice == 3)
                 {
                     if (stat.MP == stat.Max_MP)
                     {
@@ -215,7 +215,7 @@ namespace TextRPG_13
                         Console.WriteLine("해당 포션이 부족합니다.");
                     }
                 }
-                else if (choice == 0)
+                else if (int.TryParse(input, out choice) && choice == 0)
                 {
                     Console.WriteLine("회복을 취소합니다.");
                     break;
