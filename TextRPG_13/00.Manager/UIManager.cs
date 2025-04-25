@@ -249,7 +249,7 @@ namespace TextRPG_13
             Console.WriteLine($"던전 입장");
 
             WriteColor("[3] ", ConsoleColor.DarkYellow);
-            Console.WriteLine("회복 아이템");
+            Console.WriteLine("포션 사용");
 
             WriteColor("[4] ", ConsoleColor.DarkYellow);
             Console.WriteLine("인벤토리");
@@ -327,8 +327,8 @@ namespace TextRPG_13
         {
             var stat = player.Stats;
             Console.Clear();
-            WriteColor("회복\n", ConsoleColor.DarkYellow);
-            Console.WriteLine("포션을 사용하면 체력을 회복할 수 있습니다.");
+            WriteColor("포션 사용\n", ConsoleColor.DarkYellow);
+            Console.WriteLine("포션을 사용하면 체력 및 마나를 회복할 수 있습니다.");
 
             PotionList(player);
 
@@ -344,13 +344,14 @@ namespace TextRPG_13
         public static void SelectPotion(Player player)
         {
             Console.Clear();
-            WriteColor("회복\n", ConsoleColor.DarkYellow);
-            Console.WriteLine("포션을 사용하면 체력을 회복할 수 있습니다.");
+            WriteColor("포션 사용\n", ConsoleColor.DarkYellow);
+            Console.WriteLine("포션을 사용하면 체력 및 마나를 회복할 수 있습니다.");
 
             PotionList(player);
 
             Console.WriteLine("\n1. 소형 포션");
             Console.WriteLine("2. 중형 포션");
+            Console.WriteLine("3. 마나 포션");
             Console.WriteLine("0. 나가기\n");
 
             Console.WriteLine("사용할 포션을 입력해주세요.");
@@ -359,10 +360,9 @@ namespace TextRPG_13
 
         public static void PotionList(Player player)
         {
-            var s_potionCount = player.Inven.GetItems()
-                .FirstOrDefault(stack => stack.Item.Id == 100)?.Quantity ?? 0;
-            var m_potionCount = player.Inven.GetItems()
-                .FirstOrDefault(stack => stack.Item.Id == 101)?.Quantity ?? 0;
+            var s_potionCount = player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 100)?.Quantity ?? 0;
+            var m_potionCount = player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 101)?.Quantity ?? 0;
+            var MP_potionCount = player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 103)?.Quantity ?? 0;
 
             if (s_potionCount > 0)
             {
@@ -374,7 +374,12 @@ namespace TextRPG_13
                 Console.Write($"\n중형 포션\n- 체력을 50 회복 할 수 있습니다. (남은 개수 : ");
                 WriteColor($"{m_potionCount})\n", ConsoleColor.Red);
             }
-            if((s_potionCount == 0) && (m_potionCount == 0))
+            if (m_potionCount > 0)
+            {
+                Console.Write($"\n마나 포션\n- 마나를 30 회복 할 수 있습니다. (남은 개수 : ");
+                WriteColor($"{m_potionCount})\n", ConsoleColor.Red);
+            }
+            if ((s_potionCount == 0) && (m_potionCount == 0))
             {
                 Console.WriteLine("포션이 없습니다.\n");
             }

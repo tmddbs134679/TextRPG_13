@@ -30,10 +30,9 @@ namespace TextRPG_13
 
                 var stat = _player.Stats;
                 //포션 찾기
-                var s_potionStack = _player.Inven.GetItems()
-                .FirstOrDefault(stack => stack.Item.Id == 100);
-                var m_potionStack = _player.Inven.GetItems()
-                .FirstOrDefault(stack => stack.Item.Id == 101);
+                var s_potionStack = _player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 100);
+                var m_potionStack = _player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 101);
+                var MP_potionStack = _player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 103);
 
                 if (int.TryParse(input, out int choice) && choice == 1)
                 {
@@ -76,6 +75,15 @@ namespace TextRPG_13
                                     stat.HP += 50;
                                     if (stat.HP > stat.Max_HP) stat.HP = stat.Max_HP;
                                     Console.WriteLine("중형 포션을 사용하여 체력이 50 회복 되었습니다.");
+                                    Thread.Sleep(1000);
+                                    continue;
+                                }
+                                else if (choice == 3)
+                                {
+                                    MP_potionStack.Add(-1);
+                                    stat.MP += 30;
+                                    if (stat.MP > stat.Max_MP) stat.MP = stat.Max_MP;
+                                    Console.WriteLine("마나 포션을 사용하여 마나가 30 회복 되었습니다.");
                                     Thread.Sleep(1000);
                                     continue;
                                 }
@@ -126,6 +134,7 @@ namespace TextRPG_13
             var stat = _player.Stats;
             var s_potionStack = _player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 100);
             var m_potionStack = _player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 101);
+            var MP_potionStack = _player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 103);
 
             if ((s_potionStack == null || s_potionStack.Quantity <= 0) &&
                 (m_potionStack == null || m_potionStack.Quantity <= 0))
@@ -163,6 +172,15 @@ namespace TextRPG_13
                         if (stat.HP > stat.Max_HP) stat.HP = stat.Max_HP;
                         Console.WriteLine("중형 포션 사용! 체력 50 회복");
                         break;
+                    }
+                    else if (choice == 3 && MP_potionStack.Quantity > 0)
+                    {
+                        MP_potionStack.Add(-1);
+                        stat.MP += 30;
+                        if (stat.MP > stat.Max_MP) stat.MP = stat.Max_MP;
+                        Console.WriteLine("마나 포션을 사용하여 마나가 30 회복 되었습니다.");
+                        Thread.Sleep(1000);
+                        continue;
                     }
                     else
                     {
