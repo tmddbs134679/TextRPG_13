@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    public class SaveView
+    public class SaveViewer
     {
         
         public void Enter()

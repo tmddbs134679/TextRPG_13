@@ -12,5 +12,15 @@ namespace TextRPG_13
         public const string PlayerFilePath = "player.json";
         public const string QuestFilePath = "quest.json";
         public const string StageFilePath = "stage.json";
+
+
+        #region Quest
+        public const string QuestMosnterName = "미니언 퇴치";
+
+
+        public const string QuestEquipName = "낡은 검 장착 해보기";
+        public const string QuestEquip = "낡은 검";
+
+        #endregion
     }
 }
