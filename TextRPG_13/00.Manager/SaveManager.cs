@@ -45,7 +45,7 @@ namespace TextRPG_13
                     File.Delete(Constants.QuestFilePath);
             }
 
-            File.WriteAllText("stage.json", GameManager.Stage.CurrentStage.ToString());
+            File.WriteAllText(Constants.StageFilePath, GameManager.Stage.CurrentStage.ToString());
 
         }
         public static void LoadStage()
