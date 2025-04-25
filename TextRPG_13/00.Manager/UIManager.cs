@@ -427,6 +427,14 @@ namespace TextRPG_13
             Console.WriteLine(">>");
         }
 
+        public static void AskNameSave()
+        {
+            Console.WriteLine("1. 저장하기");
+            Console.WriteLine("2. 삭제하기\n");
+            Console.WriteLine("원하시는 행동을 입력해주세요");
+            Console.WriteLine(">>");
+        }
+
     }
 
 }
