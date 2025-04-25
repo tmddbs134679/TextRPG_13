@@ -121,9 +121,7 @@ namespace TextRPG_13
             {
                 Skills = SkillsForEachJob.GetSkills(Stats.Job);
             }
-        }
-        public void ReStats()
-        {
+
             Stats.bonusATK = 0;
             Stats.bonusDEF = 0;
 
@@ -132,7 +130,9 @@ namespace TextRPG_13
                 Stats.bonusATK += item.ATKbonus;
                 Stats.bonusDEF += item.DEFbonus;
             }
+
         }
+      
 
     }
 }

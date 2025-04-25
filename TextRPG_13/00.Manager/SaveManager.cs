@@ -75,19 +75,9 @@ namespace TextRPG_13
 
             Player player = JsonSerializer.Deserialize<Player>(json);
 
-            if (player?.Stats != null)
-            {
-               player.Stats.SetOwner(player);
-            }
-
-            if (player?.Inven != null)
-            {
-                player.Inven.SetOwner(player);
-            }
 
             player?.RestoreReferences();
-            player?.ReStats();
-
+    
             if (File.Exists(Constants.QuestFilePath))
             {
                 QuestManager.Instance.LoadFromFile();
