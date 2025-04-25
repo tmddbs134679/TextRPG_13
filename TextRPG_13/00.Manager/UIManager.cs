@@ -22,16 +22,23 @@ namespace TextRPG_13
 
         public static void DisplayPlayerInfo(Player player)
         {
-            Console.WriteLine("\n[내정보]");
-            Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
-            Console.WriteLine($"HP.{player.Stats.HP}/{player.Stats.Max_HP}");
-            Console.WriteLine($"MP.{player.Stats.MP}/{player.Stats.Max_MP}");
+            Console.WriteLine("\n┏━━━━━━━━━━━━━━━━━━━━━━━┓");
+            WriteColor("   [내정보]\n", ConsoleColor.DarkYellow);
+            Console.WriteLine($"   Lv.{player.Stats.Level} {player.Stats.Name}");
+            Console.WriteLine($"   HP.{player.Stats.HP}/{player.Stats.Max_HP}");
+            Console.WriteLine($"   MP.{player.Stats.MP}/{player.Stats.Max_MP}");
+            Console.WriteLine("┗━━━━━━━━━━━━━━━━━━━━━━━┛\n");
         }
 
         public static void DisplayMonstersAndPlayer(Player player, List<Monster> monsters)
         {
             Console.Clear();
-            Console.WriteLine("Battle!!\n");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("┏" + new string('━', 24) + "┓");
+            Console.WriteLine("┃" + "       Battle!!   ".PadRight(24) + "┃");
+            Console.WriteLine("┗" + new string('━', 24) + "┛");
+            Console.ResetColor();
+            Console.WriteLine();
 
             for (int i = 0; i < monsters.Count; i++)
             {
@@ -54,7 +61,11 @@ namespace TextRPG_13
         public static void DisplayAttackResult(string attackerName, Monster target, int damage, int beforeHp)
         {
             Console.Clear();
-            Console.WriteLine("Battle!! - Result\n");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("┏" + new string('━', 24) + "┓");
+            Console.WriteLine("┃" + "    Player's Turn   ".PadRight(24) + "┃");
+            Console.WriteLine("┗" + new string('━', 24) + "┛\n");
+            Console.ResetColor();
             if (damage == 0)
             {
                 Console.WriteLine($"{attackerName}의 공격!");
@@ -92,7 +103,11 @@ namespace TextRPG_13
         {
             Console.Clear();
 
-            WriteColor("Battle!!\n", ConsoleColor.DarkRed);
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("┏" + new string('━', 24) + "┓");
+            Console.WriteLine("┃" + "    Monster's turn   ".PadRight(24) + "┃");
+            Console.WriteLine("┗" + new string('━', 24) + "┛\n");
+            Console.ResetColor();
             Console.WriteLine($"Lv.{monster.Stats.Lv} {monster.Stats.monsterName}의 공격! ");
             if (damage == 0)
             {
@@ -284,7 +299,7 @@ namespace TextRPG_13
             WriteColor("0. ", ConsoleColor.DarkYellow);
             Console.WriteLine("나가기\n\n");
 
-            Console.WriteLine("원하시는 행동을 입력해주세요.\n");
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
             WriteColor("▶ ", ConsoleColor.DarkGreen);
         }
 
