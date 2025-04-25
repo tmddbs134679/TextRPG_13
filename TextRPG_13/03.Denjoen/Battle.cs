@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TextRPG_13;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TextRPG_13
 {
@@ -38,6 +39,7 @@ namespace TextRPG_13
                     isPlayerTurn = true;
                 }
             }
+
         }
 
         private bool ProcessPlayerTurn(ref int deathCount, int beforeLv, int beforeExp, int beforeHP, int beforeMP, ref int rewardsGold, List<Item> droppedItems)
@@ -243,7 +245,7 @@ namespace TextRPG_13
             foreach (var item in droppedItems)
                 player.Inven.AddItem(item);
             player.Stats.Gold += rewardsGold;
-
+            
             while (true)
             {
                 UIManager.PrintPlayerVictory(player, deathcount, beforeLv, beforeExp, beforeHP, beforeMP, player.Stats.Level > beforeLv, rewardsGold, droppedItems);
@@ -252,6 +254,10 @@ namespace TextRPG_13
                 Console.WriteLine("\n잘못된 입력입니다.");
                 Console.ReadKey();
             }
+            if (player.Stats.MP <= 40)
+                player.Stats.MP += 10;
+            else
+                player.Stats.MP += player.Stats.Max_MP - player.Stats.MP; 
         }
 
         private void ShowLoseResult(int beforeHP, int beforeMP, int rewardsGold, List<Item> droppedItems)

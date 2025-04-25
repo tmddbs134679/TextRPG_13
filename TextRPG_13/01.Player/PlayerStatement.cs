@@ -103,10 +103,10 @@ namespace TextRPG_13
                         Exp = 0,
                         Max_MP = 50,
                         MP = 50,
-                        Potion = 3
+                        //Potion = 3
                     }
                 }
-            };
+            }; 
 
         //GameInitalizer 에서 선택한 직업을 보관
         public static PlayerStatement GetPreset(JOBTYPE job)
