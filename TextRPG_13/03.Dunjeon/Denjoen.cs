@@ -56,6 +56,16 @@ namespace TextRPG_13
                                 Thread.Sleep(500);
                                 new InvenViewer(_player).ShowInventory();
                                 break;
+                            case DENJOENCHOICE.POTION:
+                                Console.Write("\n포션 사용으로 이동 중");
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Thread.Sleep(500);
+                                    Console.Write(".");
+                                }
+                                Thread.Sleep(500);
+                                new RecoveryViewer(_player).RecoveryInBattle();
+                                break;
                             case DENJOENCHOICE.LOBBY:
                                 Console.Write("로비로 이동 중");
                                 for (int i = 0; i < 3; i++)

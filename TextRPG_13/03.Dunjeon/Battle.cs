@@ -56,6 +56,7 @@ namespace TextRPG_13
             {
                 1 => HandleBasicAttack(ref deathCount, beforeLv, beforeExp, beforeHP, beforeMP, ref rewardsGold, droppedItems),
                 2 => HandleSkillAttack(ref deathCount, beforeLv, beforeExp, beforeHP, beforeMP, ref rewardsGold, droppedItems),
+                3 => HandleRecovery(),
                 _ => InvalidChoice()
             };
         }
@@ -289,6 +290,13 @@ namespace TextRPG_13
             }
 
             return index == 0 ? -1 : index - 1;
+        }
+        private bool HandleRecovery()
+        {
+            var recoveryViewer = new RecoveryViewer(player);
+            recoveryViewer.RecoveryInBattle();
+
+            return true; // 회복 후 다시 플레이어 턴으로 돌아오기 위해 true 반환
         }
 
         private bool InvalidChoice()

@@ -42,7 +42,7 @@ namespace TextRPG_13
                         Console.WriteLine("\n사용할 포션이 없습니다.");
                         Thread.Sleep(1000);
                     }
-                    else if (stat.HP >= stat.Max_HP)
+                    if (stat.HP == stat.Max_HP)
                     {
                         Console.WriteLine($"현재 HP가 {stat.HP} 이기에 회복이 불가능 합니다.");
                         Thread.Sleep(1000);
@@ -55,7 +55,13 @@ namespace TextRPG_13
                             input = Console.ReadLine();
                             if (int.TryParse(input, out choice) && choice >= 0 && choice < 3)
                             {
-                                if (choice == 1)
+                                if (stat.HP == stat.Max_HP)
+                                {
+                                    Console.WriteLine($"현재 HP가 {stat.HP} 이기에 회복이 불가능 합니다.");
+                                    Thread.Sleep(1000);
+                                    break;
+                                }
+                                else if (choice == 1)
                                 {
                                     s_potionStack.Add(-1);
                                     stat.HP += 30;
@@ -115,5 +121,68 @@ namespace TextRPG_13
                 }
             }
         }
+        public void RecoveryInBattle()
+        {
+            var stat = _player.Stats;
+            var s_potionStack = _player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 100);
+            var m_potionStack = _player.Inven.GetItems().FirstOrDefault(stack => stack.Item.Id == 101);
+
+            if ((s_potionStack == null || s_potionStack.Quantity <= 0) &&
+                (m_potionStack == null || m_potionStack.Quantity <= 0))
+            {
+                Console.WriteLine("\n사용할 포션이 없습니다.");
+                Thread.Sleep(1000);
+                return;
+            }
+
+            while (true)
+            {
+                UIManager.SelectPotion(_player);
+                string input = Console.ReadLine();
+
+                if (int.TryParse(input, out int choice) && choice >= 1 && choice <= 2)
+                {
+                    if (stat.HP == stat.Max_HP)
+                    {
+                        Console.WriteLine($"현재 HP가 {stat.HP} 이기에 회복이 불가능 합니다.");
+                        Thread.Sleep(1000);
+                        break;
+                    }
+                    else if (choice == 1 && s_potionStack.Quantity > 0)
+                    {
+                        s_potionStack.Add(-1);
+                        stat.HP += 30;
+                        if (stat.HP > stat.Max_HP) stat.HP = stat.Max_HP;
+                        Console.WriteLine("소형 포션 사용! 체력 30 회복");
+                        break;
+                    }
+                    else if (choice == 2 && m_potionStack.Quantity > 0)
+                    {
+                        m_potionStack.Add(-1);
+                        stat.HP += 50;
+                        if (stat.HP > stat.Max_HP) stat.HP = stat.Max_HP;
+                        Console.WriteLine("중형 포션 사용! 체력 50 회복");
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("해당 포션이 부족합니다.");
+                    }
+                }
+                else if (choice == 0)
+                {
+                    Console.WriteLine("회복을 취소합니다.");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                }
+                Thread.Sleep(1000);
+            }
+
+            Thread.Sleep(1000);
+        }
+
     }
 }
