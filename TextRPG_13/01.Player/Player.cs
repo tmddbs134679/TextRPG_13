@@ -93,6 +93,11 @@ namespace TextRPG_13
 
             if (Inven != null)
                 Inven.SetOwner(this);
+
+            if (Skills == null || Skills.Count == 0)
+            {
+                Skills = SkillsForEachJob.GetSkills(Stats.Job);
+            }
         }
 
         public void ReStats()
