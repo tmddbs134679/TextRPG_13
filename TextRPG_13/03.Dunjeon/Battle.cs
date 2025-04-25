@@ -29,8 +29,7 @@ namespace TextRPG_13
             stageAdvanced = false;
             List<Item> droppedItems = new();
 
-            Monster.MonsterRandomSpawn();
-            monsters = Monster.CurrentWave.ToList();
+            monsters = stageManager.SpawnWave();
 
             bool isPlayerTurn = true;
 
