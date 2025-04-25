@@ -26,29 +26,35 @@ namespace TextRPG_13
             {
                 UIManager.ShowInventory(_player);
 
-                if (int.TryParse(Console.ReadLine(), out int choice) && choice == 0)
-                {
-                    Console.Write("\n로비로 이동 중");
-                    for (int i = 0; i < 1; i++)
-                    {
-                        Thread.Sleep(500);
-                        Console.Write(".");
-                    }
-                    Thread.Sleep(500);
+                string input = Console.ReadLine();
 
-                    // 메시지 지우기
-                    Console.SetCursorPosition(0, Console.CursorTop);
-                    Console.Write(new string(' ', Console.WindowWidth));
-                    Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
-                    break; //로비화면
-                }
-                else if (choice == 1)
+                if (int.TryParse(input, out int choice))
                 {
-                    ShowEquipMenu();
+                    if (choice == 0)
+                    {
+                        Console.Write("\n선택 화면으로 이동 중");
+                        for (int i = 0; i < 1; i++)
+                        {
+                            Thread.Sleep(500);
+                            Console.Write(".");
+                        }
+                        Thread.Sleep(500);
+
+                        // 메시지 지우기
+                        Console.SetCursorPosition(0, Console.CursorTop);
+                        Console.Write(new string(' ', Console.WindowWidth));
+                        Console.SetCursorPosition(0, Console.CursorTop); // 원래 위치로 커서 이동
+                        break; //로비화면
+                    }
+                    else if (choice == 1)
+                    {
+                        ShowEquipMenu();
+                        break;
+                    }
+                    WriteColor("화면에 표기된 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
+                    Console.ReadKey();
+                    continue;
                 }
-                WriteColor("화면에 표기된 번호중 하나를 선택해주세요.", ConsoleColor.DarkYellow);
-                Console.ReadKey();
-                continue;
             }
         }
 
