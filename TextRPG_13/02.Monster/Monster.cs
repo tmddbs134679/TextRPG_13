@@ -35,30 +35,7 @@ namespace TextRPG_13
         }
         //랜덤
         private static readonly Random random = new Random();
-        public static Monster CreateRandom()
-        {
-            var types = monsterPresets.Keys.ToArray();
-            var randomType = types[random.Next(types.Length)];
-            return Create(randomType);
-        }
 
-        //Monster.MonsterRandomSpawn();한줄로 다른 곳에서 몬스터 랜덤 스폰 메서드 사용가능
-        private static List<Monster> currentWave;
-        public static IReadOnlyList<Monster> CurrentWave => currentWave;
-
-        public static void MonsterRandomSpawn()
-        {
-            // 1~4마리 랜덤 등장
-            int count = random.Next(1, 5);
-
-           // 이전 웨이브는 덮어쓰기
-            currentWave = new List<Monster>(count);
-            for (int i = 0; i < count; i++)
-            {
-                currentWave.Add(CreateRandom());
-            }
-
-        }
         //스테이지 기능 추가하면서 만든 코드
         public static Monster CreateRandomByLevel(int level)
         {
@@ -73,22 +50,6 @@ namespace TextRPG_13
 
             //기존 Create(type) 메서드 사용
             return Create(chosen);
-        }
-        public static List<Monster> SpawnWave(
-            int[] allowedLevels,
-            int minCount,
-            int maxCount)
-        {
-            var wave = new List<Monster>();
-            int count = random.Next(minCount, maxCount + 1);
-
-            for (int i = 0; i < count; i++)
-            {
-                int lvl = allowedLevels[random.Next(allowedLevels.Length)];
-                wave.Add(CreateRandomByLevel(lvl));
-            }
-
-            return wave;
         }
 
         //몬스터에서 스킬데미지 처리
