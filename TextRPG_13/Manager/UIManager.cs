@@ -14,9 +14,16 @@ namespace TextRPG_13
         public static void BattleStart(Player player, List<Monster> monsters)
         {
             DisplayMonstersAndPlayer(player,monsters);
-
+            DisplayPlayerInfo(player);
             Console.WriteLine("\n1. 공격\n2. 스킬\n");
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
+        }
+
+        public static void DisplayPlayerInfo(Player player)
+        {
+            Console.WriteLine("\n[내정보]");
+            Console.WriteLine($"Lv.{player.Stats.Level} {player.Stats.Name}");
+            Console.WriteLine($"HP.{player.Stats.HP}/{player.Stats.Max_HP}");
         }
 
         public static void DisplayMonstersAndPlayer(Player player, List<Monster> monsters)
@@ -33,37 +40,40 @@ namespace TextRPG_13
 
             }
             Console.ResetColor();
-
-            DisplayPlayerInfo(player);
-
         }
-        public static void DisplayMonstersAndPlayer(Player player, List<Monster> monsters,int input) //오버로딩
+
+        public static void ChooseMonster(Player player, List<Monster> monsters)
         {
-            Console.Clear();
-            Console.WriteLine("Battle!!\n");
-
-            for (int i = 0; i < monsters.Count; i++)
-            {
-                var monster = monsters[i];
-                string status = monster.Stats.IsDead ? "Dead" : $"HP {monster.Stats.monsterHP}";
-                Console.ForegroundColor = monster.Stats.IsDead ? ConsoleColor.DarkGray : ConsoleColor.White;
-                Console.WriteLine($"{i + 1} Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
-
-            }
-            Console.ResetColor();
-
+            DisplayMonstersAndPlayer(player, monsters);
             DisplayPlayerInfo(player);
-            if (input == 1)
-            {
-                Console.WriteLine("\n0. 취소\n");
-                Console.Write("대상을 선택해주세요.\n>> ");
-            }
-            else if (input == 2) 
-            {
-                PrintSkills(player); //스킬창 띄움
-            }
-
+            Console.WriteLine("대상을 선택해주세요.\n>>");
         }
+
+        //public static void DisplayMonstersAndPlayer(Player player, List<Monster> monsters,int input) //오버로딩
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("Battle!!\n");
+
+        //    for (int i = 0; i < monsters.Count; i++)
+        //    {
+        //        var monster = monsters[i];
+        //        string status = monster.Stats.IsDead ? "Dead" : $"HP {monster.Stats.monsterHP}";
+        //        Console.ForegroundColor = monster.Stats.IsDead ? ConsoleColor.DarkGray : ConsoleColor.White;
+        //        Console.WriteLine($"{i + 1} Lv.{monster.Stats.Lv} {monster.Stats.monsterName}  {status}");
+
+        //    }
+        //    Console.ResetColor();
+
+        //    DisplayPlayerInfo(player);
+        //    if (input == 1)
+        //    {
+        //        Console.WriteLine("\n0. 취소\n");
+        //        Console.Write("대상을 선택해주세요.\n>> ");
+        //    }
+        //    else if (input == 2) 
+        //    {
+        //        PrintSkills(player); //스킬창 띄움
+        //    }
 
         public static void DisplayPlayerInfo(Player player)
         {
@@ -237,7 +247,8 @@ namespace TextRPG_13
 
             Console.WriteLine("\n1. 장착관리");
             Console.WriteLine("0. 나가기");
-            Console.WriteLine("\n원하시는 행동을 입력해주세요.\n>>");
+            Console.WriteLine("\n원하시는 행동을 입력해주세요.");
+            Console.Write(">> ");
         }
 
         public static void ShowEquipMenu(Player player)
@@ -261,31 +272,54 @@ namespace TextRPG_13
         public static void Gamelobby(Player player)
         {
             Console.Clear();
-            Console.WriteLine("스파르타 마을에 오신 여러분, 환영합니다.\n" +
-                              "이제 전투를 시작할 수 있습니다.\n");
+            Console.WriteLine("┏" + new string('━', 51) + "┓");
+            Console.WriteLine("┃" + "     스파르타 마을에 오신 여러분, 환영합니다!   ".PadRight(34) + "┃");
+            Console.WriteLine("┃" + "        이제 용기를 내어 전투를 시작하세요.        ".PadRight(35) + "┃");
+            Console.WriteLine("┗" + new string('━', 51) + "┛");
+            Console.WriteLine();
 
-            WriteColor("1. ", ConsoleColor.DarkYellow);
+            WriteColor("[1] ", ConsoleColor.DarkYellow);
             Console.WriteLine("상태 보기");
 
-            WriteColor("2. ", ConsoleColor.DarkYellow);
-            Console.WriteLine($"전투 시작 (현재 스테이지: {GameManager.Stage.CurrentStage})");
+            WriteColor("[2] ", ConsoleColor.DarkYellow);
+            Console.WriteLine($"던전 입장");
 
-            WriteColor("3. ", ConsoleColor.DarkYellow);
+            WriteColor("[3] ", ConsoleColor.DarkYellow);
             Console.WriteLine("회복 아이템");
 
-            WriteColor("4. ", ConsoleColor.DarkYellow);
+            WriteColor("[4] ", ConsoleColor.DarkYellow);
             Console.WriteLine("인벤토리");
 
-            WriteColor("5. ", ConsoleColor.DarkYellow);
+            WriteColor("[5] ", ConsoleColor.DarkYellow);
             Console.WriteLine("퀘스트");
 
-            WriteColor("0. ", ConsoleColor.DarkYellow);
-            Console.WriteLine("게임 저장\n\n");
+            WriteColor("[0] ", ConsoleColor.DarkYellow);
+            Console.WriteLine("설정 창\n\n");
 
             Console.WriteLine("원하시는 행동을 입력해주세요.\n");
             WriteColor(">> ", ConsoleColor.DarkGreen);
 
         }
+
+        public static void Deonjoenlobby(Player player)
+        {
+            Console.Clear();
+            WriteColor("던전\n",ConsoleColor.DarkYellow);
+            Console.WriteLine("전투 시작 전, 만반의 준비를 마친 뒤 시작해 주세요.\n");
+
+            WriteColor("1. ", ConsoleColor.DarkYellow);
+            Console.WriteLine($"전투 시작 (현재 스테이지: {GameManager.Stage.CurrentStage})");
+
+            WriteColor("2. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("인벤토리");
+
+            WriteColor("0. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("나가기\n\n");
+
+            Console.WriteLine("원하시는 행동을 입력해주세요.\n");
+            WriteColor(">> ", ConsoleColor.DarkGreen);
+        }
+
         public static void PlayerStat(Player player)
         {
             // 플레이어 초기 스탯 불러오기
@@ -299,22 +333,22 @@ namespace TextRPG_13
             WriteColor("상태 보기\n", ConsoleColor.DarkYellow);
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n\n");
 
-            WriteColor("Lv. ", ConsoleColor.DarkGray);
+            WriteColor("Lv. ", ConsoleColor.Yellow);
 
             Console.WriteLine($"{stat.Level}\n");
             Console.WriteLine($"{stat.Name}  ( {stat.Job} )\n");
 
             Console.Write($"공격력 : ");
-            WriteColor($"{atkText}\n", ConsoleColor.DarkGray);
+            WriteColor($"{atkText}\n", ConsoleColor.Red);
 
             Console.Write("방어력 : ");
-            WriteColor($"{defText}\n", ConsoleColor.DarkGray);
+            WriteColor($"{defText}\n", ConsoleColor.Red);
 
             Console.Write("체 력 : ");
-            WriteColor($"{stat.HP}\n", ConsoleColor.DarkGray);
+            WriteColor($"{stat.HP}\n", ConsoleColor.Red);
 
             Console.Write("Gold : ");
-            WriteColor($"{stat.Gold}\n", ConsoleColor.DarkGray);
+            WriteColor($"{stat.Gold}\n", ConsoleColor.Red);
 
             Console.WriteLine("0. 나가기\n\n" +
                               $"원하시는 행동을 입력해주세요.");
@@ -382,14 +416,15 @@ namespace TextRPG_13
         public static void QuestUI()
         {
             Console.Clear();
-            Console.WriteLine(" Quest!! ");
-            Console.WriteLine("1. 마을을 위협하는 미니언 처치");
-            Console.WriteLine("2. 장비를 장착해보자");
-            Console.WriteLine("2. 더욱 더 강해지기!");
+            Console.WriteLine("┏━━━━━━━━━━━━━━━━ Quest Board ━━━━━━━━━━━━━━━━━┓");
+            Console.WriteLine("┃                퀘스트 발생!                  ┃");
+            Console.WriteLine("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+            Console.WriteLine("[1] 마을을 위협하는 미니언 처치");
+            Console.WriteLine("[2] 장비를 장착해보자");
             Console.WriteLine("\n\n");
 
             Console.WriteLine("원하시는 퀘스트를 선택해주세요.");
-            Console.WriteLine(">>");
+            Console.WriteLine(">> ");
         }
 
         public static void Quest_1()
@@ -407,11 +442,10 @@ namespace TextRPG_13
             Console.WriteLine(" Quest!! ");
             Console.WriteLine("1. 마을을 위협하는 미니언 처치");
             Console.WriteLine("2. 장비를 장착해보자");
-            Console.WriteLine("2. 더욱 더 강해지기!");
             Console.WriteLine("\n\n");
 
             Console.WriteLine("원하시는 퀘스트를 선택해주세요.");
-            Console.WriteLine(">>");
+            Console.WriteLine(">> ");
 
         }
 
@@ -420,7 +454,7 @@ namespace TextRPG_13
             Console.WriteLine("1. 수락");
             Console.WriteLine("2. 거절");
             Console.WriteLine("원하시는 행동을 입력해주세요");
-            Console.WriteLine(">>");
+            Console.WriteLine(">> ");
         }
 
         public static void AskRewardQuest()
@@ -437,6 +471,7 @@ namespace TextRPG_13
             Console.WriteLine("");
             Console.WriteLine("1. 저장하기");
             Console.WriteLine("2. 삭제하기");
+            Console.WriteLine("3. 게임종료");
             Console.WriteLine("0. 돌아가기");
             Console.WriteLine("원하시는 행동을 입력해주세요");
             Console.WriteLine(">>");

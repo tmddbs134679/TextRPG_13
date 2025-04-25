@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace TextRPG_13
@@ -11,7 +12,7 @@ namespace TextRPG_13
     {
         private static readonly string path_ = "player.json";
         private static readonly string questpath_ = "quest.json";
-
+        private static readonly string stagepath_ = "stage.json";
         public static void Save(Player player, string path = null)
         {
             if (path == null)
@@ -20,7 +21,9 @@ namespace TextRPG_13
             var op = new JsonSerializerOptions
             {
                 WriteIndented = true,
-                IncludeFields = true
+                IncludeFields = true,
+                PropertyNameCaseInsensitive = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.Never
             };
 
             string json = JsonSerializer.Serialize(player, op);
@@ -39,12 +42,26 @@ namespace TextRPG_13
                 File.WriteAllText(questpath_, questJson);
             }
             else
-            { 
+            {
                 if (File.Exists(questpath_))
-                        File.Delete(questpath_);
+                    File.Delete(questpath_);
+            }
+
+            File.WriteAllText("stage.json", GameManager.Stage.CurrentStage.ToString());
+
+        }
+        public static void LoadStage()
+        {
+            if (File.Exists("stage.json"))
+            {
+                string text = File.ReadAllText("stage.json");
+
+                if (int.TryParse(text, out int savedStage))
+                {
+                    GameManager.Stage.SetStage(savedStage);
+                }
             }
         }
-
 
         public static Player Load(string path = null)
         {
@@ -71,6 +88,7 @@ namespace TextRPG_13
             }
 
             player?.RestoreReferences();
+            player?.ReStats();
 
             if (File.Exists(questpath_))
             {
@@ -84,10 +102,19 @@ namespace TextRPG_13
             if (path == null)
                 path = path_;
 
+            string[] files = {
+                                         path_,              
+                                         stagepath_,      
+                                         questpath_,  
+                                       
+                                     };
 
-            if (File.Exists(path))
+            foreach (string file in files)
             {
-                File.Delete(path);
+                if (File.Exists(file))
+                {
+                    File.Delete(file);
+                }
             }
         }
 

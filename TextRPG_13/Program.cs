@@ -1,15 +1,11 @@
-﻿
-using TextRPG_13;
-
-namespace TextRPG_13
+﻿namespace TextRPG_13
 {
     public class Program
     {
         static void Main(string[] args)
         {
-
             var _ = QuestManager.Instance;
-
+            SaveManager.LoadStage();
             Player player = GameStart();
 
 

@@ -37,7 +37,7 @@ namespace TextRPG_13
                 MP = preset.MP,
                 Gold = preset.Gold,
                 Exp = preset.Exp,
-                //Potion = preset.Potion
+                Potion = preset.Potion
             };
             //인벤토리 인스턴스 생성 후 기본 포션 3개 추가
             Inven = new Inventory(GameManager.CurrentPlayer);
@@ -120,7 +120,6 @@ namespace TextRPG_13
             return damage;
         }
         private int HitMultiEnemy(Player player, Skill skill, List<Monster> monsters)
-        {
            
             int totalDamage = 0;
             var aliveMonsters = monsters.Where(m => !m.Stats.IsDead).ToList();
@@ -144,5 +143,16 @@ namespace TextRPG_13
                 Inven.SetOwner(this);
         }
 
+public void ReStats()
+{
+    Stats.bonusATK = 0;
+    Stats.bonusDEF = 0;
+
+    foreach (var item in Inven.GetEquippedItems())
+    {
+        Stats.bonusATK += item.ATKbonus;
+        Stats.bonusDEF += item.DEFbonus;
+    }
+}
     }
 }

@@ -22,8 +22,9 @@ namespace TextRPG_13
         public int Exp { get; set; } = 0;
         public int Max_MP { get; set; }
         public int MP { get; set; }
-        public float bonusATK { get; private set; }
-        public float bonusDEF { get; private set; }
+        public int Potion { get; set; }
+        public float bonusATK { get;  set; }
+        public float bonusDEF { get;  set; }
 
         public float Offensivepower => baseATK + bonusATK;
         public float Defensivepower => baseDEF + bonusDEF;
@@ -68,7 +69,8 @@ namespace TextRPG_13
                         Gold = 1500,
                         Exp = 0,
                         Max_MP = 50,
-                        MP = 50
+                        MP = 50,
+                        Potion = 3
 
                     }
                 },
@@ -85,7 +87,7 @@ namespace TextRPG_13
                         Exp = 0,
                         Max_MP = 50,
                         MP = 50,
-                        //Potion = 3
+                        Potion = 3
                     }
                 },
                 { JOBTYPE.ASSASSIN, new PlayerStatement
