@@ -22,9 +22,8 @@ namespace TextRPG_13
         public int Exp { get; set; } = 0;
         public int Max_MP { get; set; }
         public int MP { get; set; }
-        public int Potion { get; set; }
-        public float bonusATK { get;  set; }
-        public float bonusDEF { get;  set; }
+        public float bonusATK { get; set; }
+        public float bonusDEF { get; set; }
 
         public float Offensivepower => baseATK + bonusATK;
         public float Defensivepower => baseDEF + bonusDEF;
@@ -69,9 +68,7 @@ namespace TextRPG_13
                         Gold = 1500,
                         Exp = 0,
                         Max_MP = 50,
-                        MP = 50,
-                        Potion = 3
-
+                        MP = 50
                     }
                 },
                 { JOBTYPE.WIZARD, new PlayerStatement
@@ -86,8 +83,7 @@ namespace TextRPG_13
                         Gold = 1500,
                         Exp = 0,
                         Max_MP = 50,
-                        MP = 50,
-                        Potion = 3
+                        MP = 50
                     }
                 },
                 { JOBTYPE.ASSASSIN, new PlayerStatement
@@ -102,11 +98,10 @@ namespace TextRPG_13
                         Gold = 1500,
                         Exp = 0,
                         Max_MP = 50,
-                        MP = 50,
-                        Potion = 3
+                        MP = 50
                     }
                 }
-            };
+            }; 
 
         //GameInitalizer 에서 선택한 직업을 보관
         public static PlayerStatement GetPreset(JOBTYPE job)

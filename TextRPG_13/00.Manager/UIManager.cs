@@ -137,7 +137,7 @@ namespace TextRPG_13
             if (isLvUp == true) Console.Write($" -> Lv.{player.Stats.Level} {player.Stats.Name}");
             Console.WriteLine($"\nexp {beforeExp} -> {player.Stats.Exp}");
             Console.WriteLine($"HP {beforeHP} -> {player.Stats.HP}");
-            Console.WriteLine($"HP {beforeMP} -> {player.Stats.MP}");
+            Console.WriteLine($"HP {beforeMP} -> {player.Stats.MP} + MP 10 회복");
 
             DisplayRewards(gold, items);
 
