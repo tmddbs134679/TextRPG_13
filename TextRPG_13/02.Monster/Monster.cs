@@ -114,7 +114,7 @@ namespace TextRPG_13
                     finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
                 }
 
-                finalDamage -= (int)Math.Ceiling(player.Stats.baseDEF / 2);
+                finalDamage -= (int)Math.Ceiling(player.Stats.Defensivepower / 2);
 
                 if(finalDamage < 0) finalDamage = 0;
             }
