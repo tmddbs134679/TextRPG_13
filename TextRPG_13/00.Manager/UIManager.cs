@@ -100,7 +100,8 @@ namespace TextRPG_13
             }
             else
             {
-                Console.WriteLine($"{player.Stats.Name}을(를) 맞췄습니다.[{player.Stats.baseDEF}의 데미지 감소!] [데미지: {damage}]\n");
+                Console.WriteLine($"{player.Stats.Name}을(를) 맞췄습니다.[{(int)(Math.Ceiling(player.Stats.baseDEF/2))}의 데미지 감소!]" +
+                    $" [데미지: {damage}]\n");
                 Console.WriteLine($"HP {beforeHp} -> {player.Stats.HP}\n");
             }
 
