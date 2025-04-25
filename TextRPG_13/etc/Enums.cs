@@ -46,6 +46,7 @@ namespace TextRPG_13
     {
         BATTLE = 1,
         INVENTORY = 2,
+        POTION = 3,
         LOBBY = 0
     }
 

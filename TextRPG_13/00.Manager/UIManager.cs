@@ -277,6 +277,9 @@ namespace TextRPG_13
             WriteColor("2. ", ConsoleColor.DarkYellow);
             Console.WriteLine("인벤토리");
 
+            WriteColor("3. ", ConsoleColor.DarkYellow);
+            Console.WriteLine("포션 사용");
+
             WriteColor("0. ", ConsoleColor.DarkYellow);
             Console.WriteLine("나가기\n\n");
 
