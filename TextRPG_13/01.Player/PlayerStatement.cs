@@ -69,7 +69,6 @@ namespace TextRPG_13
                         Exp = 0,
                         Max_MP = 50,
                         MP = 50
-
                     }
                 },
                 { JOBTYPE.WIZARD, new PlayerStatement
@@ -102,7 +101,7 @@ namespace TextRPG_13
                         MP = 50
                     }
                 }
-            };
+            }; 
 
         //GameInitalizer 에서 선택한 직업을 보관
         public static PlayerStatement GetPreset(JOBTYPE job)

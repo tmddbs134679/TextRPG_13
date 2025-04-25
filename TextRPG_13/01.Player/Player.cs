@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Threading;
 
 namespace TextRPG_13
 {
@@ -13,12 +14,10 @@ namespace TextRPG_13
         //public QuestManager QuestManager { get; private set; } = new QuestManager();
         public List<Skill> Skills { get; private set; }
 
-
-        public Player() { }
         // 생성자: 직업을 받아서 해당 프리셋 적용
         public Player(JOBTYPE job)
         {
-            //Type = job;
+            Type = job;
 
             // 프리셋에서 가져와 복사
             var preset = PlayerStatement.GetPreset(job);
@@ -38,12 +37,35 @@ namespace TextRPG_13
                 Max_MP = preset.Max_MP,
                 MP = preset.MP,
                 Gold = preset.Gold,
-                Exp = preset.Exp
+                Exp = preset.Exp,
+                Potion = preset.Potion
             };
             //인벤토리 인스턴스 생성 후 기본 포션 3개 추가
             Inven = new Inventory(GameManager.CurrentPlayer);
             Inven.AddInitialPotions();
             Inven.AddSword();
+        }
+        private static Random random = new Random();
+
+        public static int GetDamageWithVariance(float baseAtk)
+        {
+           
+            double offset = Math.Ceiling(baseAtk * 0.1);
+            int critalChance = random.Next(1, 101);
+            int avoidAttack = random.Next(1, 101);
+            int finalDamage = 0;
+
+            if (avoidAttack > 10)
+            {
+                finalDamage = (int)baseAtk + random.Next(-(int)offset, (int)offset);
+                if (critalChance <= 15)
+                {
+                    finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
+                }
+
+            }
+
+            return finalDamage;
         }
         private static int GetRequiredExp(int level)
         {
@@ -85,7 +107,8 @@ namespace TextRPG_13
             attack += 0.5f;
             return (defend, attack);
         }
-
+        
+    
         public void RestoreReferences()
         {
             if (Stats != null)
@@ -99,7 +122,6 @@ namespace TextRPG_13
                 Skills = SkillsForEachJob.GetSkills(Stats.Job);
             }
         }
-
         public void ReStats()
         {
             Stats.bonusATK = 0;
@@ -112,25 +134,5 @@ namespace TextRPG_13
             }
         }
 
-        public static int GetDamageWithVariance(float baseAtk)
-        {
-            Random rand = new Random();
-            double offset = Math.Ceiling(baseAtk * 0.1);
-            int critalChance = rand.Next(1, 101);
-            int avoidAttack = rand.Next(1, 101);
-            int finalDamage = 0;
-
-            if (avoidAttack > 10)
-            {
-                finalDamage = (int)baseAtk + rand.Next(-(int)offset, (int)offset);
-                if (critalChance <= 15)
-                {
-                    finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
-                }
-
-            }
-
-            return finalDamage;
-        }
     }
 }
