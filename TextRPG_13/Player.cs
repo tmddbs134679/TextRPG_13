@@ -108,37 +108,7 @@ namespace TextRPG_13
             return (defend, attack);
         }
         
-        public int UseSkill(Player player, Skill skill, List<Monster> monsters, int index)
-        {
-            int damage;
-            if (player.Stats.MP < skill.Mpcost) return -1;
-
-            player.Stats.MP -= skill.Mpcost;
-            if (skill.HitCount > 1)
-                damage = HitMultiEnemy(player, skill, monsters);
-            else
-                damage = monsters[index-1].TakeSkillDamage(skill.Damage, player);
-            return damage;
-        }
-        private int HitMultiEnemy(Player player, Skill skill, List<Monster> monsters)
-        { 
-            int totalDamage = 0;
-            var aliveMonsters = monsters.Where(m => !m.Stats.IsDead).ToList();
-            int targetCount = Math.Min(skill.HitCount, aliveMonsters.Count);
-            var targets = aliveMonsters.OrderBy(m => random.Next()).Take(targetCount);
-
-               foreach (var target in targets)
-                {
-                    if (!target.Stats.IsDead)
-                    {
-                        int damage = target.TakeSkillDamage(skill.Damage, player);
-                        totalDamage += damage;
-                    }
-               
-                }
-            return totalDamage;
-        }
-
+    
         public void RestoreReferences()
         {
             if (Stats != null)
