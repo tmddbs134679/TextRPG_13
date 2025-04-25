@@ -10,13 +10,13 @@ namespace TextRPG_13
 {
     public class SaveManager
     {
-        private static readonly string path_ = "player.json";
-        private static readonly string questpath_ = "quest.json";
-        private static readonly string stagepath_ = "stage.json";
+        //private static readonly string path_ = "player.json";
+        //private static readonly string questpath_ = "quest.json";
+        //private static readonly string stagepath_ = "stage.json";
         public static void Save(Player player, string path = null)
         {
             if (path == null)
-                path = path_;
+                path = Constants.PlayerFilePath;
 
             var op = new JsonSerializerOptions
             {
@@ -39,12 +39,12 @@ namespace TextRPG_13
                     quest.TaskType = "Equip";
 
                 string questJson = JsonSerializer.Serialize(quest, op);
-                File.WriteAllText(questpath_, questJson);
+                File.WriteAllText(Constants.QuestFilePath, questJson);
             }
             else
             {
-                if (File.Exists(questpath_))
-                    File.Delete(questpath_);
+                if (File.Exists(Constants.QuestFilePath))
+                    File.Delete(Constants.QuestFilePath);
             }
 
             File.WriteAllText("stage.json", GameManager.Stage.CurrentStage.ToString());
@@ -52,9 +52,9 @@ namespace TextRPG_13
         }
         public static void LoadStage()
         {
-            if (File.Exists("stage.json"))
+            if (File.Exists(Constants.StageFilePath))
             {
-                string text = File.ReadAllText("stage.json");
+                string text = File.ReadAllText(Constants.StageFilePath);
 
                 if (int.TryParse(text, out int savedStage))
                 {
@@ -66,9 +66,9 @@ namespace TextRPG_13
         public static Player Load(string path = null)
         {
             if (path == null)
-                path = path_;
+                path = Constants.PlayerFilePath;
 
-            if (!File.Exists(path_))
+            if (!File.Exists(Constants.PlayerFilePath))
             {
                 return null;
             }
@@ -90,7 +90,7 @@ namespace TextRPG_13
             player?.RestoreReferences();
             player?.ReStats();
 
-            if (File.Exists(questpath_))
+            if (File.Exists(Constants.QuestFilePath))
             {
                 QuestManager.Instance.LoadFromFile();
             }
@@ -100,12 +100,12 @@ namespace TextRPG_13
         public static void Reset(string path = null)
         {
             if (path == null)
-                path = path_;
+                path = Constants.PlayerFilePath;
 
             string[] files = {
-                                         path_,              
-                                         stagepath_,      
-                                         questpath_,  
+                                         Constants.PlayerFilePath,              
+                                         Constants.StageFilePath,      
+                                         Constants.QuestFilePath,  
                                        
                                      };
 
@@ -121,10 +121,7 @@ namespace TextRPG_13
         public static bool Exists(string path = null)
         {
             if (path == null)
-                path = path_;
-
-            //if (File.Exists(questpath_))
-            //    File.Delete("quest.json");
+                path = Constants.PlayerFilePath;
 
             return File.Exists(path);
         }
