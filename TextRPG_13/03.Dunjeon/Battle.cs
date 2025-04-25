@@ -10,6 +10,12 @@ namespace TextRPG_13
     {
         private Player player;
         private List<Monster> monsters;
+        private StageManager stageManager;
+        bool stageAdvanced = false;
+        public Battle()
+        {
+            stageManager = GameManager.Stage;
+        }
 
         public void BattleSequence()
         {
@@ -20,10 +26,10 @@ namespace TextRPG_13
             int beforeHP = player.Stats.HP;
             int deathCount = 0;
             int rewardsGold = 0;
+            stageAdvanced = false;
             List<Item> droppedItems = new();
 
-            Monster.MonsterRandomSpawn();
-            monsters = Monster.CurrentWave.ToList();
+            monsters = stageManager.SpawnWave();
 
             bool isPlayerTurn = true;
 
@@ -87,6 +93,11 @@ namespace TextRPG_13
             if (deathCount == monsters.Count)
             {
                 ShowVictoryResult(deathCount, beforeLv, beforeExp, beforePlayerHP, beforeMP, rewardsGold, droppedItems);
+                if (!stageAdvanced)
+                {
+                    stageManager.NextStage();
+                    stageAdvanced = true;
+                }
                 return false;
             }
 
@@ -146,6 +157,11 @@ namespace TextRPG_13
             if (deathCount == monsters.Count)
             {
                 ShowVictoryResult(deathCount, beforeLv, beforeExp, beforePlayerHP, beforeMP, rewardsGold, droppedItems);
+                if (!stageAdvanced)
+                {
+                    stageManager.NextStage();
+                    stageAdvanced = true;
+                }
                 return false;
             }
 
@@ -173,6 +189,11 @@ namespace TextRPG_13
             if (deathCount == monsters.Count)
             {
                 ShowVictoryResult(deathCount, beforeLv, beforeExp, beforePlayerHP, beforeMP, rewardsGold, droppedItems);
+                if (!stageAdvanced)
+                {
+                    stageManager.NextStage();
+                    stageAdvanced = true;
+                }
                 return false;
             }
 
