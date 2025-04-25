@@ -108,7 +108,6 @@ namespace TextRPG_13
             }
         }
 
-
         public static int GetDamageWithVariance(float baseAtk)
         {
             Random rand = new Random();
@@ -129,33 +128,5 @@ namespace TextRPG_13
 
             return finalDamage;
         }
-        
-        //플레이어에서
-        //public void UseSkill(Player player,Skill skill, List <Monster> monsters,int index)
-        //{
-        //    if (player.Stats.MP < skill.Mpcost) return;
-
-        //    player.Stats.MP -= skill.Mpcost;
-        //    if(skill.HitCount > 1)
-        //        HitMultiEnemy(player, skill, monsters);
-        //    else
-        //        monsters[index].TakeSkillDamage(skill.Damage, player);
-
-        //}
-        //private void  HitMultiEnemy(Player player, Skill skill, List<Monster> monsters)
-        //{
-        //    Random random = new Random();
-        //    int hits = 0;
-        //    while (skill.HitCount < hits)
-        //    {
-        //        int rand = random.Next(0, skill.HitCount);
-        //        if (!monsters[hits].Stats.IsDead)
-        //        {
-        //            monsters[rand].TakeSkillDamage(skill.Damage, player);
-        //            hits++;
-        //        }
-
-        //    }
-        //}
     }
 }

@@ -15,6 +15,8 @@ namespace TextRPG_13
             player = GameManager.CurrentPlayer;
             int beforeLv = player.Stats.Level;
             int beforeExp = player.Stats.Exp;
+            int beforeMP = player.Stats.MP;
+            int beforeHP = player.Stats.HP;
             int deathCount = 0;
             int rewardsGold = 0;
             List<Item> droppedItems = new();
@@ -28,17 +30,17 @@ namespace TextRPG_13
             {
                 if (isPlayerTurn)
                 {
-                    isPlayerTurn = ProcessPlayerTurn(ref deathCount, beforeLv, beforeExp, ref rewardsGold, droppedItems);
+                    isPlayerTurn = ProcessPlayerTurn(ref deathCount, beforeLv, beforeExp, beforeHP, beforeMP, ref rewardsGold, droppedItems);
                 }
                 else
                 {
-                    ProcessMonsterTurn(ref rewardsGold, droppedItems);
+                    ProcessMonsterTurn(beforeHP, beforeMP, ref rewardsGold, droppedItems);
                     isPlayerTurn = true;
                 }
             }
         }
 
-        private bool ProcessPlayerTurn(ref int deathCount, int beforeLv, int beforeExp, ref int rewardsGold, List<Item> droppedItems)
+        private bool ProcessPlayerTurn(ref int deathCount, int beforeLv, int beforeExp, int beforeHP, int beforeMP, ref int rewardsGold, List<Item> droppedItems)
         {
             UIManager.BattleStart(player, monsters);
             if (!int.TryParse(Console.ReadLine(), out int choice))
@@ -50,13 +52,13 @@ namespace TextRPG_13
 
             return choice switch
             {
-                1 => HandleBasicAttack(ref deathCount, beforeLv, beforeExp, ref rewardsGold, droppedItems),
-                2 => HandleSkillAttack(ref deathCount, beforeLv, beforeExp, ref rewardsGold, droppedItems),
+                1 => HandleBasicAttack(ref deathCount, beforeLv, beforeExp, beforeHP, beforeMP, ref rewardsGold, droppedItems),
+                2 => HandleSkillAttack(ref deathCount, beforeLv, beforeExp, beforeHP, beforeMP, ref rewardsGold, droppedItems),
                 _ => InvalidChoice()
             };
         }
 
-        private bool HandleBasicAttack(ref int deathCount, int beforeLv, int beforeExp, ref int rewardsGold, List<Item> droppedItems)
+        private bool HandleBasicAttack(ref int deathCount, int beforeLv, int beforeExp, int beforePlayerHP, int beforeMP, ref int rewardsGold, List<Item> droppedItems)
         {
             int targetIndex = GetTargetIndex();
             if (targetIndex == -1) return true;
@@ -81,14 +83,14 @@ namespace TextRPG_13
 
             if (deathCount == monsters.Count)
             {
-                ShowVictoryResult(deathCount, beforeLv, beforeExp, rewardsGold, droppedItems);
+                ShowVictoryResult(deathCount, beforeLv, beforeExp, beforePlayerHP, beforeMP, rewardsGold, droppedItems);
                 return false;
             }
 
             return false;
         }
 
-        private bool HandleSkillAttack(ref int deathCount, int beforeLv, int beforeExp, ref int rewardsGold, List<Item> droppedItems)
+        private bool HandleSkillAttack(ref int deathCount, int beforeLv, int beforeExp, int beforeHP, int beforeMP, ref int rewardsGold, List<Item> droppedItems)
         {
             UIManager.PrintSkills(player);
             if (!int.TryParse(Console.ReadLine(), out int choice)) return InvalidChoice();
@@ -107,15 +109,15 @@ namespace TextRPG_13
 
             if (skill.HitCount == 1)
             {
-                return HandleSingleTargetSkill(skill, ref deathCount, beforeLv, beforeExp, ref rewardsGold, droppedItems);
+                return HandleSingleTargetSkill(skill, ref deathCount, beforeLv, beforeExp, beforeHP, beforeMP, ref rewardsGold, droppedItems);
             }
             else
             {
-                return HandleMultiTargetSkill(skill, ref deathCount, beforeLv, beforeExp, ref rewardsGold, droppedItems);
+                return HandleMultiTargetSkill(skill, ref deathCount, beforeLv, beforeExp, beforeHP, beforeMP, ref rewardsGold, droppedItems);
             }
         }
 
-        private bool HandleSingleTargetSkill(Skill skill, ref int deathCount, int beforeLv, int beforeExp, ref int rewardsGold, List<Item> droppedItems)
+        private bool HandleSingleTargetSkill(Skill skill, ref int deathCount, int beforeLv, int beforeExp, int beforePlayerHP, int beforeMP, ref int rewardsGold, List<Item> droppedItems)
         {
             int targetIndex = GetTargetIndex();
             if (targetIndex == -1) return true;
@@ -140,14 +142,14 @@ namespace TextRPG_13
 
             if (deathCount == monsters.Count)
             {
-                ShowVictoryResult(deathCount, beforeLv, beforeExp, rewardsGold, droppedItems);
+                ShowVictoryResult(deathCount, beforeLv, beforeExp, beforePlayerHP, beforeMP, rewardsGold, droppedItems);
                 return false;
             }
 
             return false;
         }
 
-        private bool HandleMultiTargetSkill(Skill skill, ref int deathCount, int beforeLv, int beforeExp, ref int rewardsGold, List<Item> droppedItems)
+        private bool HandleMultiTargetSkill(Skill skill, ref int deathCount, int beforeLv, int beforeExp, int beforePlayerHP, int beforeMP, ref int rewardsGold, List<Item> droppedItems)
         {
             Random rand = new();
             var aliveMonsters = monsters.Where(m => !m.Stats.IsDead).ToList();
@@ -165,25 +167,22 @@ namespace TextRPG_13
                 ShowAttackResult(target, damage, beforeHP);
             }
 
-            //PostAttackProcess(null, beforeLv);
-
             if (deathCount == monsters.Count)
             {
-                ShowVictoryResult(deathCount, beforeLv, beforeExp, rewardsGold, droppedItems);
+                ShowVictoryResult(deathCount, beforeLv, beforeExp, beforePlayerHP, beforeMP, rewardsGold, droppedItems);
                 return false;
             }
 
             return false;
         }
 
-        private void ProcessMonsterTurn(ref int rewardsGold, List<Item> droppedItems)
+        private void ProcessMonsterTurn(int beforeHP, int beforeMP,ref int rewardsGold, List<Item> droppedItems)
         {
             foreach (var monster in monsters)
             {
                 if (monster.Stats.IsDead) continue;
 
                 int damage = Monster.GetDamageWithVariance(monster.Stats.monsterATK);
-                int beforeHP = player.Stats.HP;
                 player.Stats.HP -= damage;
                 if (player.Stats.HP < 0) player.Stats.HP = 0;
 
@@ -192,7 +191,7 @@ namespace TextRPG_13
 
                 if (player.Stats.HP == 0)
                 {
-                    ShowLoseResult(rewardsGold, droppedItems);
+                    ShowLoseResult(beforeHP, beforeMP, rewardsGold, droppedItems);
                     break;
                 }
             }
@@ -239,7 +238,7 @@ namespace TextRPG_13
             }
         }
 
-        private void ShowVictoryResult(int deathcount, int beforeLv, int beforeExp, int rewardsGold, List<Item> droppedItems)
+        private void ShowVictoryResult(int deathcount, int beforeLv, int beforeExp, int beforeHP, int beforeMP, int rewardsGold, List<Item> droppedItems)
         {
             foreach (var item in droppedItems)
                 player.Inven.AddItem(item);
@@ -247,7 +246,7 @@ namespace TextRPG_13
 
             while (true)
             {
-                UIManager.PrintPlayerVictory(player, deathcount, beforeLv, beforeExp, player.Stats.Level > beforeLv, rewardsGold, droppedItems);
+                UIManager.PrintPlayerVictory(player, deathcount, beforeLv, beforeExp, beforeHP, beforeMP, player.Stats.Level > beforeLv, rewardsGold, droppedItems);
                 if (Console.ReadLine() == "0") break;
 
                 Console.WriteLine("\n잘못된 입력입니다.");
@@ -255,7 +254,7 @@ namespace TextRPG_13
             }
         }
 
-        private void ShowLoseResult(int rewardsGold, List<Item> droppedItems)
+        private void ShowLoseResult(int beforeHP, int beforeMP, int rewardsGold, List<Item> droppedItems)
         {
             foreach (var item in droppedItems)
                 player.Inven.AddItem(item);
@@ -263,7 +262,7 @@ namespace TextRPG_13
 
             while (true)
             {
-                UIManager.PrintPlayerLose(player, rewardsGold, droppedItems);
+                UIManager.PrintPlayerLose(player, beforeHP, beforeMP, rewardsGold, droppedItems);
                 if (Console.ReadLine() == "0") break;
 
                 Console.WriteLine("\n잘못된 입력입니다.");
