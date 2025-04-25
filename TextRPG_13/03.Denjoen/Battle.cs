@@ -254,8 +254,10 @@ namespace TextRPG_13
                 Console.WriteLine("\n잘못된 입력입니다.");
                 Console.ReadKey();
             }
-
-            player.Stats.MP += 10;
+            if (player.Stats.MP <= 40)
+                player.Stats.MP += 10;
+            else
+                player.Stats.MP += player.Stats.Max_MP - player.Stats.MP; 
         }
 
         private void ShowLoseResult(int beforeHP, int beforeMP, int rewardsGold, List<Item> droppedItems)
