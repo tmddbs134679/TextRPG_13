@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    public class QuestLobby
+    public class QuestViewer
     {
         private Player player;
 
@@ -105,7 +105,7 @@ namespace TextRPG_13
                 case EQUESTTYPE.MINION:
                     return new Quest
                     {
-                        QuestName = "미니언 퇴치",
+                        QuestName = Constants.QuestMosnterName,
                         Task = new TaskMonster(),
                         Reward = new QuestReward { Gold = 100,
                                                    RewardItem = new Item(100, ITEMTYPE.POTION, "소형물약", 0, 0, 100, "체력을 조금 회복시켜준다.", 30)
@@ -115,8 +115,8 @@ namespace TextRPG_13
                 case EQUESTTYPE.EQUIP:
                     return new Quest
                     {
-                        QuestName = "낡은 검 장착 해보기",
-                        Task = new TaskEquip("낡은 검"),
+                        QuestName = Constants.QuestEquipName,
+                        Task = new TaskEquip(Constants.QuestEquip),
                         Reward = new QuestReward { Gold = 100 }
                     };
                 default:

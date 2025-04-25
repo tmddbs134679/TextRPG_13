@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    public class SaveView
+    public class SaveViewer
     {
         
         public void Enter()
@@ -25,6 +25,10 @@ namespace TextRPG_13
                 //데이터 초기화
                 SaveManager.Reset();
                 Console.Clear();
+                Environment.Exit(0);
+            }
+            else if(input == "3")
+            {
                 Environment.Exit(0);
             }
             else

@@ -22,9 +22,8 @@ namespace TextRPG_13
         public int Exp { get; set; } = 0;
         public int Max_MP { get; set; }
         public int MP { get; set; }
-        public int Potion { get; set; }
-        public float bonusATK { get; private set; }
-        public float bonusDEF { get; private set; }
+        public float bonusATK { get; set; }
+        public float bonusDEF { get; set; }
 
         public float Offensivepower => baseATK + bonusATK;
         public float Defensivepower => baseDEF + bonusDEF;
@@ -57,10 +56,9 @@ namespace TextRPG_13
         private static readonly Dictionary<JOBTYPE, PlayerStatement> Presets =
             new Dictionary<JOBTYPE, PlayerStatement>
             {
-                { JOBTYPE.WARRIOR, new PlayerStatement
+                { JOBTYPE.전사, new PlayerStatement
                     {
-                        Name = "전사",
-                        Job = JOBTYPE.WARRIOR,
+                        Job = JOBTYPE.전사,
                         Level = 1,
                         baseATK = 10,
                         baseDEF = 10,
@@ -69,15 +67,12 @@ namespace TextRPG_13
                         Gold = 1500,
                         Exp = 0,
                         Max_MP = 50,
-                        MP = 50,
-                        Potion = 3
-
+                        MP = 50
                     }
                 },
-                { JOBTYPE.WIZARD, new PlayerStatement
+                { JOBTYPE.마법사, new PlayerStatement
                     {
-                        Name = "위자드",
-                        Job = JOBTYPE.WIZARD,
+                        Job = JOBTYPE.마법사,
                         Level = 1,
                         baseATK = 13,
                         baseDEF = 5,
@@ -86,14 +81,12 @@ namespace TextRPG_13
                         Gold = 1500,
                         Exp = 0,
                         Max_MP = 50,
-                        MP = 50,
-                        Potion = 3
+                        MP = 50
                     }
                 },
-                { JOBTYPE.ASSASSIN, new PlayerStatement
+                { JOBTYPE.도적, new PlayerStatement
                     {
-                        Name = "어쌔신",
-                        Job = JOBTYPE.ASSASSIN,
+                        Job = JOBTYPE.도적,
                         Level = 1,
                         baseATK = 8,
                         baseDEF = 8,
@@ -102,11 +95,10 @@ namespace TextRPG_13
                         Gold = 1500,
                         Exp = 0,
                         Max_MP = 50,
-                        MP = 50,
-                        Potion = 3
+                        MP = 50
                     }
                 }
-            };
+            }; 
 
         //GameInitalizer 에서 선택한 직업을 보관
         public static PlayerStatement GetPreset(JOBTYPE job)

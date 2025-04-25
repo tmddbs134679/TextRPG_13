@@ -90,5 +90,36 @@ namespace TextRPG_13
 
             return wave;
         }
+
+        //몬스터에서 스킬데미지 처리
+        public int TakeSkillDamage(float dmg,Player player)
+        {
+            Stats.monsterHP -= (int)Math.Ceiling(player.Stats.baseATK * dmg);
+
+            return (int)Math.Ceiling(player.Stats.baseATK * dmg);
+        }
+        public static int GetDamageWithVariance(float baseAtk,Player player) 
+        {
+            Random rand = new Random();
+            double offset = Math.Ceiling(baseAtk * 0.1);
+            int critalChance = rand.Next(1, 101);
+            int avoidAttack = rand.Next(1, 101);
+            int finalDamage = 0;
+
+            if (avoidAttack > 10)
+            {
+                finalDamage = (int)baseAtk + rand.Next(-(int)offset, (int)offset);
+                if (critalChance <= 15)
+                {
+                    finalDamage = (int)Math.Ceiling((finalDamage * 1.5));
+                }
+
+                finalDamage -= (int)Math.Ceiling(player.Stats.Defensivepower / 2);
+
+                if(finalDamage < 0) finalDamage = 0;
+            }
+
+            return finalDamage ;
+        }
     }
 }
