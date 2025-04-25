@@ -174,10 +174,6 @@ namespace TextRPG_13
         {
             Console.WriteLine("\n[획득아이템]");
             Console.WriteLine($"{gold}");
-            foreach (var item in items)
-            {
-                Console.WriteLine($"{item.Name}");
-            }
 
             var groupedItems = items
                 .GroupBy(item => item.Name)
