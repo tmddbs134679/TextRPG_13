@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_13
 {
-    public class Denjoen
+    public class Dunjeon
     {
         public readonly Player _player;
         public readonly Battle _battle;
@@ -19,13 +19,13 @@ namespace TextRPG_13
             Console.ResetColor();
         }
 
-        public Denjoen(Player player)
+        public Dunjeon(Player player)
         {
             _player = player;
             _battle = new Battle();
         }
 
-        public void ShowDenjoen()
+        public void ShowDunjeon()
         {
 
             while (true)

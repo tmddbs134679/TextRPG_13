@@ -54,7 +54,7 @@ namespace TextRPG_13
                                     Console.Write(".");
                                 }
                                 Thread.Sleep(500);
-                                new Denjoen(_player).ShowDenjoen();
+                                new Dunjeon(_player).ShowDunjeon();
                                 break;
                             case LOBBYCHOICE.POTION:
                                 Console.Write("\n회복 하기로 이동 중");
