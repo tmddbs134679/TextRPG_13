@@ -143,12 +143,15 @@ namespace TextRPG_13
         public static void PrintPlayerVictory(Player player, int maxMonster,int beforerLv,int beforeExp, int beforeHP, int beforeMP, bool isLvUp, int gold, List<Item> items)
         {
             Console.Clear();
-            WriteColor("Vicoty\n", ConsoleColor.DarkGreen);
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("┏" + new string('━', 24) + "┓");
+            Console.WriteLine("┃" + "        Vicoty  ".PadRight(24) + "┃");
+            Console.WriteLine("┗" + new string('━', 24) + "┛\n");
             Console.ResetColor();
 
             Console.WriteLine($"던전에서 몬스터 {maxMonster}마리를 잡았습니다.\n");
 
-            Console.WriteLine("[캐릭터 정보]");
+            WriteColor("[캐릭터 정보]\n", ConsoleColor.DarkYellow);
             Console.Write($"Lv.{beforerLv} {player.Stats.Name}");
             if (isLvUp == true) Console.Write($" -> Lv.{player.Stats.Level} {player.Stats.Name}");
             Console.WriteLine($"\nexp {beforeExp} -> {player.Stats.Exp}");
@@ -162,8 +165,8 @@ namespace TextRPG_13
         }
         public static void DisplayRewards(int gold, List<Item> items)
         {
-            Console.WriteLine("\n[획득아이템]");
-            Console.WriteLine($"{gold}");
+            WriteColor("\n[획득아이템]", ConsoleColor.DarkYellow);
+            Console.WriteLine($"{gold}G");
 
             var groupedItems = items
                 .GroupBy(item => item.Name)
