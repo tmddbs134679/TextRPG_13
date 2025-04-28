@@ -4,6 +4,7 @@
     {
         static void Main(string[] args)
         {
+            Console.Title = "스파르타 던전";
             var _ = QuestManager.Instance;
             SaveManager.LoadStage();
             Player player = GameStart();
