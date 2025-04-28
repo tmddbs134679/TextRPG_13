@@ -75,7 +75,7 @@ namespace TextRPG_13
 
             Player player = JsonSerializer.Deserialize<Player>(json);
 
-
+            
             player?.RestoreReferences();
     
             if (File.Exists(Constants.QuestFilePath))
